@@ -18,6 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
   </head>
+  
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <symbol id="search" xmlns="http://www.w3.org/2000/symbolsvg" viewBox="0 0 24 24">
@@ -214,7 +215,7 @@
                   <a class="nav-link me-4" href="index.html">Inspirasi</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="index.html">Koleksi</a>
+                  <a class="nav-link me-4" href="{{ url_for('koleksi') }}">Koleksi</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a>
@@ -403,8 +404,9 @@
 
     </header>
 
+      <!-- Section Billboard -->
     <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray"
-      style="background-image: url(static\images\banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
+      style="background-image: url(static/images/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
       <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
         <svg class="chevron-forward-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
           <use xlink:href="#alt-arrow-right-outline"></use>
@@ -423,8 +425,8 @@
                 <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
                   <div class="banner-content">
                     <h2>Selamat Datang di IA Rent Fashion</h2>
-                    <p>Best Product. Grab it now!</p>
-                    <a href="index.html" class="btn mt-3">Shop Collection</a>
+                    <p>Koleksi fashion terbaru dengan harga spesial. Tampil percaya diri setiap hari!</p>
+                    <a href="index.html" class="btn mt-3">Sewa Sekarang</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -440,9 +442,9 @@
               <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
                 <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
                   <div class="banner-content">
-                    <h2>How Innovation works</h2>
-                    <p>Discount available. Grab it now!</p>
-                    <a href="index.html" class="btn mt-3">Shop Product</a>
+                    <h2>Upgrade Gayamu Sekarang!</h2>
+                    <p>Koleksi fashion kekinian yang siap bikin kamu tampil beda. Promo menarik menanti di setiap pembelian.</p>
+                    <a href="index.html" class="btn mt-3">Dapatkan Sekarang</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -458,9 +460,9 @@
               <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
                 <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
                   <div class="banner-content">
-                    <h2>Your Heart is the Sea</h2>
-                    <p>Limited stocks available. Grab it now!</p>
-                    <a href="index.html" class="btn mt-3">Shop Collection</a>
+                    <h2>Fashion untuk Setiap Momen</h2>
+                    <p>Temukan inspirasi gaya dari koleksi terbaik kami. Belanja mudah, cepat, dan bergaya!</p>
+                    <a href="index.html" class="btn mt-3">Yuk, Pesan Sekarang!</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -556,146 +558,10 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <div class="card position-relative p-4 border rounded-3">
-                <div class="position-absolute">
-                  <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                </div>
                 <img src="static\images\product-item1.png" class="img-fluid shadow-sm" alt="product item">
-                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">House of Sky Breath</a></h6>
+                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">Setelan Jas Elegan</a></h6>
                 <div class="review-content d-flex">
-                  
-
-                  <div class="rating text-warning d-flex align-items-center">
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                  </div>
                 </div>
-                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari870</span>
-                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                  <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Tooltip on top">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </button>
-                  <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card position-relative p-4 border rounded-3">
-                <img src="static\images\product-item2.png" class="img-fluid shadow-sm" alt="product item">
-                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">Heartland Stars</a></h6>
-                <div class="review-content d-flex">
-                  
-
-                  <div class="rating text-warning d-flex align-items-center">
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                  </div>
-                </div>
-
-                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari870</span>
-                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                  <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Tooltip on top">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </button>
-                  <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card position-relative p-4 border rounded-3">
-                <img src="static\images\product-item3.png" class="img-fluid shadow-sm" alt="product item">
-                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">Heavenly Bodies</a></h6>
-                <div class="review-content d-flex">
-                  
-
-                  <div class="rating text-warning d-flex align-items-center">
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                  </div>
-                </div>
-
-                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari870</span>
-                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                  <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Tooltip on top">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </button>
-                  <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card position-relative p-4 border rounded-3">
-                <div class="position-absolute">
-                  <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                </div>
-                <img src="static\images\product-item4.png" class="img-fluid shadow-sm" alt="product item">
-                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">His Saving Grace</a></h6>
-
                 <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
                 <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
                   <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -716,31 +582,84 @@
             </div>
             <div class="swiper-slide">
               <div class="card position-relative p-4 border rounded-3">
-                <img src="static\images\product-item5.png" class="img-fluid shadow-sm" alt="product item">
-                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">My Dearest Darkest</a></h6>
+                <img src="static\images\product-item2.png" class="img-fluid shadow-sm" alt="product item">
+                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">Gaun Pesta Mewah</a></h6>
                 <div class="review-content d-flex">
-                  
-
-                  <div class="rating text-warning d-flex align-items-center d-flex align-items-center">
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                  </div>
                 </div>
 
-                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari870</span>
+                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 150.000 /hari</span>
+                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
+                  <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Tooltip on top">
+                    <svg class="cart">
+                      <use xlink:href="#cart"></use>
+                    </svg>
+                  </button>
+                  <a href="#" class="btn btn-dark">
+                    <span>
+                      <svg class="wishlist">
+                        <use xlink:href="#heart"></use>
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="card position-relative p-4 border rounded-3">
+                <img src="static\images\product-item3.png" class="img-fluid shadow-sm" alt="product item">
+                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">Kebaya Modern Ungu</a></h6>
+                <div class="review-content d-flex">
+                </div>
+
+                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 150.000 /hari</span>
+                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
+                  <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Tooltip on top">
+                    <svg class="cart">
+                      <use xlink:href="#cart"></use>
+                    </svg>
+                  </button>
+                  <a href="#" class="btn btn-dark">
+                    <span>
+                      <svg class="wishlist">
+                        <use xlink:href="#heart"></use>
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="card position-relative p-4 border rounded-3">
+                <img src="static\images\product-item4.png" class="img-fluid shadow-sm" alt="product item">
+                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">Sepatu Formal Pria</a></h6>
+                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 35.000 /hari</span>
+                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
+                  <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Tooltip on top">
+                    <svg class="cart">
+                      <use xlink:href="#cart"></use>
+                    </svg>
+                  </button>
+                  <a href="#" class="btn btn-dark">
+                    <span>
+                      <svg class="wishlist">
+                        <use xlink:href="#heart"></use>
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="card position-relative p-4 border rounded-3">
+                <img src="static\images\product-item5.png" class="img-fluid shadow-sm" alt="product item">
+                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">Mahkota Kristal Elegan</a></h6>
+                <div class="review-content d-flex">
+                </div>
+
+                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 35.000/hari</span>
                 <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
                   <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
                     data-bs-title="Tooltip on top">
@@ -761,28 +680,11 @@
             <div class="swiper-slide">
               <div class="card position-relative p-4 border rounded-3">
                 <img src="static\images\product-item6.png" class="img-fluid shadow-sm" alt="product item">
-                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">The Story of Success</a></h6>
+                <h6 class="mt-4 mb-0 fw-bold"><a href="index.html">Kacamata Hitam Stylish</a></h6>
                 <div class="review-content d-flex">                  
-                  <div class="rating text-warning d-flex align-items-center">
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                    <svg class="star star-fill">
-                      <use xlink:href="#star-fill"></use>
-                    </svg>
-                  </div>
                 </div>
 
-                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari870</span>
+                <span class="price text-primary fw-bold mb-2 fs-5">Rp. 10.000 /hari</span>
                 <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
                   <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
                     data-bs-title="Tooltip on top">
@@ -806,8 +708,9 @@
       </div>
     </section>
 
-    <section id="limited-offer" class="padding-large"
-      style="background-image: url(static\images\banner-image-bg-1.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
+    <!-- Section limited-offer -->
+    <section id="limited-offer" class="position-relative d-flex align-items-center py-5 bg-light-gray"
+      style="background-image: url(static/images/banner-image-bg-1.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
       <div class="container">
         <div class="row d-flex align-items-center">
           <div class="col-md-6 text-center">
@@ -816,7 +719,8 @@
             </div>
           </div>
           <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
-            <h2>30% Discount on all items. Hurry Up !!!</h2>
+            <h2>Diskon Spesial 10% untuk Item Tertentu!</h2>
+            <p>Nikmati potongan harga khusus pada koleksi pilihan kami.Buruan sebelum kehabisan — stok terbatas!</p>
             <div id="countdown-clock" class="text-dark d-flex align-items-center my-3">
               <div class="time d-grid pe-3">
                 <span class="days fs-1 fw-normal"></span>
@@ -859,7 +763,7 @@
                   <img src="static\images\kebaya1.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Kebaya Pink</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 150.000 /hari</span>
                   </div>
                 </div>
                 <hr class="gray-400">
@@ -867,7 +771,7 @@
                   <img src="static\images\kebaya2.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Kebaya Emerald</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 180.000 /hari</span>
                   </div>
                 </div>
                 <hr>
@@ -875,7 +779,7 @@
                   <img src="static\images\kebaya3.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Kebaya Navy</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 130.000 /hari</span>
                   </div>
                 </div>
               </div>
@@ -891,7 +795,7 @@
                   <img src="static\images\jas1.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Jas Pria</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hai</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 80.000 /hari</span>
                   </div>
                 </div>
                 <hr class="gray-400">
@@ -899,7 +803,7 @@
                   <img src="static\images\jas2.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Jas Pria</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 90.000 /hari</span>
                   </div>
                 </div>
                 <hr>
@@ -907,7 +811,7 @@
                   <img src="static\images\jas3.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Jas Pria</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 100.000 /hari</span>
                   </div>
                 </div>
               </div>
@@ -923,7 +827,7 @@
                   <img src="static\images\dress1.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Dress</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 150.000 /hari</span>
                   </div>
                 </div>
                 <hr class="gray-400">
@@ -931,7 +835,7 @@
                   <img src="static\images\dress2.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Dress</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 110.000 /hari</span>
                   </div>
                 </div>
                 <hr>
@@ -939,7 +843,7 @@
                   <img src="static\images\dress3.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Dress</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 120.000 /hari</span>
                   </div>
                 </div>
               </div>
@@ -955,7 +859,7 @@
                   <img src="static\images\pentopel1.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Pentofel Pria</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 40.000 /hari</span>
                   </div>
                 </div>
                 <hr class="gray-400">
@@ -963,7 +867,7 @@
                   <img src="static\images\pentopel2.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Pentofel Pria</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 35.000 /hari</span>
                   </div>
                 </div>
                 <hr>
@@ -971,7 +875,7 @@
                   <img src="static\images\pentopel3.jpg" class="img-fluid shadow-sm" alt="product item">
                   <div class="item-content ms-3">
                     <h6 class="mb-0 fw-bold"><a href="index.html">Pentofel Pria</a></h6>
-                    <span class="price text-primary fw-bold mb-2 fs-5">Rp. 100.000 /hari</span>
+                    <span class="price text-primary fw-bold mb-2 fs-6">Rp. 50.000 /hari</span>
                   </div>
                 </div>
               </div>
@@ -981,9 +885,9 @@
       </div>
     </section>
 
-
-    <section id="customers-reviews" class="position-relative padding-large"
-      style="background-image: url(static\images\banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 600px;">
+<!-- Section Billboard -->
+    <section id="customers-reviews" class="position-relative d-flex align-items-center py-5 bg-light-gray"
+      style="background-image: url(static/images/banner-image-bg-2.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
       <div class="container offset-md-3 col-md-6 ">
         <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
           <svg class="chevron-forward-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
@@ -1170,10 +1074,10 @@
         <div class="row">
           <div class="col-md-2">
             <figure class="instagram-item position-relative rounded-3">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw==" class="image-link position-relative">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
-                    <use xlink:href="#instagram"></use>
+                    <use xlink:href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw=="></use>
                   </svg>
                 </div>
                 <img src="static\images\insta-item1.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
@@ -1182,10 +1086,10 @@
           </div>
           <div class="col-md-2">
             <figure class="instagram-item position-relative rounded-3">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw==" class="image-link position-relative">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
-                    <use xlink:href="#instagram"></use>
+                    <use xlink:href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw=="></use>
                   </svg>
                 </div>
                 <img src="static\images\insta-item2.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
@@ -1194,10 +1098,10 @@
           </div>
           <div class="col-md-2">
             <figure class="instagram-item position-relative rounded-3">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw==" class="image-link position-relative">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
-                    <use xlink:href="#instagram"></use>
+                    <use xlink:href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw=="></use>
                   </svg>
                 </div>
                 <img src="static\images\insta-item3.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
@@ -1206,10 +1110,10 @@
           </div>
           <div class="col-md-2">
             <figure class="instagram-item position-relative rounded-3">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw==" class="image-link position-relative">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
-                    <use xlink:href="#instagram"></use>
+                    <use xlink:href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw=="></use>
                   </svg>
                 </div>
                 <img src="static\images\insta-item4.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
@@ -1218,10 +1122,10 @@
           </div>
           <div class="col-md-2">
             <figure class="instagram-item position-relative rounded-3">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw==" class="image-link position-relative">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
-                    <use xlink:href="#instagram"></use>
+                    <use xlink:href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw=="></use>
                   </svg>
                 </div>
                 <img src="static\images\insta-item5.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
@@ -1230,10 +1134,10 @@
           </div>
           <div class="col-md-2">
             <figure class="instagram-item position-relative rounded-3">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw==" class="image-link position-relative">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
-                    <use xlink:href="#instagram"></use>
+                    <use xlink:href="https://www.instagram.com/iarentfashion?igsh=MWtheHEwdmc3cmwwcw=="></use>
                   </svg>
                 </div>
                 <img src="static\images\insta-item6.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
