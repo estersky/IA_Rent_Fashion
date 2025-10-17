@@ -194,22 +194,13 @@
                   <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                     aria-expanded="false">Kategori</a>
                   <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Jas</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Dress</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Aksesoris</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Kebaya</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Footwear</a>
-                    </li>
+                    <li><a href="{{ url_for('koleksi_kategori', kategori='jas') }}" class="dropdown-item fw-light">Jas</a></li>
+                    <li><a href="{{ url_for('koleksi_kategori', kategori='dress') }}" class="dropdown-item fw-light">Dress</a></li>
+                    <li><a href="{{ url_for('koleksi_kategori', kategori='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
+                    <li><a href="{{ url_for('koleksi_kategori', kategori='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
+                    <li><a href="{{ url_for('koleksi_kategori', kategori='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
                   </ul>
+
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" href="index.html">Inspirasi</a>
