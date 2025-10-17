@@ -192,27 +192,18 @@
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">Kategori</a>
+                    aria-expanded="false">koleksi</a>
                   <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Jas</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Dress</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Aksesoris</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Kebaya</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Footwear</a>
-                    </li>
+                    <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
+                    <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
+                    <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
+                    <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
+                    <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
                   </ul>
+
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="index.html">Inspirasi</a>
+                  <a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" href="{{ url_for('koleksi') }}">Koleksi</a>
@@ -221,7 +212,7 @@
                   <a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="index.html">Tentang</a>
+                  <a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" href="index.html">Review</a>
@@ -502,7 +493,7 @@
                 </svg>
               </div>
               <div class="icon-box-content">
-                <h4 class="card-title mb-1 text-capitalize text-dark">Kategori Tersusun Rapi</h4>
+                <h4 class="card-title mb-1 text-capitalize text-dark">koleksi Tersusun Rapi</h4>
                 <p>Sewa alat dengan harga bersahabat tanpa mengurangi kualitas.</p>
               </div>
             </div>
@@ -1189,25 +1180,25 @@
                   <h5 class="widget-title pb-2">Quick Links</h5>
                   <ul class="menu-list list-unstyled text-capitalize">
                     <li class="menu-item mb-1">
-                      <a href="#">Beranda</a>
+                      <a href="{{ url_for('home') }}">Beranda</a>
                     </li>
                     <li class="menu-item mb-1">
-                      <a href="#">Kategori</a>
+                      <a href="{{ url_for('koleksi') }}">koleksi</a>
                     </li>
                     <li class="menu-item mb-1">
-                      <a href="#">Inspirasi</a>
+                      <a href="{{ url_for('inspirasi') }}">Inspirasi</a>
                     </li>
                     <li class="menu-item mb-1">
-                      <a href="#">Koleksi</a>
+                      <a href="{{ url_for('koleksi') }}">Koleksi</a>
                     </li>
                     <li class="menu-item mb-1">
-                      <a href="#">Kontak</a>
+                      <a href="{{ url_for('contact') }}">contact</a>
                     </li>
                     <li class="menu-item mb-1">
-                      <a href="#">Tentang</a>
+                      <a href="{{ url_for('tentang') }}">Tentang</a>
                     </li>
                     <li class="menu-item mb-1">
-                      <a href="#">Review</a>
+                      <a href="{{ url_for('beranda') }}">Review</a>
                     </li>
                   </ul>
                 </div>
