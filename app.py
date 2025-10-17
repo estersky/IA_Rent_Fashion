@@ -9,7 +9,15 @@ def home():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html') 
+
+@app.route('/koleksi')
+def koleksi():
+    return render_template('koleksi.html')
+
+@app.route('/index')
+def beranda():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
