@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 </head>
-
-    <!-- Bootstrap CSS -->
+ <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -19,6 +18,22 @@
   <link rel="stylesheet" href="static/assets_contact/css/owl.css">
   <link rel="stylesheet" href="static/assets_contact/css/animate.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+  
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="static\assets_inspi/favicon.ico" />
+  <link rel="stylesheet" href="static/css_koleksi/styles.css">
+  <!-- Bootstrap icons-->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    rel="stylesheet"
+  />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="static/css_koleksi/styles.css" rel="stylesheet" />
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  />
+
   
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -120,6 +135,7 @@
           d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
       </symbol>
     </svg>
+    
 
 
     <div class="search-popup">
@@ -225,7 +241,7 @@
                   <a class="nav-link me-4" href="{{ url_for('beranda') }}">Tentang</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="{{ url_for('beranda') }}">Review</a>
+                  <a class="nav-link me-4" href="{{ url_for('review') }}">Review</a>
                 </li>
                   </ul>
                 </li>
@@ -409,544 +425,331 @@
       <div class="container px-4 px-lg-5 mt-5">
         <h5 class="fw-bolder">Jas</h5>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+          <!-- Item 1 -->
           <div class="col mb-5">
-            
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\jas1.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Jas Hitam Klasik</h5>
-                  <!-- Product price-->
-                  Rp. 120.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >View options</a
-                  >
-                </div>
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Jas Hitam Klasik"
+                data-deskripsi="Jas formal berwarna hitam pekat dengan potongan tradisional. Memberikan tampilan yang berwibawa, profesional, dan abadi. OOTD Ini Cocok untuk Acara: Pernikahan (Black Tie), Rapat Bisnis Level Tinggi, Gala Dinner, atau Pemakaman (dengan paduan yang tepat).">
+              <img src="static/assets_inspi/inspijas.jpg" class="foto-produk" />
+              <div class="card-body p-4 text-center">
+                <h5 class="fw-bolder">Jas Hitam Klasik</h5>
               </div>
             </div>
           </div>
+
+          <!-- Item 2 -->
           <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\jas2.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Jas Silver Elegan</h5>
-                  <!-- Product price-->
-                  Rp. 150.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
-                </div>
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Jas Silver Elegan"
+                data-deskripsi="Setelan jas berwarna abu-abu muda atau perak dengan pola tekstur yang modern. Memberikan kesan elegan, stylish, dan dinamis. OOTD Ini Cocok untuk Acara: Resepsi Pernikahan Siang/Sore, Acara Penghargaan, Pesta Ulang Tahun Eksklusif, atau Foto Pre-wedding.">
+              <img src="static/assets_inspi/inspijas2.jpg" class="foto-produk" />
+              <div class="card-body p-4 text-center">
+                <h5 class="fw-bolder">Jas Silver Elegan</h5>
               </div>
             </div>
           </div>
+
+          <!-- Item 3 -->
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi/jas3.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Jas Slim Fit Formal</h5>
-                  <!-- Product price-->
-                   Rp. 150.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
-                </div>
+            <div class="card h-100 item-produk"
+                data-bs-toggle="modal"
+                data-bs-target="#popupDeskripsi"
+                data-nama="Jas Slim Fit Formal"
+                data-deskripsi="Jas berwarna biru tua dengan potongan slim fit yang rapi dan modis. Menampilkan siluet yang bersih dan profesional. OOTD Ini Cocok untuk Acara: Jamuan Makan Malam Bisnis, Networking Event, Seminar atau Konferensi Profesional, atau Kencan Formal.">
+              <img src="static/assets_inspi/inspijas3.jpg" class="foto-produk" />
+              <div class="card-body p-4 text-center">
+                <h5 class="fw-bolder">Jas Biru Slim Fit Formal</h5>
               </div>
             </div>
           </div>
-          
+
+          <!-- Item 4 -->
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi/jas4.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Blazer Wanita Abu-Abu</h5>
-                  <!-- Product price-->
-                   Rp. 150.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
-                </div>
+            <div class="card h-100 item-produk"
+                data-bs-toggle="modal"
+                data-bs-target="#popupDeskripsi"
+                data-nama="Jas Beige Kasual"
+                data-deskripsi="Jas dengan warna cokelat muda/taupe yang memberikan nuansa earthy dan santai. Lebih fleksibel antara formal dan kasual. OOTD Ini Cocok untuk Acara: Pernikahan Outdoor / Garden Party, Pesta Koktail (Smart Casual), Acara Keluarga Besar, atau Liburan City Break yang chic.">
+              <img src="static/assets_inspi/inspijas4.jpg" class="foto-produk" />
+              <div class="card-body p-4 text-center">
+                <h5 class="fw-bolder">Jas Beige Kasual</h5>
               </div>
             </div>
           </div>
+
         </div>
       </div>
+
       <div class="container px-4 px-lg-5 mt-5">
         <h5 class="fw-bolder">Dress</h5>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
           <div class="col mb-5">
-            
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\dress1.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Dress Peplum Midi Satin Maroon"
+                data-deskripsi="Dress midi dengan detail peplum dan bahan satin. Anggun dan mewah. OOTD Cocok untuk Acara: Makan Malam Formal, Pesta Ulang Tahun Dewasa, atau Resepsi Pernikahan (Indoor).">
+              <img src="static\assets_inspi\inspidress.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Dress Satin Lavender</h5>
-                  <!-- Product price-->
-                  Rp. 100.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >View options</a
-                  >
+                  <h5 class="fw-bolder">Dress Peplum Midi Satin Maroon</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\dress1.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Dress Putih Flowy dengan Bolero Brokat"
+                data-deskripsi="Setelan dress panjang flowy warna off-white dan jaket brokat. Kesan polos, anggun, dan vintage. OOTD Cocok untuk Acara: Pesta Kebun Siang, Lamaran/Pertunangan, atau Acara Gereja/Keagamaan.">
+              <img src="static\assets_inspi\inspidress2.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Dress Pesta Ungu</h5>
-                  <!-- Product price-->
-                  Rp. 120.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Dress Putih Flowy dengan Bolero Brokat</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\dress2.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Dress Tweed Midi Gaya Chanel"
+                data-deskripsi="Dress midi berbahan tweed dengan potongan lurus. Inspirasi gaya klasik Prancis. OOTD Cocok untuk Acara: Rapat Penting Bisnis, Acara Formal Semi-Hangat, atau Jamuan Makan Siang Resmi.">
+              <img src="static\assets_inspi\inspidress3.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Dress Brokat Abu Muda</h5>
-                  <!-- Product price-->
-                   Rp. 150.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Dress Tweed Midi Gaya Chanel</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\dress3.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Dress Maroon Elegant"
+                data-deskripsi="Dress panjang midi atau maxi dengan siluet A-line dan lengan balon. Sangat formal. OOTD Cocok untuk Acara: Pesta Bridal Shower, Resepsi Pernikahan Eksklusif, atau Acara Penghargaan.">
+              <img src="static\assets_inspi\inspidress4.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
                   <h5 class="fw-bolder">Dress Maroon Elegant</h5>
-                  <!-- Product price-->
-                  Rp. 130.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
+
       <div class="container px-4 px-lg-5 mt-5">
         <h5 class="fw-bolder">Aksesoris</h5>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\akse1.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Kacamata Hitam Oversize Edgy"
+                data-deskripsi="Kacamata hitam berbingkai tebal dan oversize. Memberikan kesan misterius dan fashionable. OOTD Cocok untuk Acara: Jalan-jalan Santai di Mall, Festival Musik Outdoor, atau Tampilan Airport Style yang chic.  ">
+              <img src="static\assets_inspi\inspikaca.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Kacamata Hitam Fashion</h5>
-                  <!-- Product price-->
-                   Rp. 70.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Kacamata Hitam Oversize Edgy</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\akse2.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Tas Selempang Kulit Hitam Crescent"
+                data-deskripsi="Tas bahu/selempang bentuk melengkung dengan strap berdetail. Sentuhan glamour pada busana kasual. OOTD Cocok untuk Acara: Brunch/Kopi Sore, Hangout dengan Teman, atau Acara Semi-Formal Santai.">
+              <img src="static\assets_inspi\inspitas.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Tas Selempang Merah Muda</h5>
-                  <!-- Product price-->
-                  Rp. 60.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >View options</a
-                  >
+                  <h5 class="fw-bolder">Tas Selempang Kulit Hitam Crescent</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\akse3.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Korset/Ikat Pinggang Obi Kulit Cokelat"
+                data-deskripsi="Ikat pinggang lebar bergaya Bohemian/Obi untuk layering. Menciptakan siluet jam pasir dramatis. OOTD Cocok untuk Acara: Pesta Kostum/Tema, Pemotretan Fashion Editorial, atau Acara Seni/Gaya Vintage.">
+              <img src="static\assets_inspi\inspisabuk.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Ikat Pinggang Coklat Bohemian</h5>
-                  <!-- Product reviews-->
-                  
-                  <!-- Product price-->
-                  Rp. 50.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Korset/Ikat Pinggang Obi Kulit Cokelat</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\akse4.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Set Kalung Emas Layering Minimalis"
+                data-deskripsi="Set kalung emas layering dengan desain minimalis. Memberikan kesan feminin dan mewah yang lembut. OOTD Cocok untuk Acara: Kantor (Smart Casual), Makan Malam Romantis, atau Pesta Ulang Tahun Teman.">
+              <img src="static\assets_inspi\inspikalung.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Set Kalung & Anting Silver</h5>
-                  
-                  <!-- Product price-->
-                  Rp. 80.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Set Kalung Emas Layering Minimalis</h5>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
+
       <div class="container px-4 px-lg-5 mt-5">
         <h5 class="fw-bolder">Kebaya</h5>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          
           <div class="col mb-5">
-            
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\kebaya1.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Kebaya Brokat Peplum & Rok Lilit Motif"
+                data-deskripsi="Kebaya brokat cropped dengan peplum, dipadukan rok lilit motif. Gaya Manis dan Kontemporer. OOTD Cocok untuk Acara: Malam Midodareni (Adat Jawa), Acara Pernikahan Teman, atau Wisuda.">
+              <img src="static\assets_inspi\inspikebaya.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Kebaya Pink Brokat Modern</h5>
-                  <!-- Product price-->
-                  Rp. 120.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >View options</a
-                  >
+                  <h5 class="fw-bolder">Kebaya Brokat Peplum & Rok Lilit Motif</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\kebaya2.jpg"  class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Kebaya Brokat Premium Putih Gading"
+                data-deskripsi="Kebaya brokat panjang/midi warna putih gading dengan rok putih. Kesan murni, elegan, dan bridal-like. OOTD Cocok untuk Acara: Akad Nikah, Upacara Tujuh Bulanan, atau Acara Formal Kenegaraan.">
+              <img src="static\assets_inspi\inspikebaya2.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Kebaya Biru Dongker Premium</h5>
-                  <!-- Product price-->
-                  Rp. 130.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Kebaya Brokat Premium Putih Gading</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\kebaya3.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Kebaya Blouse Putih & Selendang Batik Navy"
+                data-deskripsi="Kebaya model blouse lengan balon polos dengan rok lurus dan selendang batik navy. Gaya Etnik Modern dan Artistik. OOTD Cocok untuk Acara: Pameran Budaya, Pesta Koktail Bertema Etnik, atau Kunjungan Formal.">
+              <img src="static\assets_inspi\inspikebaya3.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Kebaya Navy Brokat Tile</h5>
-                  <!-- Product price-->
-                   Rp. 150.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Kebaya Blouse Putih & Selendang Batik Navy</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\kebaya4.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Kebaya Outer Brokat Pastel Glamour"
+                data-deskripsi="Kebaya model outer brokat warna pastel (nude) dengan kain lilit senada. Gaya Mewah dan Pesta. OOTD Cocok untuk Acara: Resepsi Pernikahan, Pesta Adat Besar, atau Lamaran Resmi Keluarga.">
+              <img src="static\assets_inspi\inspikebaya4.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Kebaya Pastel Glamour</h5>
-                  <!-- Product price-->
-                  Rp. 140.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Kebaya Outer Brokat Pastel Glamour</h5>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
+
       <div class="container px-4 px-lg-5 mt-5">
         <h5 class="fw-bolder">Footwear</h5>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          
           <div class="col mb-5">
-            
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\pentopel1.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Sepatu Loafer Pantofel Suede"
+                data-deskripsi="Sepatu slip-on loafer bahan suede yang santai namun rapi (kasual formal). OOTD Cocok untuk Acara: Kopi Bisnis Informal, Acara Keluarga, atau Tanggal Santai (Date Night).">
+              <img src="static\assets_inspi\inspisepatu.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Sepatu Pantofel Hitam Klasik</h5>
-                  <!-- Product price-->
-                  Rp. 130.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >View options</a
-                  >
+                  <h5 class="fw-bolder">Sepatu Loafer Pantofel Suede</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\pentopel2.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Sepatu Loafer Formal Premium"
+                data-deskripsi="Sepatu loafer kulit hitam klasik dengan sol tebal. Potongan premium. OOTD Cocok untuk Acara: Pernikahan, Rapat Kerja Resmi, atau Acara Gala Dinner (dipadukan dengan setelan jas).">
+              <img src="static\assets_inspi\inspisepatu2.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Sepatu Formal Pria Premium</h5>
-                  <!-- Product price-->
-                  Rp. 100.000/hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Sepatu Loafer Formal Premium</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
- 
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\pentopel3.jpg" class="foto-produk"
-                />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Sepatu Slipper Kulit Minimalis"
+                data-deskripsi="Sepatu slip-on kulit hitam yang sangat minimalis dan modern. OOTD Cocok untuk Acara: Pesta Koktail (Dress Code Smart), Fashion Show, atau Acara Art Exhibition.">
+              <img src="static\assets_inspi\inspisepatu3.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Sepatu Kulit Hitam Elegan</h5>
-                  <!-- Product price-->
-                   Rp. 100.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Sepatu Slipper Kulit Minimalis</h5>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                src="static\assets_koleksi\pentopel4.jpg" class="foto-produk"
-              />
-              <!-- Product details-->
+            <div class="card h-100 item-produk" 
+                data-bs-toggle="modal" 
+                data-bs-target="#popupDeskripsi"
+                data-nama="Sepatu Loafer Tassel Modern"
+                data-deskripsi="Sepatu loafer kulit hitam dengan detail rumbai (tassel). Gaya klasik Italia yang berkelas. OOTD Cocok untuk Acara: Acara Semi-Formal Eksklusif, Jamuan Makan Malam, atau Pesta Perayaan (Celebration Party).">
+              <img src="static\assets_inspi\inspisepatu4.jpg" class="foto-produk" />
               <div class="card-body p-4">
                 <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Sepatu Oxford Modern</h5>
-                  <!-- Product price-->
-                  Rp. 90.000 /hari
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
+                  <h5 class="fw-bolder">Sepatu Loafer Tassel Modern</h5>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -1032,8 +835,27 @@
     </div>
   </div>
 
+  <!-- Modal Popup Deskripsi -->
+  <div class="modal fade" id="popupDeskripsi" tabindex="-1" aria-labelledby="popupDeskripsiLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="popupDeskripsiLabel">Detail Produk</h5>
+        </div>
+        <div class="modal-body">
+          <h5 id="modalNamaProduk" class="fw-bold mb-3"></h5>
+          <p id="modalDeskripsiProduk"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Sewa Sekarang</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- JS -->
   <script src="static/js/jquery-1.11.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="\static\js\jspopup.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

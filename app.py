@@ -30,5 +30,9 @@ def tentang():
 @app.route('/inspirasi')
 def inspirasi():
     return render_template('inspirasi.html')
+
+@app.route('/review')
+def review():
+    return render_template('review.html')
 if __name__ == '__main__':
     app.run(debug=True)
