@@ -35,14 +35,6 @@
       <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z"/>
     </symbol>
 
-    <!-- Search -->
-    <symbol id="search" viewBox="0 0 16 16">
-      <path
-        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 
-        1.415-1.414l-3.85-3.85zm-5.242.656a5 5 0 1 1 
-        0-10 5 5 0 0 1 0 10z" />
-    </symbol>
-
     <!-- Heart / Wishlist -->
     <symbol id="heart" viewBox="0 0 16 16">
       <path
@@ -102,34 +94,24 @@
           </div>
 
           <div class="offcanvas-body d-flex justify-content-between align-items-center">
+
             <!-- MENU -->
             <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('beranda') }}">Beranda</a></li>
               <li class="nav-item dropdown">
-                  <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">Kategori</a>
-                  <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Jas</a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Dress</a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Aksesoris</a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Kebaya</a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Footwear</a>
-                    </li>
-                  </ul>
-                </li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('koleksi') }}">Koleksi</a></li>
+                <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
+                  aria-expanded="false">Koleksi</a>
+                <ul class="dropdown-menu animate slide border">
+                  <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
+                  <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
+                  <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
+                  <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
+                  <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
+                </ul>
+              </li>
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a></li>
-              <li class="nav-item"><a class="nav-link me-4 active fw-bold text-dark" href="{{ url_for('tentang') }}">Tentang</a></li>
+              <li class="nav-item"><a class="nav-link me-4 active" href="{{ url_for('contact') }}">Kontak</a></li>
+              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a></li>
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('review') }}">Review</a></li>
             </ul>
 
