@@ -119,7 +119,7 @@
           d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
       </symbol>
     </svg>
-
+    
 
     <div class="search-popup">
       <div class="search-popup-container">
@@ -161,11 +161,10 @@
       </div>
     </div>
 
+
+    <!-- HEADER -->
     <header id="header" class="site-header">
-
-
-
-      <nav id="header-nav" class="navbar navbar-expand-lg py-3">
+      <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
         <div class="container">
           <a class="navbar-brand" href="index.html">
             <img src="static/images/main-logo.png" class="logo" alt="IA Rent Fashion Logo" style="height:120px; width:auto; object-fit:contain;">
@@ -178,7 +177,7 @@
           </button>
           <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
             <div class="offcanvas-header px-4 pb-0">
-              <a class="navbar-brand" href="index.html">
+              <a class="navbar-brand" href="{{ url_for('beranda') }}.html">
                 <img src="static\images\main-logo.png" class="logo">
               </a>
               <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"
@@ -188,11 +187,11 @@
               <ul id="navbar"
                 class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                 <li class="nav-item">
-                  <a class="nav-link me-4 active" href="index.html">Beranda</a>
+                  <a class="nav-link me-4 active" href="{{ url_for('beranda') }}">Beranda</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">koleksi</a>
+                    aria-expanded="false">Kategori</a>
                   <ul class="dropdown-menu animate slide border">
                     <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
                     <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
@@ -417,7 +416,7 @@
                   <div class="banner-content">
                     <h2>Selamat Datang di IA Rent Fashion</h2>
                     <p>Koleksi fashion terbaru dengan harga spesial. Tampil percaya diri setiap hari!</p>
-                    <a href="index.html" class="btn mt-3">Sewa Sekarang</a>
+                    <a href="{{ url_for('koleksi', koleksi='jas') }}" class="btn mt-3">Sewa Sekarang</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -435,7 +434,7 @@
                   <div class="banner-content">
                     <h2>Upgrade Gayamu Sekarang!</h2>
                     <p>Koleksi fashion kekinian yang siap bikin kamu tampil beda. Promo menarik menanti di setiap pembelian.</p>
-                    <a href="index.html" class="btn mt-3">Dapatkan Sekarang</a>
+                    <a href="{{ url_for('koleksi', koleksi='jas') }}" class="btn mt-3">Dapatkan Sekarang</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -453,7 +452,7 @@
                   <div class="banner-content">
                     <h2>Fashion untuk Setiap Momen</h2>
                     <p>Temukan inspirasi gaya dari koleksi terbaik kami. Belanja mudah, cepat, dan bergaya!</p>
-                    <a href="index.html" class="btn mt-3">Yuk, Pesan Sekarang!</a>
+                    <a href="{{ url_for('koleksi', koleksi='dress') }}" class="btn mt-3">Yuk, Pesan Sekarang!</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -533,7 +532,7 @@
         <h3 class="text-center mb-5 text-capitalize fw-bold"> Best Selling Items</h3>
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="text-center mb-5 text-capitalize fw-bold"></h3>
-          <a href="index.html" class="btn">View All</a>
+          <a href="{{ url_for('koleksi') }}" class="btn">View All</a>
         </div>
         <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next product-slider-button-next">
           <svg class="chevron-forward-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
@@ -1019,7 +1018,7 @@
       <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">Inspirasi Outfit</h3>
-          <a href="index.html" class="btn">View All</a>
+          <a href="{{ url_for('inspirasi') }}" class="btn">View All</a>
         </div>
         <div class="row">
           <div class="col-md-3 posts mb-4">
@@ -1139,129 +1138,85 @@
       </div>
     </section>
 
-    <footer id="footer" class="padding-large">
-      <div class="container">
-        <div class="row">
-          <div class="footer-top-area">
-            <div class="row d-flex flex-wrap justify-content-between">
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu">
-                  <img src="static/images/main-logo.png" alt="logo" class="img-fluid mb-2" style="max-width: 250px;">
-                  <p>Jl.Brigjend H.Hasan Basri, Pangeran, Kec. Banjarmasin Utara, Kota Banjarmasin, Kalimantan Selatan 70123</p>
-                  <div class="social-links">
-                    <ul class="d-flex list-unstyled">
-                      <li>
-                        <a href="https://www.facebook.com/share/17AUQTgKnA/">
-                          <svg class="facebook">
-                            <use xlink:href="#facebook" />
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.instagram.com/ketemusnackboxbjm_?igsh=djd1MDJuenFlMW9n">
-                          <svg class="instagram">
-                            <use xlink:href="#instagram" />
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://youtu.be/2qB_miVnP_s?si=gvsSU6-gZnypA-cs">
-                          <svg class="youtube">
-                            <use xlink:href="#youtube" />
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-6 pb-3">
-                <div class="footer-menu text-capitalize">
-                  <h5 class="widget-title pb-2">Quick Links</h5>
-                  <ul class="menu-list list-unstyled text-capitalize">
-                    <li class="menu-item mb-1">
-                      <a href="{{ url_for('home') }}">Beranda</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="{{ url_for('koleksi') }}">koleksi</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="{{ url_for('inspirasi') }}">Inspirasi</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="{{ url_for('koleksi') }}">Koleksi</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="{{ url_for('contact') }}">contact</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="{{ url_for('tentang') }}">Tentang</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="{{ url_for('review') }}">Review</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu text-capitalize">
-                  <h5 class="widget-title pb-2">Help & Info Help</h5>
-                  <ul class="menu-list list-unstyled">
-                    <li class="menu-item mb-1">
-                      <a href="#">Cek Pesanan</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="#">Kebijakan Pengembalian</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="#">Hubungi Kami</a>
-                    </li>
-                    <li class="menu-item mb-1">
-                      <a href="#">FAQ</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu contact-item">
-                  <h5 class="widget-title text-capitalize pb-2">Contact Us</h5>
-                  <p>Ada pertanyaan atau saran? <a href="https://mail.google.com/mail/"
-                      class="text-decoration-underline">iarentfashion@gmail.com</a></p>
-                  <p>Butuh bantuan cepat? Hubungi kami di: <a href="https://web.whatsapp.com/" class="text-decoration-underline">+62 811-2223-3344</a></p>
-                </div>
-              </div>
-            </div>
-          </div>
+  <!-- FOOTER -->
+  <footer id="footer" class="bg-white border-top mt-5">
+    <div class="container py-5">
+      <div class="row gy-4">
+
+        <div class="col-lg-3 col-sm-6">
+          <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="logo"
+            class="img-fluid mb-3" style="max-width: 200px;">
+          <p>Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>Kota Banjarmasin, Kalimantan Selatan 70123</p>
+          <ul class="d-flex list-unstyled gap-3 mt-3">
+            <li><a href="https://facebook.com" class="text-dark"><i class="bi bi-facebook fs-5"></i></a></li>
+            <li><a href="https://instagram.com" class="text-dark"><i class="bi bi-instagram fs-5"></i></a></li>
+            <li><a href="https://youtube.com" class="text-dark"><i class="bi bi-youtube fs-5"></i></a></li>
+          </ul>
         </div>
+
+        <div class="col-lg-2 col-sm-6">
+          <h5 class="fw-bold mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ url_for('beranda') }}" class="text-dark text-decoration-none">Beranda</a></li>
+            <li><a href="{{ url_for('koleksi') }}" class="text-dark text-decoration-none">Koleksi</a></li>
+            <li><a href="{{ url_for('inspirasi') }}" class="text-dark text-decoration-none">Inspirasi</a></li>
+            <li><a href="{{ url_for('contact') }}" class="text-dark text-decoration-none">Kontak</a></li>
+            <li><a href="{{ url_for('tentang') }}" class="text-dark text-decoration-none">Tentang</a></li>
+            <li><a href="{{ url_for('review') }}" class="text-dark text-decoration-none">Review</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+          <h5 class="fw-bold mb-3">Help & Info</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-dark text-decoration-none">Cek Pesanan</a></li>
+            <li><a href="#" class="text-dark text-decoration-none">Kebijakan Pengembalian</a></li>
+            <li><a href="#" class="text-dark text-decoration-none">Hubungi Kami</a></li>
+            <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+          <h5 class="fw-bold mb-3">Contact Us</h5>
+          <p>
+            Ada pertanyaan atau saran? <br>
+            <a href="mailto:iarentfashion@gmail.com" class="text-dark text-decoration-underline">iarentfashion@gmail.com</a>
+          </p>
+          <p>
+            Butuh bantuan cepat? Hubungi kami: <br>
+            <a href="https://wa.me/6281122233344" class="text-dark text-decoration-underline">+62 811-2223-3344</a>
+          </p>
+        </div>
+
       </div>
-    </footer>
-    <hr>
-    <div id="footer-bottom" class="mb-2">
-      <div class="container">
-        <div class="d-flex flex-wrap justify-content-between">
-          <div class="ship-and-payment d-flex gap-md-5 flex-wrap">
-            <div class="payment-method d-flex">
-              <p>Payment options:</p>
-              <div class="card-wrap ps-2">
-                <img src="static\images\visa.jpg" alt="visa">
-                <img src="static\images\mastercard.jpg" alt="mastercard">
-                <img src="static\images\paypal.jpg" alt="paypal">
-              </div>
-            </div>
-          </div>
-          <div class="copyright">
-            <p>© Copyright 2025 IA Rent Fashion</a>
-            </p>
-          </div>
+
+      <div class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap">
+        <div class="d-flex align-items-center gap-3">
+          <p class="mb-0 small fw-semibold">Payment options:</p>
+          <img src="{{ url_for('static', filename='images/visa.jpg') }}" alt="Visa" width="40" height="25"
+            class="rounded shadow-sm">
+          <img src="{{ url_for('static', filename='images/mastercard.jpg') }}" alt="MasterCard" width="40" height="25"
+            class="rounded shadow-sm">
+          <img src="{{ url_for('static', filename='images/paypal.jpg') }}" alt="PayPal" width="40" height="25"
+            class="rounded shadow-sm">
         </div>
+        <p class="mb-0 small text-secondary">© 2025 IA Rent Fashion. All Rights Reserved.</p>
       </div>
     </div>
+  </footer>
 
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='js/jquery-1.11.0.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
     <script src="static\js\jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="static\js\script.js"></script>
+
   </body>
 </html>

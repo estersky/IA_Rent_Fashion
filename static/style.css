@@ -115,6 +115,8 @@ body {
   font-size: 18px;
   font-weight: 300;
   margin: 0;
+  padding-top: 110px; /* sesuaikan tinggi navbar kamu */
+
 }
 p {
   color: var(--black-color);
