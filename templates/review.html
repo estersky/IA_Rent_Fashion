@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IA Rent Fashion</title>
+    <title>IA Rent Fashion - Review</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,193 +12,295 @@
     <meta name="description" content="">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="static\style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/css_koleksi/styles.css"/>
+    
+    <style>
+        :root {
+            --bs-primary: #900C3F;
+            --bs-pink: #ff6f7e;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Nunito', sans-serif;
+            padding-top: 100px;
+        }
+
+        .btn-pink {
+            background-color: var(--bs-pink);
+            color: #fff;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-pink:hover {
+            background-color: #ff4f63;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 111, 126, 0.3);
+        }
+
+        .review-card {
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .review-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+        }
+
+        .star {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+        }
+
+        .rating-filter {
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .rating-filter.active {
+            border-color: var(--bs-pink);
+            background-color: rgba(255, 111, 126, 0.1);
+        }
+
+        .custom-notification {
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .badge.bg-success {
+            font-size: 0.7em;
+            padding: 0.25em 0.5em;
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .filter-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
   </head>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <body>
+    <!-- ===== SVG ICONS DEFINITIONS ===== -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <!-- Navbar icon -->
+      <symbol id="navbar-icon" viewBox="0 0 16 16">
+        <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z"/>
+      </symbol>
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+      <!-- Heart / Wishlist -->
+      <symbol id="heart" viewBox="0 0 16 16">
+        <path
+          d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 
+          2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z" />
+      </symbol>
 
-  <!-- ===== SVG ICONS DEFINITIONS ===== -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <!-- Navbar icon -->
-    <symbol id="navbar-icon" viewBox="0 0 16 16">
-      <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z"/>
-    </symbol>
+      <!-- Cart -->
+      <symbol id="cart" viewBox="0 0 16 16">
+        <path
+          d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 
+          .485.379L2.89 2H14a1 1 0 0 1 
+          .962 1.273l-1.5 5A1 1 0 0 1 
+          12.5 9H4.118l-.25 1H13a.5.5 0 0 1 
+          0 1H3.5a.5.5 0 0 1-.485-.621L4.89 
+          3H1.5a.5.5 0 0 1 0-1H1zM4.118 
+          8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 
+          0 1 1 0 3 1.5 1.5 0 0 1 
+          0-3zm7 0a1.5 1.5 0 1 1 
+          0 3 1.5 1.5 0 0 1 0-3z" />
+      </symbol>
 
-    <!-- Heart / Wishlist -->
-    <symbol id="heart" viewBox="0 0 16 16">
-      <path
-        d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 
-        2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z" />
-    </symbol>
+      <!-- User -->
+      <symbol id="user" viewBox="0 0 16 16">
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 
+          0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
+          4 0 0 0-8 0v.5a.5.5 0 0 0 
+          .5.5h7z" />
+      </symbol>
+    </svg>
 
-    <!-- Cart -->
-    <symbol id="cart" viewBox="0 0 16 16">
-      <path
-        d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 
-        .485.379L2.89 2H14a1 1 0 0 1 
-        .962 1.273l-1.5 5A1 1 0 0 1 
-        12.5 9H4.118l-.25 1H13a.5.5 0 0 1 
-        0 1H3.5a.5.5 0 0 1-.485-.621L4.89 
-        3H1.5a.5.5 0 0 1 0-1H1zM4.118 
-        8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 
-        0 1 1 0 3 1.5 1.5 0 0 1 
-        0-3zm7 0a1.5 1.5 0 1 1 
-        0 3 1.5 1.5 0 0 1 0-3z" />
-    </symbol>
+    <!-- HEADER -->
+    <header id="header" class="site-header">
+      <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
+        <div class="container">
 
-    <!-- User -->
-    <symbol id="user" viewBox="0 0 16 16">
-      <path
-        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 
-        0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
-        4 0 0 0-8 0v.5a.5.5 0 0 0 
-        .5.5h7z" />
-    </symbol>
-  </svg>
+          <!-- LOGO -->
+          <a class="navbar-brand" href="{{ url_for('beranda') }}">
+            <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="IA Rent Fashion Logo"
+              class="logo" style="height:90px; width:auto; object-fit:contain;">
+          </a>
 
-  <!-- HEADER -->
-  <header id="header" class="site-header">
-    <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
-      <div class="container">
+          <!-- TOGGLER -->
+          <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <svg class="navbar-icon" width="22" height="22" fill="currentColor">
+              <use xlink:href="#navbar-icon"></use>
+            </svg>
+          </button>
 
-        <!-- LOGO -->
-        <a class="navbar-brand" href="{{ url_for('beranda') }}">
-          <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="IA Rent Fashion Logo"
-            class="logo" style="height:90px; width:auto; object-fit:contain;">
-        </a>
+          <!-- OFFCANVAS MENU -->
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title fw-semibold">Menu</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
 
-        <!-- TOGGLER -->
-        <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-          <svg class="navbar-icon" width="22" height="22" fill="currentColor">
-            <use xlink:href="#navbar-icon"></use>
-          </svg>
-        </button>
+            <div class="offcanvas-body d-flex justify-content-between align-items-center">
 
-        <!-- OFFCANVAS MENU -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-semibold">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-
-          <div class="offcanvas-body d-flex justify-content-between align-items-center">
-
-            <!-- MENU -->
-            <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('beranda') }}">Beranda</a></li>
-              <li class="nav-item dropdown">
-                <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
-                  aria-expanded="false">Koleksi</a>
-                <ul class="dropdown-menu animate slide border">
-                  <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
-                </ul>
-              </li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a></li>
-              <li class="nav-item"><a class="nav-link me-4 active" href="{{ url_for('review') }}">Review</a></li>
-            </ul>
-
-            <!-- USER ICONS -->
-            <ul class="d-flex list-unstyled mb-0 align-items-center">
-
-              <!-- Wishlist -->
-              <li class="ms-3 dropdown">
-                <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#heart"></use>
-                  </svg>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">2</span>
-                </a>
-                <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
-                  <h5 class="fw-bold mb-3">Wishlist Anda</h5>
-                  <ul class="list-group mb-3">
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Dress Brokat Elegan</h6>
-                        <small>Warna pastel lembut</small>
-                      </div>
-                      <span class="text-primary">Rp 100.000/hari</span>
-                    </li>
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Setelan Jas Slimfit</h6>
-                        <small>Ukuran L</small>
-                      </div>
-                      <span class="text-primary">Rp 120.000/hari</span>
-                    </li>
+              <!-- MENU -->
+              <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
+                <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('beranda') }}">Beranda</a></li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
+                    aria-expanded="false">Koleksi</a>
+                  <ul class="dropdown-menu animate slide border">
+                    <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
+                    <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
+                    <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
+                    <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
+                    <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
                   </ul>
-                  <a href="#" class="btn btn-dark w-100 rounded-pill">Lihat Semua</a>
-                </div>
-              </li>
+                </li>
+                <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
+                <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a></li>
+                <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a></li>
+                <li class="nav-item"><a class="nav-link me-4 active" href="{{ url_for('review') }}">Review</a></li>
+              </ul>
 
-              <!-- Cart -->
-              <li class="ms-3 dropdown">
-                <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#cart"></use>
-                  </svg>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white">3</span>
-                </a>
-                <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
-                  <h5 class="fw-bold mb-3">Keranjang Anda</h5>
-                  <ul class="list-group mb-3">
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Kebaya Modern</h6>
-                        <small>1 item</small>
-                      </div>
-                      <span class="text-primary">Rp 95.000</span>
-                    </li>
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Gaun Merah</h6>
-                        <small>1 item</small>
-                      </div>
-                      <span class="text-primary">Rp 110.000</span>
-                    </li>
-                  </ul>
-                  <div class="d-grid gap-2">
-                    <a href="#" class="btn btn-dark rounded-pill">Lihat Keranjang</a>
-                    <a href="#" class="btn btn-primary rounded-pill">Checkout</a>
+              <!-- USER ICONS -->
+              <ul class="d-flex list-unstyled mb-0 align-items-center">
+
+                <!-- Wishlist -->
+                <li class="ms-3 dropdown">
+                  <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#heart"></use>
+                    </svg>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">2</span>
+                  </a>
+                  <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
+                    <h5 class="fw-bold mb-3">Wishlist Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="fw-semibold">Dress Brokat Elegan</h6>
+                          <small>Warna pastel lembut</small>
+                        </div>
+                        <span class="text-primary">Rp 100.000/hari</span>
+                      </li>
+                      <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="fw-semibold">Setelan Jas Slimfit</h6>
+                          <small>Ukuran L</small>
+                        </div>
+                        <span class="text-primary">Rp 120.000/hari</span>
+                      </li>
+                    </ul>
+                    <a href="#" class="btn btn-dark w-100 rounded-pill">Lihat Semua</a>
                   </div>
-                </div>
-              </li>
+                </li>
 
-              <!-- User -->
-              <li class="ms-3">
-                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#user"></use>
-                  </svg>
-                </a>
-              </li>
-            </ul>
+                <!-- Cart -->
+                <li class="ms-3 dropdown">
+                  <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#cart"></use>
+                    </svg>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white">3</span>
+                  </a>
+                  <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
+                    <h5 class="fw-bold mb-3">Keranjang Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="fw-semibold">Kebaya Modern</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 95.000</span>
+                      </li>
+                      <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="fw-semibold">Gaun Merah</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 110.000</span>
+                      </li>
+                    </ul>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-dark rounded-pill">Lihat Keranjang</a>
+                      <a href="{{ url_for('sewa') }}" class="btn btn-primary rounded-pill">Checkout</a>
+                    </div>
+                  </div>
+                </li>
+
+                <!-- User -->
+                <li class="ms-3">
+                  <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
 
     <!-- MODAL LOGIN & REGISTER -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 shadow">
           <div class="modal-header border-bottom-0">
@@ -219,14 +321,14 @@
             <div class="tab-content">
               <!-- TAB LOGIN -->
               <div class="tab-pane fade show active" id="loginTab">
-                <form>
+                <form id="loginForm">
                   <div class="mb-3">
                     <label>Email</label>
-                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
+                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email" required>
                   </div>
                   <div class="mb-3">
                     <label>Password</label>
-                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
+                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password" required>
                   </div>
                   <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
                 </form>
@@ -234,7 +336,7 @@
 
               <!-- TAB DAFTAR -->
               <div class="tab-pane fade" id="registerTab">
-                <form>
+                <form id="registerForm">
                   <div class="mb-3">
                     <label>Nama Lengkap</label>
                     <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap" required>
@@ -260,188 +362,56 @@
       </div>
     </div>
 
-
-  <!-- MODAL LOGIN & REGISTER -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4 shadow">
-        <div class="modal-header border-bottom-0">
-          <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body px-4">
-          <ul class="nav nav-tabs mb-3 justify-content-center" id="loginTabs" role="tablist">
-            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab" type="button">Login</button></li>
-            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab" type="button">Daftar</button></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="loginTab">
-              <form>
-                <div class="mb-3">
-                  <label>Email</label>
-                  <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
-                </div>
-                <div class="mb-3">
-                  <label>Password</label>
-                  <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
-              </form>
-            </div>
-            <div class="tab-pane fade" id="registerTab">
-              <form>
-                <div class="mb-3">
-                  <label>Nama Lengkap</label>
-                  <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap">
-                </div>
-                <div class="mb-3">
-                  <label>Email</label>
-                  <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
-                </div>
-                <div class="mb-3">
-                  <label>Password</label>
-                  <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-      <title>Apa Kata Mereka</title>
-      
-      <style>
-        body {
-          background-color: #f8f9fa;
-        }
-
-        .btn-pink {
-          background-color: #ff6f7e;
-          color: #fff;
-          transition: all 0.3s ease;
-        }
-        .btn-pink:hover {
-          background-color: #ff4f63;
-          color: #fff;
-          transform: translateY(-2px);
-        }
-
-        .review-card {
-          border: none;
-          border-radius: 18px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-          transition: all 0.3s ease;
-        }
-        .review-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-        }
-
-        .review-text {
-          font-style: italic;
-          color: #555;
-          line-height: 1.6;
-        }
-
-        .section-title {
-          font-weight: 700;
-          font-size: 2.2rem;
-          text-transform: uppercase;
-        }
-
-      </style>
-    </head>
-
-    <body>
+    <!-- MAIN CONTENT -->
+    <main>
       <!-- Section Testimonial -->
       <section class="py-5 bg-light">
         <div class="container">
 
           <!-- Header -->
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-              <h2 class="section-title text-dark mb-1">APA KATA MEREKA?</h2>
-              <p class="mx-auto" style="max-width: 700px; color:#3a3a3a; font-size:1.05rem; line-height:1.8;">
+          <div class="row align-items-center mb-5">
+            <div class="col-md-8">
+              <h2 class="section-title text-dark mb-2">APA KATA MEREKA?</h2>
+              <p class="text-muted" style="font-size:1.05rem; line-height:1.8;">
                 Pendapat pelanggan yang sudah mencoba layanan kami
+              </p>
             </div>
-            <button class="btn btn-pink rounded-pill px-4 fw-semibold" data-bs-toggle="modal" data-bs-target="#tambahReviewModal">
-              <i class="bi bi-pencil-square me-2"></i>Tambah Review
-            </button>
+            <div class="col-md-4 text-md-end">
+              <button class="btn btn-pink rounded-pill px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#tambahReviewModal">
+                <i class="bi bi-pencil-square me-2"></i>Tambah Review
+              </button>
+            </div>
+          </div>
+
+
+          <!-- Filter Section -->
+          <div class="filter-section mb-4">
+            <h5 class="fw-bold mb-3">Filter Berdasarkan Rating:</h5>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-outline-secondary rating-filter active" data-rating="0">
+                Semua Review
+              </button>
+              <button class="btn btn-outline-secondary rating-filter" data-rating="5">
+                <i class="bi bi-star-fill text-warning"></i> 5 Bintang
+              </button>
+              <button class="btn btn-outline-secondary rating-filter" data-rating="4">
+                <i class="bi bi-star-fill text-warning"></i> 4 Bintang
+              </button>
+              <button class="btn btn-outline-secondary rating-filter" data-rating="3">
+                <i class="bi bi-star-fill text-warning"></i> 3 Bintang
+              </button>
+              <button class="btn btn-outline-secondary rating-filter" data-rating="2">
+                <i class="bi bi-star-fill text-warning"></i> 2 Bintang
+              </button>
+              <button class="btn btn-outline-secondary rating-filter" data-rating="1">
+                <i class="bi bi-star-fill text-warning"></i> 1 Bintang
+              </button>
+            </div>
           </div>
 
           <!-- Review Feed -->
-          <div class="row g-4">
-            <!-- Review 1 -->
-            <div class="col-12">
-              <div class="card review-card p-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h5 class="fw-bold mb-0">Indah Jumiatin</h5>
-                  <small class="text-muted-sub">2 hari lalu</small>
-                </div>
-                <div class="text-warning mb-2">★★★★★</div>
-                <p class="review-text mb-0">
-                  "Saya awalnya ragu untuk mencoba produk ini, tapi setelah melihat rekomendasi teman, saya memutuskan untuk mencobanya. Saat pertama kali digunakan, saya langsung merasa nyaman karena desainnya yang praktis dan mudah dipakai. Proses pemesanan cepat, dan kualitasnya sesuai harapan!"
-                </p>
-              </div>
-            </div>
-
-            <!-- Review 2 -->
-            <div class="col-12">
-              <div class="card review-card p-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h5 class="fw-bold mb-0">Siti Aisyah</h5>
-                  <small class="text-muted-sub">4 hari lalu</small>
-                </div>
-                <div class="text-warning mb-2">★★★★★</div>
-                <p class="review-text mb-0">
-                  "Websitenya mudah digunakan, koleksi kebaya dan dress-nya banyak pilihan warna dan model. Harga sewanya juga terjangkau banget dibanding tempat lain. Pasti bakal sewa lagi nanti!"
-                </p>
-              </div>
-            </div>
-
-            <!-- Review 3 -->
-            <div class="col-12">
-              <div class="card review-card p-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h5 class="fw-bold mb-0">Fajar Nugraha</h5>
-                  <small class="text-muted-sub">1 minggu lalu</small>
-                </div>
-                <div class="text-warning mb-2">★★★★★</div>
-                <p class="review-text mb-0">
-                  "Aku sewa kebaya modern untuk acara wisuda, hasilnya bener-bener bagus! Bahannya halus, bersih, dan wangi. Ukurannya pas banget juga, jadi tampil percaya diri di hari spesial. Terima kasih banyak!"
-                </p>
-              </div>
-            </div>
-
-            <!-- Review 4 -->
-            <div class="col-12">
-              <div class="card review-card p-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h5 class="fw-bold mb-0">Nadia Kusuma</h5>
-                  <small class="text-muted-sub">2 minggu lalu</small>
-                </div>
-                <div class="text-warning mb-2">★★★★☆</div>
-                <p class="review-text mb-0">
-                  “Saya sewa kemeja dan dasi untuk acara formal kampus. Prosesnya cepat dan mudah, tinggal pilih di website terus ambil di tempat. Mungkin ke depan bisa ditambah warna kemeja yang lebih variatif.”
-                </p>
-              </div>
-            </div>
-
-            <!-- Review 5 -->
-            <div class="col-12">
-              <div class="card review-card p-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h5 class="fw-bold mb-0">Dewi Lestari</h5>
-                  <small class="text-muted-sub">3 minggu lalu</small>
-                </div>
-                <div class="text-warning mb-2">★★★★★</div>
-                <p class="review-text mb-0">
-                  "Sangat puas! Adminnya sabar banget bantuin aku pilih ukuran dan warna yang pas. Baju juga dikemas rapi, bersih, dan harum. Pokoknya rekomendasi banget buat yang mau tampil anggun tanpa ribet."
-                </p>
-              </div>
-            </div>
+          <div class="row g-4" id="reviewsContainer">
+            <!-- Reviews will be loaded here by JavaScript -->
           </div>
         </div>
       </section>
@@ -455,115 +425,456 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form id="reviewForm">
                 <div class="mb-3">
                   <label class="form-label fw-semibold">Nama</label>
-                  <input type="text" class="form-control" placeholder="Masukkan nama kamu">
+                  <input type="text" class="form-control" id="reviewName" placeholder="Masukkan nama kamu" required>
                 </div>
                 <div class="mb-3">
                   <label class="form-label fw-semibold">Rating</label>
-                  <select class="form-select">
-                    <option value="5">★★★★★ (5 Bintang)</option>
-                    <option value="4">★★★★☆ (4 Bintang)</option>
-                    <option value="3">★★★☆☆ (3 Bintang)</option>
-                    <option value="2">★★☆☆☆ (2 Bintang)</option>
-                    <option value="1">★☆☆☆☆ (1 Bintang)</option>
-                  </select>
+                  <div class="d-flex align-items-center gap-3">
+                    <select class="form-select" id="reviewRating" required>
+                      <option value="5">★★★★★ (5 Bintang)</option>
+                      <option value="4">★★★★☆ (4 Bintang)</option>
+                      <option value="3">★★★☆☆ (3 Bintang)</option>
+                      <option value="2">★★☆☆☆ (2 Bintang)</option>
+                      <option value="1">★☆☆☆☆ (1 Bintang)</option>
+                    </select>
+                    <div id="interactiveStars"></div>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label class="form-label fw-semibold">Pesan / Ulasan</label>
-                  <textarea class="form-control" rows="4" placeholder="Tulis pendapatmu di sini..."></textarea>
+                  <textarea class="form-control" id="reviewMessage" rows="4" placeholder="Tulis pendapatmu di sini..." required></textarea>
+                  <div class="form-text">Minimal 10 karakter</div>
                 </div>
               </form>
             </div>
             <div class="modal-footer border-0">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-              <button type="button" class="btn btn-pink">Kirim Review</button>
+              <button type="button" class="btn btn-pink" id="submitReview">Kirim Review</button>
             </div>
           </div>
         </div>
       </div>
+    </main>
 
-      <!-- Bootstrap JS -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"></script>
+    <!-- FOOTER -->
+    <footer id="footer" class="bg-white border-top mt-5">
+      <div class="container py-5">
+        <div class="row gy-4">
 
-    </body>
-    </html>
+          <div class="col-lg-3 col-sm-6">
+            <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="logo"
+              class="img-fluid mb-3" style="max-width: 200px;">
+            <p>Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>Kota Banjarmasin, Kalimantan Selatan 70123</p>
+            <ul class="d-flex list-unstyled gap-3 mt-3">
+              <li><a href="https://facebook.com" class="text-dark"><i class="bi bi-facebook fs-5"></i></a></li>
+              <li><a href="https://instagram.com" class="text-dark"><i class="bi bi-instagram fs-5"></i></a></li>
+              <li><a href="https://youtube.com" class="text-dark"><i class="bi bi-youtube fs-5"></i></a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-sm-6">
+            <h5 class="fw-bold mb-3">Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="{{ url_for('beranda') }}" class="text-dark text-decoration-none">Beranda</a></li>
+              <li><a href="{{ url_for('koleksi') }}" class="text-dark text-decoration-none">Koleksi</a></li>
+              <li><a href="{{ url_for('inspirasi') }}" class="text-dark text-decoration-none">Inspirasi</a></li>
+              <li><a href="{{ url_for('contact') }}" class="text-dark text-decoration-none">Kontak</a></li>
+              <li><a href="{{ url_for('tentang') }}" class="text-dark text-decoration-none">Tentang</a></li>
+              <li><a href="{{ url_for('review') }}" class="text-dark text-decoration-none">Review</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-3 col-sm-6">
+            <h5 class="fw-bold mb-3">Help & Info</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-dark text-decoration-none">Cek Pesanan</a></li>
+              <li><a href="#" class="text-dark text-decoration-none">Kebijakan Pengembalian</a></li>
+              <li><a href="#" class="text-dark text-decoration-none">Hubungi Kami</a></li>
+              <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
+            </ul>
+          </div>
 
-  <!-- FOOTER -->
-  <footer id="footer" class="bg-white border-top mt-5">
-    <div class="container py-5">
-      <div class="row gy-4">
+          <div class="col-lg-4 col-sm-6">
+            <h5 class="fw-bold mb-3">Contact Us</h5>
+            <p>
+              Ada pertanyaan atau saran? <br>
+              <a href="mailto:iarentfashion@gmail.com" class="text-dark text-decoration-underline">iarentfashion@gmail.com</a>
+            </p>
+            <p>
+              Butuh bantuan cepat? Hubungi kami: <br>
+              <a href="https://wa.me/6281122233344" class="text-dark text-decoration-underline">+62 811-2223-3344</a>
+            </p>
+          </div>
 
-        <div class="col-lg-3 col-sm-6">
-          <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="logo"
-            class="img-fluid mb-3" style="max-width: 200px;">
-          <p>Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>Kota Banjarmasin, Kalimantan Selatan 70123</p>
-          <ul class="d-flex list-unstyled gap-3 mt-3">
-            <li><a href="https://facebook.com" class="text-dark"><i class="bi bi-facebook fs-5"></i></a></li>
-            <li><a href="https://instagram.com" class="text-dark"><i class="bi bi-instagram fs-5"></i></a></li>
-            <li><a href="https://youtube.com" class="text-dark"><i class="bi bi-youtube fs-5"></i></a></li>
-          </ul>
         </div>
 
-        <div class="col-lg-2 col-sm-6">
-          <h5 class="fw-bold mb-3">Quick Links</h5>
-          <ul class="list-unstyled">
-            <li><a href="{{ url_for('beranda') }}" class="text-dark text-decoration-none">Beranda</a></li>
-            <li><a href="{{ url_for('koleksi') }}" class="text-dark text-decoration-none">Koleksi</a></li>
-            <li><a href="{{ url_for('inspirasi') }}" class="text-dark text-decoration-none">Inspirasi</a></li>
-            <li><a href="{{ url_for('contact') }}" class="text-dark text-decoration-none">Kontak</a></li>
-            <li><a href="{{ url_for('tentang') }}" class="text-dark text-decoration-none">Tentang</a></li>
-            <li><a href="{{ url_for('review') }}" class="text-dark text-decoration-none">Review</a></li>
-          </ul>
+        <div class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap">
+          <div class="d-flex align-items-center gap-3">
+            <p class="mb-0 small fw-semibold">Payment options:</p>
+            <img src="{{ url_for('static', filename='images/visa.jpg') }}" alt="Visa" width="40" height="25"
+              class="rounded shadow-sm">
+            <img src="{{ url_for('static', filename='images/mastercard.jpg') }}" alt="MasterCard" width="40" height="25"
+              class="rounded shadow-sm">
+            <img src="{{ url_for('static', filename='images/paypal.jpg') }}" alt="PayPal" width="40" height="25"
+              class="rounded shadow-sm">
+          </div>
+          <p class="mb-0 small text-secondary">© 2025 IA Rent Fashion. All Rights Reserved.</p>
         </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <h5 class="fw-bold mb-3">Help & Info</h5>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-dark text-decoration-none">Cek Pesanan</a></li>
-            <li><a href="#" class="text-dark text-decoration-none">Kebijakan Pengembalian</a></li>
-            <li><a href="#" class="text-dark text-decoration-none">Hubungi Kami</a></li>
-            <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-4 col-sm-6">
-          <h5 class="fw-bold mb-3">Contact Us</h5>
-          <p>
-            Ada pertanyaan atau saran? <br>
-            <a href="mailto:iarentfashion@gmail.com" class="text-dark text-decoration-underline">iarentfashion@gmail.com</a>
-          </p>
-          <p>
-            Butuh bantuan cepat? Hubungi kami: <br>
-            <a href="https://wa.me/6281122233344" class="text-dark text-decoration-underline">+62 811-2223-3344</a>
-          </p>
-        </div>
-
       </div>
+    </footer>
 
-      <div class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap">
-        <div class="d-flex align-items-center gap-3">
-          <p class="mb-0 small fw-semibold">Payment options:</p>
-          <img src="{{ url_for('static', filename='images/visa.jpg') }}" alt="Visa" width="40" height="25"
-            class="rounded shadow-sm">
-          <img src="{{ url_for('static', filename='images/mastercard.jpg') }}" alt="MasterCard" width="40" height="25"
-            class="rounded shadow-sm">
-          <img src="{{ url_for('static', filename='images/paypal.jpg') }}" alt="PayPal" width="40" height="25"
-            class="rounded shadow-sm">
-        </div>
-        <p class="mb-0 small text-secondary">© 2025 IA Rent Fashion. All Rights Reserved.</p>
-      </div>
-    </div>
-  </footer>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Data review dari localStorage atau default
+      let reviews = JSON.parse(localStorage.getItem('reviews')) || [
+          {
+              id: 1,
+              name: "Indah Jumiatin",
+              rating: 5,
+              review: "Saya awalnya ragu untuk mencoba produk ini, tapi setelah melihat rekomendasi teman, saya memutuskan untuk mencobanya. Saat pertama kali digunakan, saya langsung merasa nyaman karena desainnya yang praktis dan mudah dipakai. Proses pemesanan cepat, dan kualitasnya sesuai harapan!",
+              date: "2 hari lalu",
+              verified: true
+          },
+          {
+              id: 2,
+              name: "Siti Aisyah",
+              rating: 5,
+              review: "Websitenya mudah digunakan, koleksi kebaya dan dress-nya banyak pilihan warna dan model. Harga sewanya juga terjangkau banget dibanding tempat lain. Pasti bakal sewa lagi nanti!",
+              date: "4 hari lalu",
+              verified: true
+          },
+          {
+              id: 3,
+              name: "Fajar Nugraha",
+              rating: 5,
+              review: "Aku sewa kebaya modern untuk acara wisuda, hasilnya bener-bener bagus! Bahannya halus, bersih, dan wangi. Ukurannya pas banget juga, jadi tampil percaya diri di hari spesial. Terima kasih banyak!",
+              date: "1 minggu lalu",
+              verified: true
+          },
+          {
+              id: 4,
+              name: "Nadia Kusuma",
+              rating: 4,
+              review: "Saya sewa kemeja dan dasi untuk acara formal kampus. Prosesnya cepat dan mudah, tinggal pilih di website terus ambil di tempat. Mungkin ke depan bisa ditambah warna kemeja yang lebih variatif.",
+              date: "2 minggu lalu",
+              verified: true
+          },
+          {
+              id: 5,
+              name: "Dewi Lestari",
+              rating: 5,
+              review: "Sangat puas! Adminnya sabar banget bantuin aku pilih ukuran dan warna yang pas. Baju juga dikemas rapi, bersih, dan harum. Pokoknya rekomendasi banget buat yang mau tampil anggun tanpa ribet.",
+              date: "3 minggu lalu",
+              verified: true
+          }
+      ];
 
-  <!-- JS -->
-  <script src="{{ url_for('static', filename='js/jquery-1.11.0.min.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+      // Fungsi untuk render stars
+      function renderStars(rating) {
+          let stars = '';
+          for (let i = 1; i <= 5; i++) {
+              if (i <= rating) {
+                  stars += '<i class="bi bi-star-fill text-warning"></i>';
+              } else {
+                  stars += '<i class="bi bi-star text-warning"></i>';
+              }
+          }
+          return stars;
+      }
+
+      // Fungsi untuk format tanggal
+      function formatDate(date) {
+          const now = new Date();
+          const diffTime = Math.abs(now - date);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          
+          if (diffDays === 1) return '1 hari lalu';
+          if (diffDays < 7) return `${diffDays} hari lalu`;
+          if (diffDays < 30) return `${Math.ceil(diffDays / 7)} minggu lalu`;
+          return `${Math.ceil(diffDays / 30)} bulan lalu`;
+      }
+
+      // Fungsi untuk render reviews
+      function renderReviews() {
+          const reviewsContainer = document.getElementById('reviewsContainer');
+          if (!reviewsContainer) return;
+          
+          reviewsContainer.innerHTML = '';
+          
+          reviews.forEach(review => {
+              const reviewHTML = `
+                  <div class="col-12">
+                      <div class="card review-card p-4">
+                          <div class="d-flex justify-content-between align-items-center mb-2">
+                              <div class="d-flex align-items-center gap-2">
+                                  <h5 class="fw-bold mb-0">${review.name}</h5>
+                                  ${review.verified ? '<span class="badge bg-success"><i class="bi bi-patch-check-fill"></i> Terverifikasi</span>' : ''}
+                              </div>
+                              <small class="text-muted">${review.date}</small>
+                          </div>
+                          <div class="mb-2">${renderStars(review.rating)}</div>
+                          <p class="review-text mb-0">${review.review}</p>
+                      </div>
+                  </div>
+              `;
+              reviewsContainer.innerHTML += reviewHTML;
+          });
+      }
+
+      // Fungsi untuk menambah review baru
+      function addNewReview(reviewData) {
+          const newReview = {
+              id: reviews.length + 1,
+              name: reviewData.name,
+              rating: parseInt(reviewData.rating),
+              review: reviewData.message,
+              date: formatDate(new Date()),
+              verified: false // Review baru belum terverifikasi
+          };
+          
+          reviews.unshift(newReview); // Tambah di awal array
+          localStorage.setItem('reviews', JSON.stringify(reviews));
+          renderReviews();
+          
+          // Tampilkan notifikasi sukses
+          showNotification('Review berhasil dikirim! Terima kasih atas masukan Anda.', 'success');
+      }
+
+      // Fungsi untuk validasi form review
+      function validateReviewForm(formData) {
+          if (!formData.name.trim()) {
+              showNotification('Harap masukkan nama Anda.', 'error');
+              return false;
+          }
+          if (!formData.rating) {
+              showNotification('Harap berikan rating.', 'error');
+              return false;
+          }
+          if (!formData.message.trim()) {
+              showNotification('Harap tulis pesan review Anda.', 'error');
+              return false;
+          }
+          if (formData.message.length < 10) {
+              showNotification('Review harus minimal 10 karakter.', 'error');
+              return false;
+          }
+          return true;
+      }
+
+      // Fungsi untuk menampilkan notifikasi
+      function showNotification(message, type = 'info') {
+          // Hapus notifikasi sebelumnya jika ada
+          const existingNotification = document.querySelector('.custom-notification');
+          if (existingNotification) {
+              existingNotification.remove();
+          }
+          
+          const notification = document.createElement('div');
+          notification.className = `custom-notification alert alert-${type === 'error' ? 'danger' : 'success'} alert-dismissible fade show position-fixed`;
+          notification.style.cssText = `
+              top: 100px;
+              right: 20px;
+              z-index: 9999;
+              min-width: 300px;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          `;
+          
+          notification.innerHTML = `
+              ${message}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          `;
+          
+          document.body.appendChild(notification);
+          
+          // Auto remove setelah 5 detik
+          setTimeout(() => {
+              if (notification.parentNode) {
+                  notification.remove();
+              }
+          }, 5000);
+      }
+
+      // Fungsi untuk sistem rating interaktif
+      function initializeRatingSystem() {
+          const ratingSelect = document.getElementById('reviewRating');
+          const starsContainer = document.getElementById('interactiveStars');
+          
+          if (!ratingSelect || !starsContainer) return;
+          
+          // Render stars berdasarkan nilai select
+          function updateStars(rating) {
+              starsContainer.innerHTML = '';
+              for (let i = 1; i <= 5; i++) {
+                  const star = document.createElement('span');
+                  star.className = 'star';
+                  star.innerHTML = i <= rating ? 
+                      '<i class="bi bi-star-fill text-warning fs-4"></i>' : 
+                      '<i class="bi bi-star text-warning fs-4"></i>';
+                  star.style.cursor = 'pointer';
+                  star.style.marginRight = '5px';
+                  
+                  star.addEventListener('click', () => {
+                      ratingSelect.value = i;
+                      updateStars(i);
+                  });
+                  
+                  starsContainer.appendChild(star);
+              }
+          }
+          
+          // Update stars saat select berubah
+          ratingSelect.addEventListener('change', (e) => {
+              updateStars(parseInt(e.target.value));
+          });
+          
+          // Inisialisasi stars
+          updateStars(parseInt(ratingSelect.value));
+      }
+
+      // Event listener saat DOM siap
+      document.addEventListener('DOMContentLoaded', function() {
+          // Render reviews awal
+          renderReviews();
+          
+          // Inisialisasi rating system
+          initializeRatingSystem();
+          
+          // Handle form submit review
+          const reviewForm = document.getElementById('reviewForm');
+          const submitReviewBtn = document.getElementById('submitReview');
+          
+          if (reviewForm && submitReviewBtn) {
+              submitReviewBtn.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  
+                  const formData = {
+                      name: document.getElementById('reviewName').value,
+                      rating: document.getElementById('reviewRating').value,
+                      message: document.getElementById('reviewMessage').value
+                  };
+                  
+                  if (validateReviewForm(formData)) {
+                      // Cek apakah user sudah login
+                      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                      
+                      if (!isLoggedIn) {
+                          // Simpan data review sementara dan minta login
+                          localStorage.setItem('pendingReview', JSON.stringify(formData));
+                          const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                          loginModal.show();
+                          return;
+                      }
+                      
+                      // Jika sudah login, langsung submit review
+                      addNewReview(formData);
+                      
+                      // Reset form
+                      reviewForm.reset();
+                      initializeRatingSystem();
+                      
+                      // Tutup modal
+                      const reviewModal = bootstrap.Modal.getInstance(document.getElementById('tambahReviewModal'));
+                      reviewModal.hide();
+                  }
+              });
+          }
+          
+          // Handle login success untuk pending review
+          const loginForms = document.querySelectorAll('#loginForm, #registerForm');
+          loginForms.forEach(form => {
+              form.addEventListener('submit', function(e) {
+                  e.preventDefault();
+                  
+                  // Simulasi login berhasil
+                  localStorage.setItem('isLoggedIn', 'true');
+                  
+                  // Cek jika ada pending review
+                  const pendingReview = localStorage.getItem('pendingReview');
+                  if (pendingReview) {
+                      const reviewData = JSON.parse(pendingReview);
+                      addNewReview(reviewData);
+                      
+                      // Reset form review
+                      if (reviewForm) reviewForm.reset();
+                      initializeRatingSystem();
+                      
+                      // Hapus pending review
+                      localStorage.removeItem('pendingReview');
+                      
+                      // Tutup modal login dan review
+                      const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                      if (loginModal) loginModal.hide();
+                      
+                      const reviewModal = bootstrap.Modal.getInstance(document.getElementById('tambahReviewModal'));
+                      if (reviewModal) reviewModal.hide();
+                  } else {
+                      // Tutup modal login saja
+                      const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                      if (loginModal) loginModal.hide();
+                  }
+              });
+          });
+          
+          // Filter reviews berdasarkan rating
+          const filterButtons = document.querySelectorAll('.rating-filter');
+          filterButtons.forEach(button => {
+              button.addEventListener('click', function() {
+                  const rating = parseInt(this.dataset.rating);
+                  
+                  // Update active state
+                  filterButtons.forEach(btn => btn.classList.remove('active'));
+                  this.classList.add('active');
+                  
+                  if (rating === 0) {
+                      renderReviews(); // Tampilkan semua
+                  } else {
+                      const filteredReviews = reviews.filter(review => review.rating === rating);
+                      renderFilteredReviews(filteredReviews);
+                  }
+              });
+          });
+      });
+
+      // Fungsi untuk render filtered reviews
+      function renderFilteredReviews(filteredReviews) {
+          const reviewsContainer = document.getElementById('reviewsContainer');
+          if (!reviewsContainer) return;
+          
+          reviewsContainer.innerHTML = '';
+          
+          if (filteredReviews.length === 0) {
+              reviewsContainer.innerHTML = `
+                  <div class="col-12 text-center py-5">
+                      <i class="bi bi-chat-square-text display-4 text-muted"></i>
+                      <p class="mt-3 text-muted">Belum ada review dengan rating yang dipilih.</p>
+                  </div>
+              `;
+              return;
+          }
+          
+          filteredReviews.forEach(review => {
+              const reviewHTML = `
+                  <div class="col-12">
+                      <div class="card review-card p-4">
+                          <div class="d-flex justify-content-between align-items-center mb-2">
+                              <div class="d-flex align-items-center gap-2">
+                                  <h5 class="fw-bold mb-0">${review.name}</h5>
+                                  ${review.verified ? '<span class="badge bg-success"><i class="bi bi-patch-check-fill"></i> Terverifikasi</span>' : ''}
+                              </div>
+                              <small class="text-muted">${review.date}</small>
+                          </div>
+                          <div class="mb-2">${renderStars(review.rating)}</div>
+                          <p class="review-text mb-0">${review.review}</p>
+                      </div>
+                  </div>
+              `;
+              reviewsContainer.innerHTML += reviewHTML;
+          });
+      }
+    </script>
+  </body>
 </html>

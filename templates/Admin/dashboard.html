@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Admin Dashboard - IA Rent Fashion</title>
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #43e97b;
+            --info-color: #4facfe;
+            --warning-color: #fa709a;
+            --danger-color: #f5576c;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        /* Sidebar Styles */
+        .sidenav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 260px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .sidenav-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .sidenav .navbar-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .sidenav .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #67748e;
+            border-radius: 0.5rem;
+            margin: 0.25rem 1rem;
+            transition: all 0.3s;
+        }
+        
+        .sidenav .nav-link:hover {
+            background: #f8f9fa;
+            color: var(--primary-color);
+        }
+        
+        .sidenav .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .sidenav .nav-link i {
+            font-size: 1rem;
+            margin-right: 0.75rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        /* Top Navbar */
+        .top-navbar {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            width: 300px;
+        }
+        
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            margin-left: 0.5rem;
+            width: 100%;
+        }
+        
+        /* Welcome Card */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .welcome-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .welcome-card p {
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        /* Stats Cards */
+        .stat-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .icon-purple { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); }
+        .icon-blue { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .icon-green { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .icon-orange { background: linear-gradient(135deg, #fa709a, #fee140); }
+        
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin: 0;
+        }
+        
+        .stat-card .stat-label {
+            color: #8492a6;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        /* Content Cards */
+        .content-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card h6 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Table Styles */
+        .table {
+            margin: 0;
+        }
+        
+        .table thead th {
+            background: #f8f9fa;
+            border: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            color: #8492a6;
+            padding: 1rem;
+        }
+        
+        .table tbody td {
+            border-bottom: 1px solid #f1f5f9;
+            padding: 1rem;
+            vertical-align: middle;
+        }
+        
+        .table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Badges */
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+        
+        .badge-success {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+        
+        .badge-info {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+        
+        .badge-warning {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+        }
+        
+        /* Quick Actions */
+        .action-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+            margin-bottom: 0.75rem;
+            text-decoration: none;
+            color: #2d3748;
+        }
+        
+        .action-item:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidenav {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidenav.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidenav">
+        <div class="sidenav-header">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-gem me-2"></i>
+                IA Rent Fashion
+            </a>
+        </div>
+        
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Produk Fashion</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Pesanan</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-users"></i>
+                    <span>Pelanggan</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-star"></i>
+                    <span>Review</span>
+                </a>
+            </li>
+            
+            <li class="nav-item mt-4">
+                <h6 class="px-4 text-uppercase text-muted" style="font-size: 0.75rem; font-weight: 700;">Akun</h6>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-cog"></i>
+                    <span>Pengaturan</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <div class="top-navbar">
+            <div>
+                <h5 class="mb-0" style="font-weight: 700; color: #2d3748;">Dashboard</h5>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="search-box">
+                    <i class="fas fa-search text-muted"></i>
+                    <input type="text" placeholder="Cari...">
+                </div>
+                <div class="position-relative">
+                    <i class="fas fa-bell fa-lg text-muted"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">2</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+            <h3>Selamat Datang, Admin!</h3>
+            <p>Kelola bisnis rental fashion Anda dengan mudah dan efisien</p>
+        </div>
+        
+        <!-- Stats Row -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="stat-label">Total Pesanan</p>
+                            <h2 class="stat-value">156</h2>
+                        </div>
+                        <div class="stat-icon icon-purple">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="stat-label">Total Pelanggan</p>
+                            <h2 class="stat-value">89</h2>
+                        </div>
+                        <div class="stat-icon icon-blue">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="stat-label">Produk Aktif</p>
+                            <h2 class="stat-value">42</h2>
+                        </div>
+                        <div class="stat-icon icon-green">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="stat-label">Pendapatan</p>
+                            <h2 class="stat-value" style="font-size: 1.5rem;">Rp 12.5M</h2>
+                        </div>
+                        <div class="stat-icon icon-orange">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="content-card">
+                    <h6>Pesanan Terbaru</h6>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Pelanggan</th>
+                                    <th>Produk</th>
+                                    <th>Status</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; font-weight: 600;">
+                                                A
+                                            </div>
+                                            <span style="font-weight: 600;">Anita Wulandari</span>
+                                        </div>
+                                    </td>
+                                    <td>Gaun Pesta Elegant</td>
+                                    <td>
+                                        <span class="badge badge-info">Sedang Disewa</span>
+                                    </td>
+                                    <td class="text-muted">05/11/25</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; font-weight: 600;">
+                                                B
+                                            </div>
+                                            <span style="font-weight: 600;">Budi Santoso</span>
+                                        </div>
+                                    </td>
+                                    <td>Jas Pengantin Modern</td>
+                                    <td>
+                                        <span class="badge badge-success">Selesai</span>
+                                    </td>
+                                    <td class="text-muted">03/11/25</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-warning text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; font-weight: 600;">
+                                                C
+                                            </div>
+                                            <span style="font-weight: 600;">Citra Dewi</span>
+                                        </div>
+                                    </td>
+                                    <td>Kebaya Traditional</td>
+                                    <td>
+                                        <span class="badge badge-warning">Pending</span>
+                                    </td>
+                                    <td class="text-muted">01/11/25</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="content-card">
+                    <h6>Aksi Cepat</h6>
+                    
+                    <a href="#" class="action-item">
+                        <div class="action-icon icon-green">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <span style="font-weight: 600;">Tambah Produk Baru</span>
+                    </a>
+                    
+                    <a href="#" class="action-item">
+                        <div class="action-icon icon-blue">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span style="font-weight: 600;">Kelola Pesanan</span>
+                    </a>
+                    
+                    <a href="#" class="action-item">
+                        <div class="action-icon icon-orange">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <span style="font-weight: 600;">Lihat Review</span>
+                    </a>
+                    
+                    <a href="#" class="action-item">
+                        <div class="action-icon icon-purple">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <span style="font-weight: 600;">Laporan Keuangan</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-5 py-3 text-center text-muted">
+            <p class="mb-0">© 2024 made with <i class="fas fa-heart text-danger"></i> by <strong>IA Rent Fashion Team</strong></p>
+        </footer>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
