@@ -20,234 +20,393 @@
     <link rel="stylesheet" href="static/css_koleksi/styles.css"/>
   </head>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <body>
+    <!-- HEADER (Copy dari koleksi.html) -->
+    <!-- ===== SVG ICONS DEFINITIONS ===== -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <!-- Navbar icon -->
+      <symbol id="navbar-icon" viewBox="0 0 16 16">
+        <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z" />
+      </symbol>
 
+      <!-- Heart / Wishlist -->
+      <symbol id="heart" viewBox="0 0 16 16">
+        <path
+          d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 
+          2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z"
+        />
+      </symbol>
 
-  <!-- ===== SVG ICONS DEFINITIONS ===== -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <!-- Navbar icon -->
-    <symbol id="navbar-icon" viewBox="0 0 16 16">
-      <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z"/>
-    </symbol>
+      <!-- Cart -->
+      <symbol id="cart" viewBox="0 0 16 16">
+        <path
+          d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 
+          .485.379L2.89 2H14a1 1 0 0 1 
+          .962 1.273l-1.5 5A1 1 0 0 1 
+          12.5 9H4.118l-.25 1H13a.5.5 0 0 1 
+          0 1H3.5a.5.5 0 0 1-.485-.621L4.89 
+          3H1.5a.5.5 0 0 1 0-1H1zM4.118 
+          8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 
+          0 1 1 0 3 1.5 1.5 0 0 1 
+          0-3zm7 0a1.5 1.5 0 1 1 
+          0 3 1.5 1.5 0 0 1 0-3z"
+        />
+      </symbol>
 
-    <!-- Heart / Wishlist -->
-    <symbol id="heart" viewBox="0 0 16 16">
-      <path
-        d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 
-        2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z" />
-    </symbol>
+      <!-- User -->
+      <symbol id="user" viewBox="0 0 16 16">
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 
+          0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
+          4 0 0 0-8 0v.5a.5.5 0 0 0 
+          .5.5h7z"
+        />
+      </symbol>
+    </svg>
+    <!-- HEADER -->
+    <header id="header" class="site-header">
+      <nav
+        id="header-nav"
+        class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top"
+      >
+        <div class="container">
+          <!-- LOGO -->
+          <a class="navbar-brand" href="{{ url_for('beranda') }}">
+            <img
+              src="{{ url_for('static', filename='images/main-logo.png') }}"
+              alt="IA Rent Fashion Logo"
+              class="logo"
+              style="height: 90px; width: auto; object-fit: contain"
+            />
+          </a>
 
-    <!-- Cart -->
-    <symbol id="cart" viewBox="0 0 16 16">
-      <path
-        d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 
-        .485.379L2.89 2H14a1 1 0 0 1 
-        .962 1.273l-1.5 5A1 1 0 0 1 
-        12.5 9H4.118l-.25 1H13a.5.5 0 0 1 
-        0 1H3.5a.5.5 0 0 1-.485-.621L4.89 
-        3H1.5a.5.5 0 0 1 0-1H1zM4.118 
-        8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 
-        0 1 1 0 3 1.5 1.5 0 0 1 
-        0-3zm7 0a1.5 1.5 0 1 1 
-        0 3 1.5 1.5 0 0 1 0-3z" />
-    </symbol>
+          <!-- TOGGLER -->
+          <button
+            class="navbar-toggler d-flex d-lg-none order-3 p-2"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#bdNavbar"
+            aria-controls="bdNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <svg class="navbar-icon" width="22" height="22" fill="currentColor">
+              <use xlink:href="#navbar-icon"></use>
+            </svg>
+          </button>
 
-    <!-- User -->
-    <symbol id="user" viewBox="0 0 16 16">
-      <path
-        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 
-        0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
-        4 0 0 0-8 0v.5a.5.5 0 0 0 
-        .5.5h7z" />
-    </symbol>
-  </svg>
+          <!-- OFFCANVAS MENU -->
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title fw-semibold">Menu</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
 
-  <!-- HEADER -->
-  <header id="header" class="site-header">
-    <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
-      <div class="container">
-
-        <!-- LOGO -->
-        <a class="navbar-brand" href="{{ url_for('beranda') }}">
-          <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="IA Rent Fashion Logo"
-            class="logo" style="height:90px; width:auto; object-fit:contain;">
-        </a>
-
-        <!-- TOGGLER -->
-        <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-          <svg class="navbar-icon" width="22" height="22" fill="currentColor">
-            <use xlink:href="#navbar-icon"></use>
-          </svg>
-        </button>
-
-        <!-- OFFCANVAS MENU -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-semibold">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-
-          <div class="offcanvas-body d-flex justify-content-between align-items-center">
-
-            <!-- MENU -->
-            <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('beranda') }}">Beranda</a></li>
-              <li class="nav-item dropdown">
-                <a class="nav-link me-4 active dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
-                  aria-expanded="false">Koleksi</a>
-                <ul class="dropdown-menu animate slide border">
-                  <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
-                </ul>
-              </li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('review') }}">Review</a></li>
-            </ul>
-
-            <!-- USER ICONS -->
-            <ul class="d-flex list-unstyled mb-0 align-items-center">
-
-              <!-- Wishlist -->
-              <li class="ms-3 dropdown">
-                <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#heart"></use>
-                  </svg>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">2</span>
-                </a>
-                <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
-                  <h5 class="fw-bold mb-3">Wishlist Anda</h5>
-                  <ul class="list-group mb-3">
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Dress Brokat Elegan</h6>
-                        <small>Warna pastel lembut</small>
-                      </div>
-                      <span class="text-primary">Rp 100.000/hari</span>
+            <div
+              class="offcanvas-body d-flex justify-content-between align-items-center"
+            >
+              <!-- MENU -->
+              <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('beranda') }}"
+                    >Beranda</a
+                  >
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link me-4 dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    href="{{ url_for('koleksi') }}"
+                    role="button"
+                    aria-expanded="false"
+                    >Koleksi</a
+                  >
+                  <ul class="dropdown-menu animate slide border">
+                    <li>
+                      <a
+                        href="{{ url_for('koleksi', koleksi='jas') }}"
+                        class="dropdown-item fw-light"
+                        >Jas</a
+                      >
                     </li>
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Setelan Jas Slimfit</h6>
-                        <small>Ukuran L</small>
-                      </div>
-                      <span class="text-primary">Rp 120.000/hari</span>
+                    <li>
+                      <a
+                        href="{{ url_for('koleksi', koleksi='dress') }}"
+                        class="dropdown-item fw-light"
+                        >Dress</a
+                      >
                     </li>
-                  </ul>
-                  <a href="#" class="btn btn-dark w-100 rounded-pill">Lihat Semua</a>
-                </div>
-              </li>
-
-              <!-- Cart -->
-              <li class="ms-3 dropdown">
-                <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#cart"></use>
-                  </svg>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white">3</span>
-                </a>
-                <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
-                  <h5 class="fw-bold mb-3">Keranjang Anda</h5>
-                  <ul class="list-group mb-3">
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Kebaya Modern</h6>
-                        <small>1 item</small>
-                      </div>
-                      <span class="text-primary">Rp 95.000</span>
+                    <li>
+                      <a
+                        href="{{ url_for('koleksi', koleksi='aksesoris') }}"
+                        class="dropdown-item fw-light"
+                        >Aksesoris</a
+                      >
                     </li>
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Gaun Merah</h6>
-                        <small>1 item</small>
-                      </div>
-                      <span class="text-primary">Rp 110.000</span>
+                    <li>
+                      <a
+                        href="{{ url_for('koleksi', koleksi='kebaya') }}"
+                        class="dropdown-item fw-light"
+                        >Kebaya</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="{{ url_for('koleksi', koleksi='footwear') }}"
+                        class="dropdown-item fw-light"
+                        >Footwear</a
+                      >
                     </li>
                   </ul>
-                  <div class="d-grid gap-2">
-                    <a href="#" class="btn btn-dark rounded-pill">Lihat Keranjang</a>
-                    <a href="{{ url_for('sewa') }}" class="btn btn-primary rounded-pill">Checkout</a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link me-4 active"
+                    href="{{ url_for('inspirasi') }}"
+                    >Inspirasi</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('contact') }}"
+                    >Kontak</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('tentang') }}"
+                    >Tentang</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('review') }}"
+                    >Review</a
+                  >
+                </li>
+              </ul>
+
+              <!-- USER ICONS -->
+              <ul class="d-flex list-unstyled mb-0 align-items-center">
+                <!-- Wishlist -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle position-relative"
+                    data-bs-toggle="dropdown"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#heart"></use>
+                    </svg>
+                    <span
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
+                      >2</span
+                    >
+                  </a>
+                  <div
+                    class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end"
+                  >
+                    <h5 class="fw-bold mb-3">Wishlist Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Dress Brokat Elegan</h6>
+                          <small>Warna pastel lembut</small>
+                        </div>
+                        <span class="text-primary">Rp 100.000/hari</span>
+                      </li>
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Setelan Jas Slimfit</h6>
+                          <small>Ukuran L</small>
+                        </div>
+                        <span class="text-primary">Rp 120.000/hari</span>
+                      </li>
+                    </ul>
+                    <a href="#" class="btn btn-dark w-100 rounded-pill"
+                      >Lihat Semua</a
+                    >
                   </div>
-                </div>
-              </li>
+                </li>
 
-              <!-- User -->
-              <li class="ms-3">
-                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#user"></use>
-                  </svg>
-                </a>
-              </li>
-            </ul>
+                <!-- Cart -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle position-relative"
+                    data-bs-toggle="dropdown"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#cart"></use>
+                    </svg>
+                    <span
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white"
+                      >3</span
+                    >
+                  </a>
+                  <div
+                    class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end"
+                  >
+                    <h5 class="fw-bold mb-3">Keranjang Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Kebaya Modern</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 95.000</span>
+                      </li>
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Gaun Merah</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 110.000</span>
+                      </li>
+                    </ul>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-dark rounded-pill"
+                        >Lihat Keranjang</a
+                      >
+                      <a href="#" class="btn btn-primary rounded-pill"
+                        >Checkout</a
+                      >
+                    </div>
+                  </div>
+                </li>
+
+                <!-- User -->
+                <li class="ms-3">
+                  <a
+                    href="#"
+                    class="text-dark"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
 
     <!-- MODAL LOGIN & REGISTER -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 shadow">
           <div class="modal-header border-bottom-0">
             <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-
           <div class="modal-body px-4">
-            <ul class="nav nav-tabs mb-3 justify-content-center" id="loginTabs" role="tablist">
+            <ul
+              class="nav nav-tabs mb-3 justify-content-center"
+              id="loginTabs"
+              role="tablist"
+            >
               <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab" type="button">Login</button>
+                <button
+                  class="nav-link active"
+                  data-bs-toggle="tab"
+                  data-bs-target="#loginTab"
+                  type="button"
+                >
+                  Login
+                </button>
               </li>
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab" type="button">Daftar</button>
+                <button
+                  class="nav-link"
+                  data-bs-toggle="tab"
+                  data-bs-target="#registerTab"
+                  type="button"
+                >
+                  Daftar
+                </button>
               </li>
             </ul>
-
             <div class="tab-content">
-              <!-- TAB LOGIN -->
               <div class="tab-pane fade show active" id="loginTab">
                 <form>
                   <div class="mb-3">
                     <label>Email</label>
-                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
+                    <input
+                      type="email"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan email"
+                    />
                   </div>
                   <div class="mb-3">
                     <label>Password</label>
-                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
+                    <input
+                      type="password"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan password"
+                    />
                   </div>
-                  <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
+                  <button type="submit" class="btn btn-dark w-100 rounded-pill">
+                    Masuk
+                  </button>
                 </form>
               </div>
-
-              <!-- TAB DAFTAR -->
               <div class="tab-pane fade" id="registerTab">
                 <form>
                   <div class="mb-3">
                     <label>Nama Lengkap</label>
-                    <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap" required>
+                    <input
+                      type="text"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan nama lengkap"
+                    />
                   </div>
                   <div class="mb-3">
                     <label>Email</label>
-                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email" required>
+                    <input
+                      type="email"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan email"
+                    />
                   </div>
                   <div class="mb-3">
                     <label>Password</label>
-                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password" required>
+                    <input
+                      type="password"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan password"
+                    />
                   </div>
-                  <div class="mb-3">
-                    <label>No. Telepon</label>
-                    <input type="tel" class="form-control rounded-3" placeholder="Masukkan nomor telepon" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
+                  <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill"
+                  >
+                    Daftar
+                  </button>
                 </form>
               </div>
             </div>
@@ -255,57 +414,6 @@
         </div>
       </div>
     </div>
-
-
-  <!-- MODAL LOGIN & REGISTER -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4 shadow">
-        <div class="modal-header border-bottom-0">
-          <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body px-4">
-          <ul class="nav nav-tabs mb-3 justify-content-center" id="loginTabs" role="tablist">
-            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab" type="button">Login</button></li>
-            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab" type="button">Daftar</button></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="loginTab">
-              <form>
-                <div class="mb-3">
-                  <label>Email</label>
-                  <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
-                </div>
-                <div class="mb-3">
-                  <label>Password</label>
-                  <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
-              </form>
-            </div>
-            <div class="tab-pane fade" id="registerTab">
-              <form>
-                <div class="mb-3">
-                  <label>Nama Lengkap</label>
-                  <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap">
-                </div>
-                <div class="mb-3">
-                  <label>Email</label>
-                  <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
-                </div>
-                <div class="mb-3">
-                  <label>Password</label>
-                  <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
     <!-- DETAIL PRODUK SECTION -->
     <section class="py-5" style="margin-top: 100px">
