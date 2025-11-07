@@ -36,14 +36,6 @@
       <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z"/>
     </symbol>
 
-    <!-- Search -->
-    <symbol id="search" viewBox="0 0 16 16">
-      <path
-        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 
-        1.415-1.414l-3.85-3.85zm-5.242.656a5 5 0 1 1 
-        0-10 5 5 0 0 1 0 10z" />
-    </symbol>
-
     <!-- Heart / Wishlist -->
     <symbol id="heart" viewBox="0 0 16 16">
       <path
@@ -103,47 +95,29 @@
           </div>
 
           <div class="offcanvas-body d-flex justify-content-between align-items-center">
+
             <!-- MENU -->
             <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('beranda') }}">Beranda</a></li>
-                            <li class="nav-item dropdown">
-                  <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">Kategori</a>
-                  <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Jas</a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Dress</a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Aksesoris</a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Kebaya</a>
-                    </li>
-                    <li>
-                      <a href="{{ url_for('koleksi') }}" class="dropdown-item fw-light">Footwear</a>
-                    </li>
-                  </ul>
-                </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
+                  aria-expanded="false">Koleksi</a>
+                <ul class="dropdown-menu animate slide border">
+                  <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
+                  <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
+                  <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
+                  <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
+                  <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
+                </ul>
+              </li>
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('koleksi') }}">Koleksi</a></li>
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a></li>
-              <li class="nav-item"><a class="nav-link me-4 active fw-bold text-dark" href="{{ url_for('tentang') }}">Tentang</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('review') }}">Review</a></li>
+              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a></li>
+              <li class="nav-item"><a class="nav-link me-4 active" href="{{ url_for('review') }}">Review</a></li>
             </ul>
 
             <!-- USER ICONS -->
             <ul class="d-flex list-unstyled mb-0 align-items-center">
-              <!-- Search -->
-              <li class="ms-3">
-                <a href="#" class="text-dark search-button">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#search"></use>
-                  </svg>
-                </a>
-              </li>
 
               <!-- Wishlist -->
               <li class="ms-3 dropdown">
@@ -223,55 +197,69 @@
     </nav>
   </header>
 
-  <!-- MODAL LOGIN & REGISTER -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4 shadow">
-        <div class="modal-header border-bottom-0">
-          <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body px-4">
-          <ul class="nav nav-tabs mb-3 justify-content-center" id="loginTabs" role="tablist">
-            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab" type="button">Login</button></li>
-            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab" type="button">Daftar</button></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="loginTab">
-              <form>
-                <div class="mb-3">
-                  <label>Email</label>
-                  <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
-                </div>
-                <div class="mb-3">
-                  <label>Password</label>
-                  <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
-              </form>
-            </div>
-            <div class="tab-pane fade" id="registerTab">
-              <form>
-                <div class="mb-3">
-                  <label>Nama Lengkap</label>
-                  <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap">
-                </div>
-                <div class="mb-3">
-                  <label>Email</label>
-                  <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
-                </div>
-                <div class="mb-3">
-                  <label>Password</label>
-                  <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
-              </form>
+    <!-- MODAL LOGIN & REGISTER -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body px-4">
+            <ul class="nav nav-tabs mb-3 justify-content-center" id="loginTabs" role="tablist">
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab" type="button">Login</button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab" type="button">Daftar</button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <!-- TAB LOGIN -->
+              <div class="tab-pane fade show active" id="loginTab">
+                <form>
+                  <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
+                  </div>
+                  <div class="mb-3">
+                    <label>Password</label>
+                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
+                  </div>
+                  <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
+                </form>
+              </div>
+
+              <!-- TAB DAFTAR -->
+              <div class="tab-pane fade" id="registerTab">
+                <form>
+                  <div class="mb-3">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap" required>
+                  </div>
+                  <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email" required>
+                  </div>
+                  <div class="mb-3">
+                    <label>Password</label>
+                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password" required>
+                  </div>
+                  <div class="mb-3">
+                    <label>No. Telepon</label>
+                    <input type="tel" class="form-control rounded-3" placeholder="Masukkan nomor telepon" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
 
   <!-- MODAL LOGIN & REGISTER -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

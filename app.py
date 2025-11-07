@@ -1,8 +1,63 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
+import sqlite3
+from functools import wraps
+import os
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here_change_in_production'
 
-# Data Produk Lengkap
+# ===== DATABASE CONFIGURATION =====
+DATABASE = 'fashion_rental.db'
+
+def get_db():
+    """Membuat koneksi ke database"""
+    db = sqlite3.connect(DATABASE)
+    db.row_factory = sqlite3.Row
+    return db
+
+def init_db():
+    """Inisialisasi database"""
+    db = get_db()
+    cursor = db.cursor()
+    
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            phone TEXT NOT NULL,
+            password TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS login_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            ip_address TEXT,
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        )
+    ''')
+    
+    db.commit()
+    db.close()
+    print("✅ Database initialized!")
+
+def login_required(f):
+    """Decorator untuk melindungi halaman yang memerlukan login"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('Silakan login terlebih dahulu', 'error')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# ===== DATA PRODUK =====
 PRODUCTS = {
     1: {'id': 1, 'name': 'Jas Hitam Klasik', 'price': 120000, 'original_price': 140000, 'image': 'static/images/jas1.jpg', 'category': 'Jas', 'description': 'Jas klasik berwarna hitam dengan potongan sempurna untuk acara formal. Bahan premium berkualitas tinggi dengan jahitan rapi.'},
     2: {'id': 2, 'name': 'Jas Silver Elegan', 'price': 150000, 'original_price': 175000, 'image': 'static/images/jas2.jpg', 'category': 'Jas', 'description': 'Jas warna silver dengan desain elegan untuk acara istimewa. Cocok untuk pernikahan dan acara formal lainnya.'},
@@ -26,7 +81,165 @@ PRODUCTS = {
     20: {'id': 20, 'name': 'Sepatu Oxford Modern', 'price': 90000, 'original_price': 115000, 'image': 'static/images/pentopel4.jpg', 'category': 'Footwear', 'description': 'Sepatu oxford modern dengan desain contemporary yang stylish dan nyaman.'},
 }
 
-# ===== ROUTES =====
+# ===== AUTHENTICATION ROUTES =====
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    """Route untuk registrasi user baru"""
+    if request.method == 'POST':
+        name = request.form.get('name', '').strip()
+        email = request.form.get('email', '').strip()
+        phone = request.form.get('phone', '').strip()
+        password = request.form.get('password', '')
+        confirm_password = request.form.get('confirm_password', '')
+        terms = request.form.get('terms')
+        
+        # Validasi
+        if not all([name, email, phone, password, confirm_password]):
+            flash('❌ Semua field harus diisi', 'error')
+            return redirect(url_for('register'))
+        
+        if len(name) < 3:
+            flash('❌ Nama minimal 3 karakter', 'error')
+            return redirect(url_for('register'))
+        
+        if len(password) < 8:
+            flash('❌ Kata sandi minimal 8 karakter', 'error')
+            return redirect(url_for('register'))
+        
+        if password != confirm_password:
+            flash('❌ Kata sandi tidak cocok', 'error')
+            return redirect(url_for('register'))
+        
+        if not terms:
+            flash('❌ Anda harus menyetujui Syarat & Ketentuan', 'error')
+            return redirect(url_for('register'))
+        
+        try:
+            db = get_db()
+            cursor = db.cursor()
+            hashed_password = generate_password_hash(password)
+            
+            cursor.execute('''
+                INSERT INTO users (name, email, phone, password)
+                VALUES (?, ?, ?, ?)
+            ''', (name, email, phone, hashed_password))
+            
+            db.commit()
+            db.close()
+            
+            flash('✅ Registrasi berhasil! Silakan login', 'success')
+            return redirect(url_for('login'))
+        
+        except sqlite3.IntegrityError:
+            flash('❌ Email sudah terdaftar!', 'error')
+            return redirect(url_for('register'))
+        except Exception as e:
+            flash(f'❌ Error: {str(e)}', 'error')
+            return redirect(url_for('register'))
+    
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """Route untuk login user"""
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '')
+        remember = request.form.get('remember')
+        
+        if not email or not password:
+            flash('❌ Email dan kata sandi harus diisi', 'error')
+            return redirect(url_for('login'))
+        
+        try:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
+            user = cursor.fetchone()
+            
+            if user and check_password_hash(user['password'], password):
+                session['user_id'] = user['id']
+                session['user_name'] = user['name']
+                session['user_email'] = user['email']
+                
+                if remember:
+                    session.permanent = True
+                    app.permanent_session_lifetime = 2592000
+                
+                cursor.execute('''
+                    INSERT INTO login_history (user_id, ip_address)
+                    VALUES (?, ?)
+                ''', (user['id'], request.remote_addr))
+                db.commit()
+                
+                flash(f'✅ Selamat datang, {user["name"]}!', 'success')
+                db.close()
+                return redirect(url_for('beranda'))
+            else:
+                flash('❌ Email atau kata sandi salah', 'error')
+                db.close()
+                return redirect(url_for('login'))
+        
+        except Exception as e:
+            flash(f'❌ Error: {str(e)}', 'error')
+            return redirect(url_for('login'))
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    """Route untuk logout"""
+    session.clear()
+    flash('✅ Anda telah logout', 'success')
+    return redirect(url_for('login'))
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    """Route untuk forgot password"""
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip()
+        
+        if not email:
+            flash('❌ Silakan masukkan email Anda', 'error')
+            return redirect(url_for('forgot_password'))
+        
+        try:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute('SELECT id FROM users WHERE email = ?', (email,))
+            user = cursor.fetchone()
+            db.close()
+            
+            flash('✅ Jika email terdaftar, kami akan mengirim link reset', 'success')
+            return redirect(url_for('login'))
+        
+        except Exception as e:
+            flash(f'❌ Error: {str(e)}', 'error')
+            return redirect(url_for('forgot_password'))
+    
+    return render_template('forgot_password.html')
+
+@app.route('/profile')
+@login_required
+def profile():
+    """Route untuk profile user yang sudah login"""
+    try:
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT * FROM users WHERE id = ?', (session['user_id'],))
+        user = cursor.fetchone()
+        db.close()
+        
+        if user:
+            return render_template('profile.html', user=user)
+        else:
+            return redirect(url_for('logout'))
+    except Exception as e:
+        flash(f'❌ Error: {str(e)}', 'error')
+        return redirect(url_for('beranda'))
+
+# ===== MAIN ROUTES =====
 
 @app.route('/')
 @app.route('/index')
@@ -69,6 +282,12 @@ def review():
     """Halaman review"""
     return render_template('review.html')
 
+@app.route('/checkout')
+@login_required
+def checkout():
+    """Halaman checkout - hanya untuk user yang login"""
+    return render_template('checkout.html')
+
 # ===== API ROUTES =====
 
 @app.route('/api/products')
@@ -86,5 +305,19 @@ def api_product(product_id):
     
     return jsonify(product)
 
+# ===== ERROR HANDLERS =====
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def server_error(error):
+    return render_template('500.html'), 500
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Inisialisasi database jika belum ada
+    if not os.path.exists(DATABASE):
+        init_db()
+    
+    app.run(debug=True, host='localhost', port=5000)
