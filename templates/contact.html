@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IA Rent Fashion</title>
+    <title>IA Rent Fashion - Kontak</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,254 +12,471 @@
     <meta name="description" content="">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="static\style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bs-primary: #900C3F;
+            --bs-warning: #ffc107;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Nunito', sans-serif;
+            padding-top: 100px;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--bs-warning);
+            box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+        }
+
+        .btn-warning {
+            background-color: var(--bs-warning);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-warning:hover {
+            background-color: #ffb300;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--bs-warning);
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .custom-notification {
+            animation: slideInRight 0.3s ease;
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #900C3F 0%, rgba(255, 111, 126, 1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+            color: white;
+        }
+    </style>
   </head>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <body>
+    <!-- ===== SVG ICONS DEFINITIONS ===== -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <!-- Navbar icon -->
+      <symbol id="navbar-icon" viewBox="0 0 16 16">
+        <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z"/>
+      </symbol>
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+      <!-- Heart / Wishlist -->
+      <symbol id="heart" viewBox="0 0 16 16">
+        <path
+          d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 
+          2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z" />
+      </symbol>
 
-  <!-- ===== SVG ICONS DEFINITIONS ===== -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <!-- Navbar icon -->
-    <symbol id="navbar-icon" viewBox="0 0 16 16">
-      <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z"/>
-    </symbol>
+      <!-- Cart -->
+      <symbol id="cart" viewBox="0 0 16 16">
+        <path
+          d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 
+          .485.379L2.89 2H14a1 1 0 0 1 
+          .962 1.273l-1.5 5A1 1 0 0 1 
+          12.5 9H4.118l-.25 1H13a.5.5 0 0 1 
+          0 1H3.5a.5.5 0 0 1-.485-.621L4.89 
+          3H1.5a.5.5 0 0 1 0-1H1zM4.118 
+          8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 
+          0 1 1 0 3 1.5 1.5 0 0 1 
+          0-3zm7 0a1.5 1.5 0 1 1 
+          0 3 1.5 1.5 0 0 1 0-3z" />
+      </symbol>
 
-    <!-- Heart / Wishlist -->
-    <symbol id="heart" viewBox="0 0 16 16">
-      <path
-        d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 
-        2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z" />
-    </symbol>
+      <!-- User -->
+      <symbol id="user" viewBox="0 0 16 16">
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 
+          0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
+          4 0 0 0-8 0v.5a.5.5 0 0 0 
+          .5.5h7z" />
+      </symbol>
 
-    <!-- Cart -->
-    <symbol id="cart" viewBox="0 0 16 16">
-      <path
-        d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 
-        .485.379L2.89 2H14a1 1 0 0 1 
-        .962 1.273l-1.5 5A1 1 0 0 1 
-        12.5 9H4.118l-.25 1H13a.5.5 0 0 1 
-        0 1H3.5a.5.5 0 0 1-.485-.621L4.89 
-        3H1.5a.5.5 0 0 1 0-1H1zM4.118 
-        8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 
-        0 1 1 0 3 1.5 1.5 0 0 1 
-        0-3zm7 0a1.5 1.5 0 1 1 
-        0 3 1.5 1.5 0 0 1 0-3z" />
-    </symbol>
+      <!-- Search -->
+      <symbol id="search" viewBox="0 0 16 16">
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+      </symbol>
+    </svg>
 
-    <!-- User -->
-    <symbol id="user" viewBox="0 0 16 16">
-      <path
-        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 
-        0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
-        4 0 0 0-8 0v.5a.5.5 0 0 0 
-        .5.5h7z" />
-    </symbol>
-  </svg>
+<!-- HEADER -->
+    <header id="header" class="site-header">
+      <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
+        <div class="container">
 
-  <!-- HEADER -->
-  <header id="header" class="site-header">
-    <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
-      <div class="container">
+          <!-- LOGO -->
+          <a class="navbar-brand" href="{{ url_for('beranda') }}">
+            <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="IA Rent Fashion Logo"
+              class="logo" style="height:90px; width:auto; object-fit:contain;">
+          </a>
 
-        <!-- LOGO -->
-        <a class="navbar-brand" href="{{ url_for('beranda') }}">
-          <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="IA Rent Fashion Logo"
-            class="logo" style="height:90px; width:auto; object-fit:contain;">
-        </a>
+          <!-- TOGGLER -->
+          <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <svg class="navbar-icon" width="22" height="22" fill="currentColor">
+              <use xlink:href="#navbar-icon"></use>
+            </svg>
+          </button>
 
-        <!-- TOGGLER -->
-        <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-          <svg class="navbar-icon" width="22" height="22" fill="currentColor">
-            <use xlink:href="#navbar-icon"></use>
-          </svg>
-        </button>
-
-        <!-- OFFCANVAS MENU -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-semibold">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-
-          <div class="offcanvas-body d-flex justify-content-between align-items-center">
-
-            <!-- MENU -->
-            <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('beranda') }}">Beranda</a></li>
-              <li class="nav-item dropdown">
-                <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
-                  aria-expanded="false">Koleksi</a>
-                <ul class="dropdown-menu animate slide border">
-                  <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
-                </ul>
-              </li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
-              <li class="nav-item"><a class="nav-link me-4 active" href="{{ url_for('contact') }}">Kontak</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a></li>
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('review') }}">Review</a></li>
-            </ul>
-
-            <!-- USER ICONS -->
-            <ul class="d-flex list-unstyled mb-0 align-items-center">
-              <!-- Search -->
-              <li class="ms-3">
-                <a href="#" class="text-dark search-button">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#search"></use>
-                  </svg>
-                </a>
-              </li>
-
-              <!-- Wishlist -->
-              <li class="ms-3 dropdown">
-                <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#heart"></use>
-                  </svg>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">2</span>
-                </a>
-                <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
-                  <h5 class="fw-bold mb-3">Wishlist Anda</h5>
-                  <ul class="list-group mb-3">
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Dress Brokat Elegan</h6>
-                        <small>Warna pastel lembut</small>
-                      </div>
-                      <span class="text-primary">Rp 100.000/hari</span>
-                    </li>
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Setelan Jas Slimfit</h6>
-                        <small>Ukuran L</small>
-                      </div>
-                      <span class="text-primary">Rp 120.000/hari</span>
-                    </li>
-                  </ul>
-                  <a href="#" class="btn btn-dark w-100 rounded-pill">Lihat Semua</a>
-                </div>
-              </li>
-
-              <!-- Cart -->
-              <li class="ms-3 dropdown">
-                <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#cart"></use>
-                  </svg>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white">3</span>
-                </a>
-                <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
-                  <h5 class="fw-bold mb-3">Keranjang Anda</h5>
-                  <ul class="list-group mb-3">
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Kebaya Modern</h6>
-                        <small>1 item</small>
-                      </div>
-                      <span class="text-primary">Rp 95.000</span>
-                    </li>
-                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                      <div>
-                        <h6 class="fw-semibold">Gaun Merah</h6>
-                        <small>1 item</small>
-                      </div>
-                      <span class="text-primary">Rp 110.000</span>
-                    </li>
-                  </ul>
-                  <div class="d-grid gap-2">
-                    <a href="#" class="btn btn-dark rounded-pill">Lihat Keranjang</a>
-                    <a href="#" class="btn btn-primary rounded-pill">Checkout</a>
-                  </div>
-                </div>
-              </li>
-
-              <!-- User -->
-              <li class="ms-3">
-                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#user"></use>
-                  </svg>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- MODAL LOGIN & REGISTER -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4 shadow">
-        <div class="modal-header border-bottom-0">
-          <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body px-4">
-          <ul class="nav nav-tabs mb-3 justify-content-center" id="loginTabs" role="tablist">
-            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab" type="button">Login</button></li>
-            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab" type="button">Daftar</button></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="loginTab">
-              <form>
-                <div class="mb-3">
-                  <label>Email</label>
-                  <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
-                </div>
-                <div class="mb-3">
-                  <label>Password</label>
-                  <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
-              </form>
+          <!-- OFFCANVAS MENU -->
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title fw-semibold">Menu</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="tab-pane fade" id="registerTab">
-              <form>
-                <div class="mb-3">
-                  <label>Nama Lengkap</label>
-                  <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap">
-                </div>
-                <div class="mb-3">
-                  <label>Email</label>
-                  <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
-                </div>
-                <div class="mb-3">
-                  <label>Password</label>
-                  <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
-              </form>
+
+            <div class="offcanvas-body d-flex justify-content-between align-items-center">
+
+              <!-- MENU -->
+              <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
+                <li class="nav-item"><a class="nav-link me-4 active" href="{{ url_for('beranda') }}">Beranda</a></li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
+                    aria-expanded="false">Koleksi</a>
+                  <ul class="dropdown-menu animate slide border">
+                    <li><a href="{{ url_for('jas') }}">Jas</a></li>
+                    <li><a href="{{ url_for('dress') }}">Dress</a></li>
+                    <li><a href="{{ url_for('aksesoris') }}">Aksesori</a></li>
+                    <li><a href="{{ url_for('kebaya') }}">Kebaya</a></li>
+                    <li><a href="{{ url_for('footwear') }}">Footwear</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
+                <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a></li>
+                <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a></li>
+                <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('review') }}">Review</a></li>
+              </ul>
+
+              <!-- USER ICONS -->
+              <ul class="d-flex list-unstyled mb-0 align-items-center">
+                <!-- Search -->
+                <li class="ms-3">
+                  <a href="#" class="text-dark search-button">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#search"></use>
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- Wishlist -->
+                <li class="ms-3 dropdown">
+                  <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#heart"></use>
+                    </svg>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">2</span>
+                  </a>
+                  <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
+                    <h5 class="fw-bold mb-3">Wishlist Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="fw-semibold">Dress Brokat Elegan</h6>
+                          <small>Warna pastel lembut</small>
+                        </div>
+                        <span class="text-primary">Rp 100.000/hari</span>
+                      </li>
+                      <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="fw-semibold">Setelan Jas Slimfit</h6>
+                          <small>Ukuran L</small>
+                        </div>
+                        <span class="text-primary">Rp 120.000/hari</span>
+                      </li>
+                    </ul>
+                    <a href="#" class="btn btn-dark w-100 rounded-pill">Lihat Semua</a>
+                  </div>
+                </li>
+
+                <!-- Cart -->
+                <li class="ms-3 dropdown">
+                  <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#cart"></use>
+                    </svg>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white">3</span>
+                  </a>
+                  <div class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end">
+                    <h5 class="fw-bold mb-3">Keranjang Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="fw-semibold">Kebaya Modern</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 95.000</span>
+                      </li>
+                      <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="fw-semibold">Gaun Merah</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 110.000</span>
+                      </li>
+                    </ul>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-dark rounded-pill">Lihat Keranjang</a>
+                      <a href="#" class="btn btn-primary rounded-pill">Checkout</a>
+                    </div>
+                  </div>
+                </li>
+
+                <!-- User Menu (Login/Profile) -->
+                {% if g.user or session.get('user_id') %}
+                  <!-- Jika User Sudah Login -->
+                  <li class="ms-3 dropdown">
+                    <a href="#" class="text-dark dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" 
+                       style="text-decoration: none; gap: 8px;">
+                      <svg width="22" height="22" fill="currentColor">
+                        <use xlink:href="#user"></use>
+                      </svg>
+                      <span class="d-none d-sm-inline fw-semibold" style="font-size: 0.9rem;">
+                        {% if g.user %}
+                          {{ g.user.name[:15] }}
+                        {% else %}
+                          {{ session.get('user_name', 'User')[:15] }}
+                        {% endif %}
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                      <!-- Profile -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('profile') }}">
+                          <i class="bi bi-person-circle" style="font-size: 1.1rem; color: #e91e63;"></i>
+                          <span>Profile Saya</span>
+                        </a>
+                      </li>
+                      <!-- Pesanan -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                          <i class="bi bi-bag-check" style="font-size: 1.1rem; color: #ff9800;"></i>
+                          <span>Pesanan Saya</span>
+                        </a>
+                      </li>
+                      <!-- Favorit -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                          <i class="bi bi-heart" style="font-size: 1.1rem; color: #f44336;"></i>
+                          <span>Favorit Saya</span>
+                        </a>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <!-- Logout -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="{{ url_for('logout') }}">
+                          <i class="bi bi-box-arrow-right" style="font-size: 1.1rem;"></i>
+                          <span>Logout</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                {% else %}
+                  <!-- Jika User Belum Login -->
+                  <li class="ms-3 dropdown">
+                    <a href="#" class="text-dark dropdown-toggle" data-bs-toggle="dropdown" style="text-decoration: none;">
+                      <svg width="22" height="22" fill="currentColor">
+                        <use xlink:href="#user"></use>
+                      </svg>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('login') }}">
+                          <i class="bi bi-box-arrow-in-right" style="font-size: 1.1rem; color: #2196f3;"></i>
+                          <span>Login</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('register') }}">
+                          <i class="bi bi-person-plus" style="font-size: 1.1rem; color: #4caf50;"></i>
+                          <span>Daftar</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    
+    <!-- MODAL LOGIN & REGISTER -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body px-4">
+            <ul class="nav nav-tabs mb-3 justify-content-center" id="loginTabs" role="tablist">
+              <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab" type="button">Login</button></li>
+              <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab" type="button">Daftar</button></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="loginTab">
+                <form id="loginForm">
+                  <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email" required>
+                  </div>
+                  <div class="mb-3">
+                    <label>Password</label>
+                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password" required>
+                  </div>
+                  <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="registerTab">
+                <form id="registerForm">
+                  <div class="mb-3">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap" required>
+                  </div>
+                  <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email" required>
+                  </div>
+                  <div class="mb-3">
+                    <label>Password</label>
+                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password" required>
+                  </div>
+                  <div class="mb-3">
+                    <label>No. Telepon</label>
+                    <input type="tel" class="form-control rounded-3" placeholder="Masukkan nomor telepon" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
     <!-- ===== CONTACT SECTION ===== -->
     <section class="contact-section py-5 fade-in">
       <div class="container">
         <!-- Heading -->
         <div class="text-center mb-5">
-          <h2 class="fw-bold text-uppercase mb-3" style="color:#1e1e1e;">Hubungi Kami</h2>
+          <h2 class="section-title mb-3">Hubungi Kami</h2>
           <p class="mx-auto" style="max-width: 700px; color:#3a3a3a; font-size:1.05rem; line-height:1.8;">
             Kami siap membantu Anda! Silakan hubungi kami melalui formulir di bawah ini atau kunjungi langsung lokasi kami.
           </p>
@@ -271,22 +488,44 @@
           <!-- Form -->
           <div class="col-lg-6">
             <div class="card border-0 rounded-4 shadow-sm p-4 h-100">
-              <h4 class="fw-bold mb-3"><i class="bi bi-envelope-fill text-warning me-2"></i>Kirim Pesan</h4>
-              <form>
+              <h4 class="fw-bold mb-3"><i class="bi bi-envelope-fill text-warning me-2"></i>Kirim Pesan ke Admin</h4>
+              <form id="contactForm">
                 <div class="mb-3">
                   <label for="name" class="form-label fw-semibold">Nama Lengkap</label>
-                  <input type="text" class="form-control rounded-3" id="name" placeholder="Masukkan nama Anda">
+                  <input type="text" class="form-control rounded-3" id="name" placeholder="Masukkan nama Anda" required>
+                  <div class="invalid-feedback">Harap masukkan nama lengkap.</div>
                 </div>
                 <div class="mb-3">
                   <label for="email" class="form-label fw-semibold">Email</label>
-                  <input type="email" class="form-control rounded-3" id="email" placeholder="Masukkan email Anda">
+                  <input type="email" class="form-control rounded-3" id="email" placeholder="Masukkan email Anda" required>
+                  <div class="invalid-feedback">Harap masukkan email yang valid.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label fw-semibold">Nomor Telepon</label>
+                  <input type="tel" class="form-control rounded-3" id="phone" placeholder="Masukkan nomor telepon" required>
+                  <div class="invalid-feedback">Harap masukkan nomor telepon.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="subject" class="form-label fw-semibold">Subjek Pesan</label>
+                  <select class="form-select rounded-3" id="subject" required>
+                    <option value="">Pilih subjek pesan...</option>
+                    <option value="pertanyaan">Pertanyaan Umum</option>
+                    <option value="pemesanan">Pemesanan & Sewa</option>
+                    <option value="keluhan">Keluhan & Saran</option>
+                    <option value="kerjasama">Kerjasama & Partnership</option>
+                    <option value="lainnya">Lainnya</option>
+                  </select>
+                  <div class="invalid-feedback">Harap pilih subjek pesan.</div>
                 </div>
                 <div class="mb-3">
                   <label for="message" class="form-label fw-semibold">Pesan</label>
-                  <textarea class="form-control rounded-3" id="message" rows="4" placeholder="Tulis pesan Anda"></textarea>
+                  <textarea class="form-control rounded-3" id="message" rows="4" placeholder="Tulis pesan Anda secara detail..." required></textarea>
+                  <div class="form-text">Minimal 10 karakter</div>
+                  <div class="invalid-feedback">Harap tulis pesan Anda.</div>
                 </div>
-                <button type="submit" class="btn btn-warning text-dark fw-semibold rounded-pill px-4 py-2 shadow-sm">
-                  <i class="bi bi-send-fill me-1"></i> Kirim Pesan
+                <button type="submit" class="btn fw-semibold rounded-pill px-4 py-2 shadow-sm w-100" 
+                        style="background-color: #ee4695ff; border-color: #e83e8c; color: white;">
+                  <i class="bi bi-send-fill me-2"></i> Kirim Pesan ke Admin
                 </button>
               </form>
             </div>
@@ -296,22 +535,37 @@
           <div class="col-lg-6">
             <div class="card border-0 rounded-4 shadow-sm p-4 h-100">
               <h4 class="fw-bold mb-3"><i class="bi bi-geo-alt-fill text-warning me-2"></i>Alamat Kami</h4>
-              <p class="mb-3" style="color:#444;">
-                Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>
-                Kota Banjarmasin, Kalimantan Selatan 70123
-              </p>
+              <div class="contact-info-item">
+                <div>
+                  <h6 class="fw-bold mb-1">Alamat Toko</h6>
+                  <p class="mb-0" style="color:#444;">
+                    Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>
+                    Kota Banjarmasin, Kalimantan Selatan 70123
+                  </p>
+                </div>
+              </div>
 
               <h4 class="fw-bold mt-4 mb-3"><i class="bi bi-telephone-fill text-warning me-2"></i>Kontak</h4>
-              <p class="mb-3" style="color:#444;">
-                <b>Telepon:</b> +62 811-2223-3344<br>
-                <b>Email:</b> iarentfashion@gmail.com
-              </p>
+              <div class="contact-info-item">
+                <div>
+                  <h6 class="fw-bold mb-1">Telepon & WhatsApp</h6>
+                  <p class="mb-0" style="color:#444;">
+                    <b>Telepon:</b> +62 811-2223-3344<br>
+                    <b>Email:</b> iarentfashion@gmail.com
+                  </p>
+                </div>
+              </div>
 
               <h4 class="fw-bold mt-4 mb-3"><i class="bi bi-clock-fill text-warning me-2"></i>Jam Operasional</h4>
-              <p class="mb-3" style="color:#444;">
-                Senin - Sabtu: 09.00 - 20.00<br>
-                Minggu: Tutup
-              </p>
+              <div class="contact-info-item">
+                <div>
+                  <h6 class="fw-bold mb-1">Waktu Layanan</h6>
+                  <p class="mb-0" style="color:#444;">
+                    Senin - Sabtu: 09.00 - 20.00<br>
+                    Minggu: Tutup
+                  </p>
+                </div>
+              </div>
 
               <h4 class="fw-bold mt-4 mb-3"><i class="bi bi-map text-warning me-2"></i>Peta Lokasi</h4>
               <div class="map-container shadow-sm rounded-4 overflow-hidden">
@@ -326,88 +580,171 @@
       </div>
     </section>
 
-
-
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/6281122233344" class="whatsapp-float" target="_blank">
+      <i class="bi bi-whatsapp fs-4"></i>
+      <span class="fw-semibold">Chat Admin</span>
+    </a>
 
     <!-- FOOTER -->
-      <footer id="footer" class="bg-white border-top mt-5">
-        <div class="container py-5">
-          <div class="row gy-4">
+    <footer id="footer" class="bg-white border-top mt-5">
+      <div class="container py-5">
+        <div class="row gy-4">
 
-            <div class="col-lg-3 col-sm-6">
-              <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="logo"
-                class="img-fluid mb-3" style="max-width: 200px;">
-              <p>Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>Kota Banjarmasin, Kalimantan Selatan 70123</p>
-              <ul class="d-flex list-unstyled gap-3 mt-3">
-                <li><a href="https://facebook.com" class="text-dark"><i class="bi bi-facebook fs-5"></i></a></li>
-                <li><a href="https://instagram.com" class="text-dark"><i class="bi bi-instagram fs-5"></i></a></li>
-                <li><a href="https://youtube.com" class="text-dark"><i class="bi bi-youtube fs-5"></i></a></li>
-              </ul>
-            </div>
-
-            <div class="col-lg-2 col-sm-6">
-              <h5 class="fw-bold mb-3">Quick Links</h5>
-              <ul class="list-unstyled">
-                <li><a href="{{ url_for('beranda') }}" class="text-dark text-decoration-none">Beranda</a></li>
-                <li><a href="{{ url_for('koleksi') }}" class="text-dark text-decoration-none">Koleksi</a></li>
-                <li><a href="{{ url_for('inspirasi') }}" class="text-dark text-decoration-none">Inspirasi</a></li>
-                <li><a href="{{ url_for('contact') }}" class="text-dark text-decoration-none">Kontak</a></li>
-                <li><a href="{{ url_for('tentang') }}" class="text-dark text-decoration-none">Tentang</a></li>
-                <li><a href="{{ url_for('review') }}" class="text-dark text-decoration-none">Review</a></li>
-              </ul>
-            </div>
-
-            <div class="col-lg-3 col-sm-6">
-              <h5 class="fw-bold mb-3">Help & Info</h5>
-              <ul class="list-unstyled">
-                <li><a href="#" class="text-dark text-decoration-none">Cek Pesanan</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Kebijakan Pengembalian</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Hubungi Kami</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
-              </ul>
-            </div>
-
-            <div class="col-lg-4 col-sm-6">
-              <h5 class="fw-bold mb-3">Contact Us</h5>
-              <p>
-                Ada pertanyaan atau saran? <br>
-                <a href="mailto:iarentfashion@gmail.com" class="text-dark text-decoration-underline">iarentfashion@gmail.com</a>
-              </p>
-              <p>
-                Butuh bantuan cepat? Hubungi kami: <br>
-                <a href="https://wa.me/6281122233344" class="text-dark text-decoration-underline">+62 811-2223-3344</a>
-              </p>
-            </div>
-
+          <div class="col-lg-3 col-sm-6">
+            <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="logo"
+              class="img-fluid mb-3" style="max-width: 200px;">
+            <p>Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>Kota Banjarmasin, Kalimantan Selatan 70123</p>
+            <ul class="d-flex list-unstyled gap-3 mt-3">
+              <li><a href="https://facebook.com" class="text-dark"><i class="bi bi-facebook fs-5"></i></a></li>
+              <li><a href="https://instagram.com" class="text-dark"><i class="bi bi-instagram fs-5"></i></a></li>
+              <li><a href="https://youtube.com" class="text-dark"><i class="bi bi-youtube fs-5"></i></a></li>
+            </ul>
           </div>
 
-          <div class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap">
-            <div class="d-flex align-items-center gap-3">
-              <p class="mb-0 small fw-semibold">Payment options:</p>
-              <img src="{{ url_for('static', filename='images/visa.jpg') }}" alt="Visa" width="40" height="25"
-                class="rounded shadow-sm">
-              <img src="{{ url_for('static', filename='images/mastercard.jpg') }}" alt="MasterCard" width="40" height="25"
-                class="rounded shadow-sm">
-              <img src="{{ url_for('static', filename='images/paypal.jpg') }}" alt="PayPal" width="40" height="25"
-                class="rounded shadow-sm">
-            </div>
-            <p class="mb-0 small text-secondary">© 2025 IA Rent Fashion. All Rights Reserved.</p>
+          <div class="col-lg-2 col-sm-6">
+            <h5 class="fw-bold mb-3">Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="{{ url_for('beranda') }}" class="text-dark text-decoration-none">Beranda</a></li>
+              <li><a href="{{ url_for('koleksi') }}" class="text-dark text-decoration-none">Koleksi</a></li>
+              <li><a href="{{ url_for('inspirasi') }}" class="text-dark text-decoration-none">Inspirasi</a></li>
+              <li><a href="{{ url_for('contact') }}" class="text-dark text-decoration-none">Kontak</a></li>
+              <li><a href="{{ url_for('tentang') }}" class="text-dark text-decoration-none">Tentang</a></li>
+              <li><a href="{{ url_for('review') }}" class="text-dark text-decoration-none">Review</a></li>
+            </ul>
           </div>
+
+          <div class="col-lg-3 col-sm-6">
+            <h5 class="fw-bold mb-3">Help & Info</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-dark text-decoration-none">Cek Pesanan</a></li>
+              <li><a href="#" class="text-dark text-decoration-none">Kebijakan Pengembalian</a></li>
+              <li><a href="#" class="text-dark text-decoration-none">Hubungi Kami</a></li>
+              <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-sm-6">
+            <h5 class="fw-bold mb-3">Contact Us</h5>
+            <p>
+              Ada pertanyaan atau saran? <br>
+              <a href="mailto:iarentfashion@gmail.com" class="text-dark text-decoration-underline">iarentfashion@gmail.com</a>
+            </p>
+            <p>
+              Butuh bantuan cepat? Hubungi kami: <br>
+              <a href="https://wa.me/6281122233344" class="text-dark text-decoration-underline">+62 811-2223-3344</a>
+            </p>
+          </div>
+
         </div>
-      </footer>
 
-  <!-- JS -->
-  <script src="{{ url_for('static', filename='js/jquery-1.11.0.min.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-  // Inisialisasi GLightbox untuk gambar zoom
-  const lightbox = GLightbox({
-    selector: '.glightbox',
-    touchNavigation: true,
-    loop: true,
-    zoomable: true,
-  });
-</script>
+        <div class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap">
+          <div class="d-flex align-items-center gap-3">
+            <p class="mb-0 small fw-semibold">Payment options:</p>
+            <img src="{{ url_for('static', filename='images/visa.jpg') }}" alt="Visa" width="40" height="25"
+              class="rounded shadow-sm">
+            <img src="{{ url_for('static', filename='images/mastercard.jpg') }}" alt="MasterCard" width="40" height="25"
+              class="rounded shadow-sm">
+            <img src="{{ url_for('static', filename='images/paypal.jpg') }}" alt="PayPal" width="40" height="25"
+              class="rounded shadow-sm">
+          </div>
+          <p class="mb-0 small text-secondary">© 2025 IA Rent Fashion. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
 
-</body>
-</html>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Fungsi untuk menampilkan notifikasi
+      function showNotification(message, type = 'success') {
+          // Hapus notifikasi sebelumnya jika ada
+          const existingNotification = document.querySelector('.custom-notification');
+          if (existingNotification) {
+              existingNotification.remove();
+          }
+          
+          const notification = document.createElement('div');
+          notification.className = `custom-notification alert alert-${type} alert-dismissible fade show`;
+          notification.innerHTML = `
+              ${message}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          `;
+          
+          document.body.appendChild(notification);
+          
+          // Auto remove setelah 5 detik
+          setTimeout(() => {
+              if (notification.parentNode) {
+                  notification.remove();
+              }
+          }, 5000);
+      }
+
+      // Fungsi untuk validasi form
+      function validateForm(formData) {
+          if (!formData.name.trim()) {
+              showNotification('Harap masukkan nama lengkap.', 'danger');
+              return false;
+          }
+          if (!formData.email.trim()) {
+              showNotification('Harap masukkan email.', 'danger');
+              return false;
+          }
+          if (!isValidEmail(formData.email)) {
+              showNotification('Harap masukkan email yang valid.', 'danger');
+              return false;
+          }
+          if (!formData.phone.trim()) {
+              showNotification('Harap masukkan nomor telepon.', 'danger');
+              return false;
+          }
+          if (!formData.subject) {
+              showNotification('Harap pilih subjek pesan.', 'danger');
+              return false;
+          }
+          if (!formData.message.trim()) {
+              showNotification('Harap tulis pesan Anda.', 'danger');
+              return false;
+          }
+          if (formData.message.length < 10) {
+              showNotification('Pesan harus minimal 10 karakter.', 'danger');
+              return false;
+          }
+          return true;
+      }
+
+      // Fungsi untuk validasi email
+      function isValidEmail(email) {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return re.test(email);
+      }
+
+      // Fungsi untuk mengirim pesan ke admin
+      function sendMessageToAdmin(formData) {
+          // Simulasi pengiriman pesan (dalam implementasi real, ini akan mengirim ke backend)
+          console.log('Pesan dikirim ke admin:', formData);
+          
+          // Simpan pesan ke localStorage (simulasi database)
+          const messages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+          const newMessage = {
+              id: Date.now(),
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              subject: formData.subject,
+              message: formData.message,
+              timestamp: new Date().toISOString(),
+              status: 'unread'
+          };
+          
+          messages.push(newMessage);
+          localStorage.setItem('adminMessages', JSON.stringify(messages));
+          
+          return true;
+      }
+
+      // Event listener saat DOM siap
+      document.addEventListener('DOMContentLoaded', function() {
+          const contactForm = document.getElementById('contactForm');
+          

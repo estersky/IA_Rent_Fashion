@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IA Rent Fashion - Detail Produk</title>
+    <title>IA Rent Fashion</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" type="text/css" href="static\style.css" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,6 +27,7 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="static/css_koleksi/styles.css" />
   </head>
 
   <body>
@@ -122,7 +123,9 @@
               <!-- MENU -->
               <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="{{ url_for('beranda') }}"
+                  <a
+                    class="nav-link me-4 active"
+                    href="{{ url_for('beranda') }}"
                     >Beranda</a
                   >
                 </li>
@@ -136,47 +139,15 @@
                     >Koleksi</a
                   >
                   <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='jas') }}"
-                        class="dropdown-item fw-light"
-                        >Jas</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='dress') }}"
-                        class="dropdown-item fw-light"
-                        >Dress</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='aksesoris') }}"
-                        class="dropdown-item fw-light"
-                        >Aksesoris</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='kebaya') }}"
-                        class="dropdown-item fw-light"
-                        >Kebaya</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='footwear') }}"
-                        class="dropdown-item fw-light"
-                        >Footwear</a
-                      >
-                    </li>
+                    <li><a href="{{ url_for('jas') }}">Jas</a></li>
+                    <li><a href="{{ url_for('dress') }}">Dress</a></li>
+                    <li><a href="{{ url_for('aksesoris') }}">Aksesori</a></li>
+                    <li><a href="{{ url_for('kebaya') }}">Kebaya</a></li>
+                    <li><a href="{{ url_for('footwear') }}">Footwear</a></li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a
-                    class="nav-link me-4 active"
-                    href="{{ url_for('inspirasi') }}"
+                  <a class="nav-link me-4" href="{{ url_for('inspirasi') }}"
                     >Inspirasi</a
                   >
                 </li>
@@ -199,6 +170,15 @@
 
               <!-- USER ICONS -->
               <ul class="d-flex list-unstyled mb-0 align-items-center">
+                <!-- Search -->
+                <li class="ms-3">
+                  <a href="#" class="text-dark search-button">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#search"></use>
+                    </svg>
+                  </a>
+                </li>
+
                 <!-- Wishlist -->
                 <li class="ms-3 dropdown">
                   <a
@@ -294,19 +274,128 @@
                   </div>
                 </li>
 
-                <!-- User -->
-                <li class="ms-3">
+                <!-- User Menu (Login/Profile) -->
+                {% if g.user or session.get('user_id') %}
+                <!-- Jika User Sudah Login -->
+                <li class="ms-3 dropdown">
                   <a
                     href="#"
-                    class="text-dark"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    class="text-dark dropdown-toggle d-flex align-items-center"
+                    data-bs-toggle="dropdown"
+                    style="text-decoration: none; gap: 8px"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                    <span
+                      class="d-none d-sm-inline fw-semibold"
+                      style="font-size: 0.9rem"
+                    >
+                      {% if g.user %} {{ g.user.name[:15] }} {% else %} {{
+                      session.get('user_name', 'User')[:15] }} {% endif %}
+                    </span>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3"
+                  >
+                    <!-- Profile -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('profile') }}"
+                      >
+                        <i
+                          class="bi bi-person-circle"
+                          style="font-size: 1.1rem; color: #e91e63"
+                        ></i>
+                        <span>Profile Saya</span>
+                      </a>
+                    </li>
+                    <!-- Pesanan -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="#"
+                      >
+                        <i
+                          class="bi bi-bag-check"
+                          style="font-size: 1.1rem; color: #ff9800"
+                        ></i>
+                        <span>Pesanan Saya</span>
+                      </a>
+                    </li>
+                    <!-- Favorit -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="#"
+                      >
+                        <i
+                          class="bi bi-heart"
+                          style="font-size: 1.1rem; color: #f44336"
+                        ></i>
+                        <span>Favorit Saya</span>
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <!-- Logout -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                        href="{{ url_for('logout') }}"
+                      >
+                        <i
+                          class="bi bi-box-arrow-right"
+                          style="font-size: 1.1rem"
+                        ></i>
+                        <span>Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                {% else %}
+                <!-- Jika User Belum Login -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    style="text-decoration: none"
                   >
                     <svg width="22" height="22" fill="currentColor">
                       <use xlink:href="#user"></use>
                     </svg>
                   </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('login') }}"
+                      >
+                        <i
+                          class="bi bi-box-arrow-in-right"
+                          style="font-size: 1.1rem; color: #2196f3"
+                        ></i>
+                        <span>Login</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('register') }}"
+                      >
+                        <i
+                          class="bi bi-person-plus"
+                          style="font-size: 1.1rem; color: #4caf50"
+                        ></i>
+                        <span>Daftar</span>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
+                {% endif %}
               </ul>
             </div>
           </div>
@@ -537,12 +626,25 @@
 
             <!-- TOMBOL AKSI -->
             <div class="d-grid gap-2 mb-4">
+              <a
+                href="{{ url_for('sewa', product_id=product.id) }}"
+                class="btn btn-lg rounded-pill fw-bold"
+                style="
+                  background-color: #ea6262ff;
+                  border-color: #ea6262ff;
+                  color: white;
+                "
+              >
+                <i class="bi bi-calendar-check"></i> Sewa Sekarang
+              </a>
+
               <button
                 class="btn btn-dark btn-lg rounded-pill"
                 onclick="addToCart({{ product.id }})"
               >
                 <i class="bi bi-cart-fill"></i> Tambah ke Keranjang
               </button>
+
               <button
                 class="btn btn-outline-dark btn-lg rounded-pill"
                 onclick="addToWishlist({{ product.id }})"
@@ -701,4 +803,201 @@
     <script src="{{ url_for('static', filename='detailProduk/js/scripts.js') }}"></script>
     <script src="{{ url_for('static', filename='detailProduk/js/detail.js') }}"></script>
   </body>
+  <script>
+    function updateUserIcon() {
+      const userIcon = document.getElementById("userIcon");
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+      if (isLoggedIn) {
+        // Jika sudah login, arahkan ke halaman profile
+        userIcon.setAttribute("href", "/profile"); // Sesuaikan dengan route profile Anda
+        userIcon.removeAttribute("data-bs-toggle");
+        userIcon.removeAttribute("data-bs-target");
+      } else {
+        // Jika belum login, tampilkan modal
+        userIcon.setAttribute("href", "#");
+        userIcon.setAttribute("data-bs-toggle", "modal");
+        userIcon.setAttribute("data-bs-target", "#exampleModal");
+      }
+    }
+
+    // Fungsi untuk menangani klik tombol Sewa Sekarang
+    function handleSewaNow(productId) {
+      // Cek apakah user sudah login
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+      if (!isLoggedIn) {
+        // Tampilkan modal login
+        const loginModal = new bootstrap.Modal(
+          document.getElementById("exampleModal")
+        );
+        loginModal.show();
+
+        // Simpan productId untuk digunakan setelah login
+        localStorage.setItem("pendingProductId", productId);
+
+        return false; // Mencegah redirect
+      }
+
+      // Jika sudah login, lanjutkan ke halaman sewa
+      proceedToCheckout(productId);
+    }
+
+    // Fungsi untuk melanjutkan ke checkout
+    function proceedToCheckout(productId) {
+      // Ambil data produk dari elemen HTML
+      const productData = {
+        id: productId,
+        name: document.getElementById("detail-name").textContent,
+        category: document.getElementById("detail-category").textContent,
+        price: document.getElementById("detail-price").textContent,
+        image: document.getElementById("detail-image").src,
+        quantity: document.getElementById("quantity").value,
+        size:
+          document.querySelector('input[name="size"]:checked')?.value || "M",
+        totalPrice: document.getElementById("total-price").textContent,
+      };
+
+      // Simpan data produk ke localStorage
+      localStorage.setItem("selectedProduct", JSON.stringify(productData));
+
+      // Arahkan ke halaman checkout
+      window.location.href = "/sewa"; // Sesuaikan dengan route sewa Anda
+    }
+
+    // Fungsi untuk quantity
+    function increaseQuantity() {
+      const quantityInput = document.getElementById("quantity");
+      const currentQuantity = parseInt(quantityInput.value);
+      const pricePerDay = parseFloat(
+        document
+          .getElementById("detail-price")
+          .textContent.replace(/[^0-9]/g, "")
+      );
+
+      quantityInput.value = currentQuantity + 1;
+      updateTotalPrice(pricePerDay, currentQuantity + 1);
+    }
+
+    function decreaseQuantity() {
+      const quantityInput = document.getElementById("quantity");
+      const currentQuantity = parseInt(quantityInput.value);
+      const pricePerDay = parseFloat(
+        document
+          .getElementById("detail-price")
+          .textContent.replace(/[^0-9]/g, "")
+      );
+
+      if (currentQuantity > 1) {
+        quantityInput.value = currentQuantity - 1;
+        updateTotalPrice(pricePerDay, currentQuantity - 1);
+      }
+    }
+
+    function updateTotalPrice(pricePerDay, quantity) {
+      const totalPriceElement = document.getElementById("total-price");
+      const totalPrice = pricePerDay * quantity;
+      totalPriceElement.textContent =
+        "Rp. " + totalPrice.toLocaleString("id-ID");
+    }
+
+    // Fungsi untuk add to cart dan wishlist
+    function addToCart(productId) {
+      alert("Produk berhasil ditambahkan ke keranjang!");
+      // Implementasi add to cart logic di sini
+    }
+
+    function addToWishlist(productId) {
+      alert("Produk berhasil ditambahkan ke wishlist!");
+      // Implementasi add to wishlist logic di sini
+    }
+
+    // Event listener saat halaman dimuat
+    document.addEventListener("DOMContentLoaded", function () {
+      // Update user icon berdasarkan status login
+      updateUserIcon();
+
+      // Setup tombol Sewa Sekarang
+      const sewaButton = document.querySelector('a[href*="sewa"]');
+      if (sewaButton) {
+        const productIdMatch = sewaButton.href.match(/product_id=(\d+)/);
+        if (productIdMatch) {
+          const productId = productIdMatch[1];
+          sewaButton.setAttribute(
+            "onclick",
+            `handleSewaNow(${productId}); return false;`
+          );
+          sewaButton.setAttribute("href", "javascript:void(0)");
+        }
+      }
+
+      // Handle form login
+      const loginForm = document.querySelector("#loginTab form");
+      if (loginForm) {
+        loginForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Simulasi login berhasil
+          localStorage.setItem("isLoggedIn", "true");
+
+          // Tutup modal
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById("exampleModal")
+          );
+          modal.hide();
+
+          // Update user icon
+          updateUserIcon();
+
+          // Cek jika ada pending product
+          const pendingProductId = localStorage.getItem("pendingProductId");
+          if (pendingProductId) {
+            proceedToCheckout(pendingProductId);
+            localStorage.removeItem("pendingProductId");
+          } else {
+            alert("Login berhasil!");
+          }
+        });
+      }
+
+      // Handle form register
+      const registerForm = document.querySelector("#registerTab form");
+      if (registerForm) {
+        registerForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Simulasi register dan login berhasil
+          localStorage.setItem("isLoggedIn", "true");
+
+          // Tutup modal
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById("exampleModal")
+          );
+          modal.hide();
+
+          // Update user icon
+          updateUserIcon();
+
+          // Cek jika ada pending product
+          const pendingProductId = localStorage.getItem("pendingProductId");
+          if (pendingProductId) {
+            proceedToCheckout(pendingProductId);
+            localStorage.removeItem("pendingProductId");
+          } else {
+            alert("Registrasi berhasil!");
+          }
+        });
+      }
+    });
+
+    // Fungsi logout (opsional - panggil di halaman profile)
+    function handleLogout() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("pendingProductId");
+      localStorage.removeItem("selectedProduct");
+      updateUserIcon();
+      alert("Logout berhasil!");
+      window.location.href = "/beranda"; // Sesuaikan dengan route beranda Anda
+    }
+  </script>
 </html>

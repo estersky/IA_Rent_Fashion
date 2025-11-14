@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IA Rent Fashion</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="static\style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bs-primary-rgb: 144, 12, 63;
+        --bs-primary: #900c3f;
+        --bs-body-font-family: "Nunito", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #f8f8f8;
+        color: #333;
+        padding-top: 100px;
+        font-family: "Nunito", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      input,
+      select,
+      textarea,
+      button,
+      .form-control,
+      .form-select,
+      .btn {
+        font-family: "Nunito", sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 700;
+      }
+
+      .checkout-page {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      .breadcrumb {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+      }
+
+      .breadcrumb a {
+        color: #555;
+        text-decoration: none;
+      }
+
+      .breadcrumb a.active {
+        color: #000;
+        font-weight: bold;
+      }
+
+      .checkout-page h1 {
+        margin-bottom: 25px;
+      }
+
+      .checkout-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+
+      .checkout-form-section {
+        flex: 2;
+        min-width: 300px;
+      }
+
+      .order-summary-section {
+        flex: 1;
+        min-width: 280px;
+        position: sticky;
+        top: 120px;
+        align-self: flex-start;
+      }
+
+      /* Login Required Message */
+      .login-required {
+        background: linear-gradient(135deg, #fff8f8 0%, #ffffff 100%);
+        border: 2px solid #ffe0e0;
+        border-radius: 12px;
+        padding: 40px;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .login-required .bi {
+        font-size: 4em;
+        color: var(--bs-primary);
+        margin-bottom: 20px;
+      }
+
+      /* Stepper Cantik */
+      .checkout-stepper {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 40px;
+      }
+
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 1;
+        position: relative;
+        color: #ccc;
+        font-size: 0.8em;
+        text-align: center;
+        max-width: 25%;
+      }
+
+      .step .circle {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #ccc;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 8px;
+        z-index: 10;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+      }
+
+      .step.active .circle {
+        background-color: var(--bs-primary);
+      }
+
+      .step.active {
+        color: #333;
+        font-weight: bold;
+      }
+
+      .checkout-stepper .line {
+        height: 2px;
+        background-color: #e0e0e0;
+        flex-grow: 1;
+        margin: 15px -15px 0 -15px;
+        transition: background-color 0.3s ease;
+      }
+
+      .step.active + .line {
+        background-color: var(--bs-primary);
+      }
+
+      .step.done .circle {
+        background-color: #28a745;
+        content: "✔";
+        font-size: 1.2em;
+      }
+
+      .step.done + .line {
+        background-color: #28a745;
+      }
+
+      /* Box Form Profesional */
+      .checkout-box {
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #f0f0f0;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+      }
+
+      .checkout-box h3 {
+        margin-bottom: 25px;
+        font-weight: 700;
+      }
+
+      /* Form Group Profesional */
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .form-control,
+      .form-select {
+        padding: 12px;
+        border-radius: 6px;
+        border-color: #dee2e6;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.25rem rgba(144, 12, 63, 0.25);
+      }
+
+      /* Form row for two columns */
+      .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      /* Informasi Pengambilan */
+      .pickup-info {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+      }
+
+      .pickup-info h6 {
+        color: var(--bs-primary);
+        font-weight: bold;
+      }
+
+      /* Syarat Jaminan Box */
+      .terms-box {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+      }
+
+      .terms-box ul {
+        padding-left: 20px;
+        margin-bottom: 0;
+      }
+
+      .terms-box li {
+        font-size: 0.9em;
+        margin-bottom: 8px;
+      }
+
+      /* Tombol Lanjut */
+      .continue-button {
+        background-color: var(--bs-primary);
+        color: white;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-top: 20px;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 5px rgba(144, 12, 63, 0.3);
+      }
+
+      .continue-button:hover {
+        background-color: #c70d55;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(144, 12, 63, 0.4);
+      }
+
+      .continue-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* Tombol Kembali */
+      .btn-back-custom {
+        background-color: #ffffff;
+        border: 1px solid var(--bs-primary);
+        color: var(--bs-primary);
+        padding: 14px 30px;
+        border-radius: 8px;
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-top: 20px;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 10px rgba(144, 12, 63, 0.4);
+      }
+
+      .btn-back-custom:hover {
+        background-color: var(--bs-primary);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(144, 12, 63, 0.4);
+      }
+
+      .btn-back-custom:disabled {
+        background-color: #f0f0f0;
+        border-color: #e0e0e0;
+        color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* CSS Validasi Error */
+      .form-control.is-invalid,
+      .form-select.is-invalid,
+      .form-check-input.is-invalid {
+        border-color: #dc3545;
+      }
+
+      .invalid-feedback {
+        display: none;
+        color: #dc3545;
+        font-size: 0.85em;
+        margin-top: 5px;
+      }
+
+      .is-invalid ~ .invalid-feedback {
+        display: block;
+      }
+
+      /* === REVISI: CSS Order Summary Profesional === */
+      .order-summary-box h2 {
+        margin-bottom: 20px;
+      }
+
+      /* Ini adalah CSS untuk item saat ditambahkan */
+      .order-item {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        align-items: center;
+      }
+
+      .order-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #eee;
+      }
+
+      .item-details {
+        flex: 1;
+      }
+
+      .item-details p {
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      /* Atur line-height */
+      .item-name {
+        font-weight: 700;
+        font-size: 1em !important;
+        color: #333;
+      }
+
+      .item-meta {
+        color: #666;
+        font-size: 0.85em;
+      }
+
+      .item-price {
+        font-weight: 700;
+        font-size: 0.9em;
+        color: #555;
+      }
+
+      #empty-cart-message {
+        text-align: center;
+        color: #888;
+        padding: 20px 0;
+        font-style: italic;
+      }
+
+      /* Pemisah Elegan */
+      hr {
+        border: 0;
+        height: 1px;
+        background-color: #e9ecef;
+        margin: 25px 0;
+      }
+
+      .summary-line {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        color: #555;
+      }
+
+      /* Total Highlight */
+      .summary-line.total {
+        font-size: 1.3em;
+        color: #333;
+        font-weight: 700;
+        background-color: #f8f9fa;
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 8px;
+      }
+
+      .summary-line.total strong {
+        color: var(--bs-primary);
+      }
+
+      @media (max-width: 992px) {
+        .checkout-container {
+          flex-direction: column-reverse;
+        }
+
+        .order-summary-section {
+          position: static;
+        }
+      }
+
+      /* =============== CSS TAMBAHAN UNTUK PENYESUAIAN CHECKOUT (Revisi) =============== */
+
+      /* Custom Radio/Checkbox Styles (Untuk Opsi Pembayaran) */
+      .custom-radio-box {
+        border: 1px solid #dee2e6;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .custom-radio-box:hover {
+        border-color: #ced4da;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .custom-radio-box .form-check-input {
+        margin-top: 0.3em;
+      }
+
+      /* Highlight teks saat radio/checkbox terpilih */
+      .custom-radio-box input[type="radio"]:checked + .form-check-label h5,
+      .custom-radio-box input[type="checkbox"]:checked + .form-check-label h5 {
+        font-weight: 700;
+        color: var(--bs-primary);
+      }
+
+      /* Warna centang radio button */
+      .custom-radio-box input[type="radio"]:checked {
+        accent-color: var(--bs-primary);
+      }
+
+      /* Class ini bisa ditambahkan via JavaScript saat opsi dipilih */
+      .custom-radio-box.selected {
+        border-color: var(--bs-primary);
+        background-color: #fcebeb;
+        box-shadow: 0 0 0 0.25rem rgba(144, 12, 63, 0.1);
+      }
+
+      /* Penyempurnaan Pemisah Item di Order Summary */
+      .order-list {
+        margin-bottom: 25px;
+        padding-bottom: 5px;
+      }
+
+      .order-list .order-item {
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #f0f0f0;
+        margin-bottom: 15px;
+      }
+
+      .order-list .order-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      /* Style untuk Kotak Upload File (Misalnya untuk KTP/SIM) */
+      .file-upload-box {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        background-color: #fff;
+      }
+
+      .file-upload-box:hover {
+        border-color: var(--bs-primary);
+        background-color: #fcfcfc;
+      }
+
+      .file-upload-box p {
+        margin: 0;
+        font-size: 0.9em;
+        color: #666;
+      }
+
+      /* Styling for the next steps (after first step is completed) */
+      .step-content {
+        border-radius: 12px;
+        padding: 30px;
+        background-color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #f0f0f0;
+      }
+
+      /* Tambahan untuk ikon di file upload box */
+      .file-upload-box .bi {
+        font-size: 2em;
+        color: #900c3f;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      /* Mengganti display none untuk invalid-feedback jika ingin tetap menggunakan display block */
+      .form-check-input.is-invalid ~ .invalid-feedback {
+        display: block;
+      }
+
+      /* Mengatur agar teks label pada custom-radio-box berada di bawah atau di samping radio button */
+      .custom-radio-box .form-check-label {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-left: 0.5rem;
+      }
+
+      .custom-radio-box .form-check {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .custom-radio-box .form-check-label h5 {
+        margin-bottom: 0;
+        font-size: 1.1em;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .custom-radio-box .form-check-label p {
+        margin-top: 5px;
+        margin-bottom: 0;
+        font-size: 0.85em;
+        color: #777;
+      }
+
+      /* Mengatur lebar agar tidak melebihi container */
+      .custom-radio-box .form-check-label > * {
+        max-width: 100%;
+      }
+
+      /* Success Page */
+      .success-icon {
+        font-size: 5em;
+        color: #28a745;
+        animation: scaleIn 0.5s ease;
+      }
+
+      @keyframes scaleIn {
+        0% {
+          transform: scale(0);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* =============== END CSS TAMBAHAN =============== */
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header id="header" class="site-header">
+      <nav
+        id="header-nav"
+        class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top"
+      >
+        <div class="container">
+          <!-- LOGO -->
+          <a class="navbar-brand" href="{{ url_for('beranda') }}">
+            <img
+              src="{{ url_for('static', filename='images/main-logo.png') }}"
+              alt="IA Rent Fashion Logo"
+              class="logo"
+              style="height: 90px; width: auto; object-fit: contain"
+            />
+          </a>
+
+          <!-- TOGGLER -->
+          <button
+            class="navbar-toggler d-flex d-lg-none order-3 p-2"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#bdNavbar"
+            aria-controls="bdNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <svg class="navbar-icon" width="22" height="22" fill="currentColor">
+              <use xlink:href="#navbar-icon"></use>
+            </svg>
+          </button>
+
+          <!-- OFFCANVAS MENU -->
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title fw-semibold">Menu</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div
+              class="offcanvas-body d-flex justify-content-between align-items-center"
+            >
+              <!-- MENU -->
+              <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
+                <li class="nav-item">
+                  <a
+                    class="nav-link me-4 active"
+                    href="{{ url_for('beranda') }}"
+                    >Beranda</a
+                  >
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link me-4 dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    href="{{ url_for('koleksi') }}"
+                    role="button"
+                    aria-expanded="false"
+                    >Koleksi</a
+                  >
+                  <ul class="dropdown-menu animate slide border">
+                    <li><a href="{{ url_for('jas') }}">Jas</a></li>
+                    <li><a href="{{ url_for('dress') }}">Dress</a></li>
+                    <li><a href="{{ url_for('aksesoris') }}">Aksesori</a></li>
+                    <li><a href="{{ url_for('kebaya') }}">Kebaya</a></li>
+                    <li><a href="{{ url_for('footwear') }}">Footwear</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('inspirasi') }}"
+                    >Inspirasi</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('contact') }}"
+                    >Kontak</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('tentang') }}"
+                    >Tentang</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('review') }}"
+                    >Review</a
+                  >
+                </li>
+              </ul>
+
+              <!-- USER ICONS -->
+              <ul class="d-flex list-unstyled mb-0 align-items-center">
+                <!-- Search -->
+                <li class="ms-3">
+                  <a href="#" class="text-dark search-button">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#search"></use>
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- Wishlist -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle position-relative"
+                    data-bs-toggle="dropdown"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#heart"></use>
+                    </svg>
+                    <span
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
+                      >2</span
+                    >
+                  </a>
+                  <div
+                    class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end"
+                  >
+                    <h5 class="fw-bold mb-3">Wishlist Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Dress Brokat Elegan</h6>
+                          <small>Warna pastel lembut</small>
+                        </div>
+                        <span class="text-primary">Rp 100.000/hari</span>
+                      </li>
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Setelan Jas Slimfit</h6>
+                          <small>Ukuran L</small>
+                        </div>
+                        <span class="text-primary">Rp 120.000/hari</span>
+                      </li>
+                    </ul>
+                    <a href="#" class="btn btn-dark w-100 rounded-pill"
+                      >Lihat Semua</a
+                    >
+                  </div>
+                </li>
+
+                <!-- Cart -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle position-relative"
+                    data-bs-toggle="dropdown"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#cart"></use>
+                    </svg>
+                    <span
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white"
+                      >3</span
+                    >
+                  </a>
+                  <div
+                    class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end"
+                  >
+                    <h5 class="fw-bold mb-3">Keranjang Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Kebaya Modern</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 95.000</span>
+                      </li>
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Gaun Merah</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 110.000</span>
+                      </li>
+                    </ul>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-dark rounded-pill"
+                        >Lihat Keranjang</a
+                      >
+                      <a href="#" class="btn btn-primary rounded-pill"
+                        >Checkout</a
+                      >
+                    </div>
+                  </div>
+                </li>
+
+                <!-- User Menu (Login/Profile) -->
+                {% if g.user or session.get('user_id') %}
+                <!-- Jika User Sudah Login -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle d-flex align-items-center"
+                    data-bs-toggle="dropdown"
+                    style="text-decoration: none; gap: 8px"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                    <span
+                      class="d-none d-sm-inline fw-semibold"
+                      style="font-size: 0.9rem"
+                    >
+                      {% if g.user %} {{ g.user.name[:15] }} {% else %} {{
+                      session.get('user_name', 'User')[:15] }} {% endif %}
+                    </span>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3"
+                  >
+                    <!-- Profile -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('profile') }}"
+                      >
+                        <i
+                          class="bi bi-person-circle"
+                          style="font-size: 1.1rem; color: #e91e63"
+                        ></i>
+                        <span>Profile Saya</span>
+                      </a>
+                    </li>
+                    <!-- Pesanan -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="#"
+                      >
+                        <i
+                          class="bi bi-bag-check"
+                          style="font-size: 1.1rem; color: #ff9800"
+                        ></i>
+                        <span>Pesanan Saya</span>
+                      </a>
+                    </li>
+                    <!-- Favorit -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="#"
+                      >
+                        <i
+                          class="bi bi-heart"
+                          style="font-size: 1.1rem; color: #f44336"
+                        ></i>
+                        <span>Favorit Saya</span>
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <!-- Logout -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                        href="{{ url_for('logout') }}"
+                      >
+                        <i
+                          class="bi bi-box-arrow-right"
+                          style="font-size: 1.1rem"
+                        ></i>
+                        <span>Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                {% else %}
+                <!-- Jika User Belum Login -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    style="text-decoration: none"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('login') }}"
+                      >
+                        <i
+                          class="bi bi-box-arrow-in-right"
+                          style="font-size: 1.1rem; color: #2196f3"
+                        ></i>
+                        <span>Login</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('register') }}"
+                      >
+                        <i
+                          class="bi bi-person-plus"
+                          style="font-size: 1.1rem; color: #4caf50"
+                        ></i>
+                        <span>Daftar</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body px-4">
+            <ul
+              class="nav nav-tabs mb-3 justify-content-center"
+              id="loginTabs"
+              role="tablist"
+            >
+              <li class="nav-item">
+                <button
+                  class="nav-link active"
+                  data-bs-toggle="tab"
+                  data-bs-target="#loginTab"
+                  type="button"
+                >
+                  Login
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  data-bs-toggle="tab"
+                  data-bs-target="#registerTab"
+                  type="button"
+                >
+                  Daftar
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="loginTab">
+                <form id="loginForm">
+                  <div class="mb-3">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan email"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan password"
+                      required
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-dark w-100 rounded-pill">
+                    Masuk
+                  </button>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="registerTab">
+                <form id="registerForm">
+                  <div class="mb-3">
+                    <label>Nama Lengkap</label>
+                    <input
+                      type="text"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan nama lengkap"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan email"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan password"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label>No. Telepon</label>
+                    <input
+                      type="tel"
+                      class="form-control rounded-3"
+                      placeholder="Masukkan nomor telepon"
+                      required
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill"
+                  >
+                    Daftar
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="checkout-page">
+      <div class="breadcrumb">
+        <a href="#">Home</a> / <a href="#" class="active">Checkout</a>
+      </div>
+      <h1>Checkout Penyewaan</h1>
+
+      <div class="checkout-container" id="checkoutContainer">
+        <div class="checkout-form-section">
+          <div class="checkout-stepper">
+            <div class="step active" data-step="1">
+              <div class="circle">1</div>
+              <div class="label">Informasi & Jadwal</div>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-step="2">
+              <div class="circle">2</div>
+              <div class="label">Pembayaran</div>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-step="3">
+              <div class="circle">3</div>
+              <div class="label">Jaminan & Konfirmasi</div>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-step="4">
+              <div class="circle">4</div>
+              <div class="label">Selesai</div>
+            </div>
+          </div>
+
+          <form id="checkoutForm" novalidate>
+            <div class="checkout-box" id="step-1-content">
+              <h3>1. Informasi Pelanggan & Jadwal</h3>
+
+              <div class="form-row">
+                <div class="form-group mb-3">
+                  <label for="fullName">Nama Lengkap</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fullName"
+                    placeholder="Masukkan nama lengkap"
+                    required
+                  />
+                  <div class="invalid-feedback">Nama lengkap wajib diisi.</div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="contoh@mail.com"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Email wajib diisi dan harus valid.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group mb-3">
+                  <label for="phone">Nomor Telepon</label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="phone"
+                    placeholder="+62 8xx xxxx xxxx"
+                    required
+                  />
+                  <div class="invalid-feedback">Nomor telepon wajib diisi.</div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="province">Provinsi</label>
+                  <select class="form-select" id="province" required>
+                    <option value="">Pilih Provinsi...</option>
+                    <option value="jakarta">DKI Jakarta</option>
+                    <option value="jawa-barat">Jawa Barat</option>
+                  </select>
+                  <div class="invalid-feedback">Provinsi wajib dipilih.</div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group mb-3">
+                  <label for="startDate">Tanggal Mulai Sewa</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="startDate"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Tanggal mulai sewa wajib diisi.
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="endDate">Tanggal Selesai Sewa</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="endDate"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Tanggal selesai sewa wajib diisi.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Informasi Pengambilan -->
+              <div class="pickup-info">
+                <h6><i class="bi bi-info-circle"></i> Informasi Pengambilan</h6>
+                <p class="mb-2">
+                  Barang harus diambil sendiri di lokasi toko kami:
+                </p>
+                <p class="fw-bold mb-0">
+                  Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,
+                  Kota Banjarmasin, Kalimantan Selatan 70123
+                </p>
+                <p class="small text-muted mt-2 mb-0">
+                  Estimasi siap: 2 jam setelah pembayaran dikonfirmasi
+                </p>
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="continue-button"
+                  data-next-step="2"
+                >
+                  Lanjutkan ke Pembayaran
+                </button>
+              </div>
+            </div>
+
+            <div class="checkout-box hidden" id="step-2-content">
+              <h3>2. Metode Pembayaran</h3>
+
+              <label class="custom-radio-box selected">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="paymentOption"
+                    id="bankTransfer"
+                    checked
+                  />
+                  <label class="form-check-label" for="bankTransfer">
+                    <h5>Transfer Bank (BCA / Mandiri)</h5>
+                    <p class="text-muted small mb-0">
+                      Verifikasi manual, harap siapkan bukti transfer.
+                    </p>
+                  </label>
+                </div>
+              </label>
+
+              <label class="custom-radio-box">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="paymentOption"
+                    id="eWallet"
+                  />
+                  <label class="form-check-label" for="eWallet">
+                    <h5>E-Wallet (Gopay / Dana)</h5>
+                    <p class="text-muted small mb-0">
+                      Pembayaran instan melalui QRIS atau nomor HP.
+                    </p>
+                  </label>
+                </div>
+              </label>
+
+              <div class="d-flex justify-content-between">
+                <button
+                  type="button"
+                  class="btn-back-custom"
+                  data-prev-step="1"
+                >
+                  Kembali
+                </button>
+                <button
+                  type="button"
+                  class="continue-button"
+                  data-next-step="3"
+                >
+                  Lanjutkan ke Jaminan
+                </button>
+              </div>
+            </div>
+
+            <div class="checkout-box hidden" id="step-3-content">
+              <h3>3. Jaminan & Konfirmasi</h3>
+
+              <h4 class="h5 fw-bold mb-3">Persyaratan Jaminan</h4>
+              <div class="terms-box">
+                <h6 class="fw-bold text-danger">PENTING: Jaminan Dokumen</h6>
+                <p class="small mb-2">
+                  Untuk melanjutkan, Anda harus menyerahkan salah satu dokumen
+                  jaminan berikut saat pengambilan barang:
+                </p>
+                <ul>
+                  <li>Kartu Tanda Penduduk (KTP) Asli</li>
+                  <li>Surat Izin Mengemudi (SIM) Asli</li>
+                  <li>Kartu Pelajar/Mahasiswa Asli (Jika di bawah 17 tahun)</li>
+                </ul>
+                <p class="small mb-0 text-muted">
+                  Dokumen asli akan ditahan selama masa sewa dan dikembalikan
+                  saat pengembalian barang.
+                </p>
+              </div>
+
+              <h4 class="h5 fw-bold mb-3 mt-4">
+                Upload Foto Dokumen (Opsional)
+              </h4>
+              <div class="form-group mb-4">
+                <label>Foto KTP/SIM/Kartu Pelajar</label>
+                <div class="file-upload-box" id="fileUploadDropzone">
+                  <i class="bi bi-cloud-arrow-up"></i>
+                  <p id="fileUploadText">
+                    Seret dan lepas file di sini, atau klik untuk memilih.
+                  </p>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="jaminanFile"
+                    hidden
+                    accept="image/*"
+                  />
+                </div>
+                <small class="text-muted"
+                  >Upload foto dokumen untuk mempercepat proses verifikasi
+                  (opsional)</small
+                >
+              </div>
+
+              <div class="form-check mb-4">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="agreeTerms"
+                  required
+                />
+                <label class="form-check-label" for="agreeTerms">
+                  Saya setuju dengan
+                  <a href="#" class="text-decoration-underline text-primary"
+                    >Syarat & Ketentuan Sewa</a
+                  >
+                  yang berlaku.
+                </label>
+                <div class="invalid-feedback" id="termsError">
+                  Anda wajib menyetujui Syarat & Ketentuan.
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <button
+                  type="button"
+                  class="btn-back-custom"
+                  data-prev-step="2"
+                >
+                  Kembali
+                </button>
+                <button type="submit" class="continue-button">
+                  Konfirmasi Pesanan & Bayar
+                </button>
+              </div>
+            </div>
+
+            <div class="checkout-box hidden text-center" id="step-4-content">
+              <i class="bi bi-check-circle-fill success-icon"></i>
+              <h3 class="mt-4">Pesanan Berhasil Dikonfirmasi!</h3>
+              <p class="lead">
+                Terima kasih. Pesanan Anda <strong>#IAF20240012</strong> telah
+                berhasil dibuat dan menunggu pembayaran.
+              </p>
+              <p>
+                Kami telah mengirimkan detail pesanan dan instruksi pembayaran
+                ke email Anda.
+              </p>
+              <hr />
+              <div class="d-flex gap-3 justify-content-center">
+                <a href="{{ url_for('beranda') }}" class="btn btn-dark btn-lg">
+                  <i class="bi bi-house"></i> Kembali ke Beranda
+                </a>
+                <a
+                  href="#"
+                  class="btn btn-lg"
+                  style="background: var(--bs-primary); color: white"
+                >
+                  <i class="bi bi-receipt"></i> Lihat Status Pesanan
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="order-summary-section">
+          <div class="checkout-box order-summary-box">
+            <h2>Ringkasan Pesanan</h2>
+
+            <div id="order-list-items" class="order-list">
+              <!-- Items akan diisi dari localStorage -->
+            </div>
+
+            <div id="empty-cart-message" class="hidden text-center py-4">
+              <i class="bi bi-cart-x" style="font-size: 3em; color: #ccc"></i>
+              <p class="text-muted mt-2">Keranjang Anda kosong.</p>
+            </div>
+
+            <hr />
+
+            <div class="summary-line">
+              <span>Subtotal</span>
+              <span id="subtotalAmount">Rp 0</span>
+            </div>
+            <div class="summary-line">
+              <span>Biaya Pengiriman</span>
+              <span id="shippingFee">Gratis (Ambil Sendiri)</span>
+            </div>
+
+            <hr />
+
+            <div class="summary-line total">
+              <strong>TOTAL PEMBAYARAN</strong>
+              <strong id="totalAmount">Rp 0</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER (Tetap sama seperti sebelumnya) -->
+    <footer id="footer" class="bg-white border-top mt-5">
+      <div class="container py-5">
+        <div class="row gy-4">
+          <div class="col-lg-3 col-sm-6">
+            <img
+              src="{{ url_for('static', filename='images/main-logo.png') }}"
+              alt="logo"
+              class="img-fluid mb-3"
+              style="max-width: 200px"
+            />
+            <p>
+              Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br />Kota
+              Banjarmasin, Kalimantan Selatan 70123
+            </p>
+            <ul class="d-flex list-unstyled gap-3 mt-3">
+              <li>
+                <a href="https://facebook.com" class="text-dark"
+                  ><i class="bi bi-facebook fs-5"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://instagram.com" class="text-dark"
+                  ><i class="bi bi-instagram fs-5"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://youtube.com" class="text-dark"
+                  ><i class="bi bi-youtube fs-5"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-sm-6">
+            <h5 class="fw-bold mb-3">Quick Links</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a
+                  href="{{ url_for('beranda') }}"
+                  class="text-dark text-decoration-none"
+                  >Beranda</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('koleksi') }}"
+                  class="text-dark text-decoration-none"
+                  >Koleksi</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('inspirasi') }}"
+                  class="text-dark text-decoration-none"
+                  >Inspirasi</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('contact') }}"
+                  class="text-dark text-decoration-none"
+                  >Kontak</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <h5 class="fw-bold mb-3">Help & Info</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#" class="text-dark text-decoration-none"
+                  >Cek Pesanan</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-dark text-decoration-none"
+                  >Kebijakan Pengembalian</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-dark text-decoration-none"
+                  >Hubungi Kami</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-dark text-decoration-none">FAQ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <h5 class="fw-bold mb-3">Contact Us</h5>
+            <p>
+              Ada pertanyaan atau saran? <br />
+              <a
+                href="mailto:iarentfashion@gmail.com"
+                class="text-dark text-decoration-underline"
+                >iarentfashion@gmail.com</a
+              >
+            </p>
+            <p>
+              Butuh bantuan cepat? Hubungi kami: <br />
+              <a
+                href="https://wa.me/6281122233344"
+                class="text-dark text-decoration-underline"
+                >+62 811-2223-3344</a
+              >
+            </p>
+          </div>
+        </div>
+        <div
+          class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap"
+        >
+          <p class="mb-0 small text-secondary">
+            © 2025 IA Rent Fashion. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // Check login status
+      function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+        if (!isLoggedIn) {
+          document
+            .getElementById("loginRequiredMessage")
+            .classList.remove("hidden");
+          document.getElementById("checkoutContainer").classList.add("hidden");
+        } else {
+          document
+            .getElementById("loginRequiredMessage")
+            .classList.add("hidden");
+          document
+            .getElementById("checkoutContainer")
+            .classList.remove("hidden");
+          loadProductData();
+          initializeCheckout();
+        }
+      }
+
+      // Load product data from localStorage
+      function loadProductData() {
+        const productData = JSON.parse(localStorage.getItem("selectedProduct"));
+
+        if (productData) {
+          const orderList = document.getElementById("order-list-items");
+          const emptyCartMessage =
+            document.getElementById("empty-cart-message");
+
+          if (orderList && emptyCartMessage) {
+            emptyCartMessage.classList.add("hidden");
+
+            const orderItemHTML = `
+                        <div class="order-item">
+                            <img src="${productData.image}" alt="${productData.name}">
+                            <div class="item-details">
+                                <p class="item-name">${productData.name}</p>
+                                <p class="item-meta">
+                                    <span>${productData.category}</span> • 
+                                    <span>Ukuran: ${productData.size}</span> • 
+                                    <span>${productData.quantity} hari</span>
+                                </p>
+                            </div>
+                            <div class="item-price">${productData.totalPrice}</div>
+                        </div>
+                    `;
+
+            orderList.innerHTML = orderItemHTML;
+
+            // Update prices
+            const subtotalElement = document.getElementById("subtotalAmount");
+            const totalElement = document.getElementById("totalAmount");
+
+            if (subtotalElement && totalElement) {
+              subtotalElement.textContent = productData.totalPrice;
+              totalElement.textContent = productData.totalPrice;
+            }
+          }
+        } else {
+          // Jika tidak ada data produk, tampilkan pesan keranjang kosong
+          document.getElementById("order-list-items").classList.add("hidden");
+          document
+            .getElementById("empty-cart-message")
+            .classList.remove("hidden");
+        }
+      }
+
+      // Initialize checkout functionality
+      function initializeCheckout() {
+        // --- ELEMEN UTAMA ---
+        const form = document.getElementById("checkoutForm");
+        const stepperSteps = document.querySelectorAll(
+          ".checkout-stepper .step"
+        );
+        const contentSections = {
+          1: document.getElementById("step-1-content"),
+          2: document.getElementById("step-2-content"),
+          3: document.getElementById("step-3-content"),
+          4: document.getElementById("step-4-content"),
+        };
+        const fileUploadDropzone =
+          document.getElementById("fileUploadDropzone");
+        const jaminanFile = document.getElementById("jaminanFile");
+        const fileUploadText = document.getElementById("fileUploadText");
+
+        let currentStep = 1;
+
+        // --- FUNGSI UTILITY ---
+        function clearErrors() {
+          document
+            .querySelectorAll(".is-invalid")
+            .forEach((el) => el.classList.remove("is-invalid"));
+          document
+            .querySelectorAll(".invalid-feedback")
+            .forEach((el) => (el.style.display = "none"));
+        }
+
+        function showError(inputEl, message) {
+          inputEl.classList.add("is-invalid");
+          const errorEl = inputEl.nextElementSibling;
+          if (errorEl && errorEl.classList.contains("invalid-feedback")) {
+            errorEl.textContent = message;
+            errorEl.style.display = "block";
+          }
+          return false;
+        }
+
+        function updateStepUI(targetStep) {
+          // Update Stepper
+          stepperSteps.forEach((step) => {
+            const stepNum = parseInt(step.dataset.step);
+            step.classList.remove("active", "done");
+            if (stepNum < targetStep) {
+              step.classList.add("done");
+              step.querySelector(".circle").innerHTML = "✔";
+            } else if (stepNum === targetStep) {
+              step.classList.add("active");
+              step.querySelector(".circle").textContent = stepNum;
+            } else {
+              step.querySelector(".circle").textContent = stepNum;
+            }
+          });
+
+          // Tampilkan Konten
+          Object.keys(contentSections).forEach((key) => {
+            contentSections[key].classList.add("hidden");
+          });
+          if (contentSections[targetStep]) {
+            contentSections[targetStep].classList.remove("hidden");
+          }
+          currentStep = targetStep;
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          clearErrors();
+        }
+
+        function validateStep(step) {
+          clearErrors();
+          let isValid = true;
+          const currentContent = contentSections[step];
+          const requiredInputs = currentContent.querySelectorAll("[required]");
+
+          requiredInputs.forEach((input) => {
+            if (input.type === "checkbox" && !input.checked) {
+              input.classList.add("is-invalid");
+              isValid = false;
+            } else if (input.value.trim() === "") {
+              input.classList.add("is-invalid");
+              isValid = false;
+            } else if (input.id === "email" && !isValidEmail(input.value)) {
+              showError(input, "Email wajib diisi dan harus valid.");
+              isValid = false;
+            } else {
+              input.classList.remove("is-invalid");
+            }
+          });
+
+          // Custom validation for terms agreement in step 3
+          if (step === 3) {
+            if (!document.getElementById("agreeTerms").checked) {
+              document.getElementById("agreeTerms").classList.add("is-invalid");
+              document.getElementById("termsError").style.display = "block";
+              isValid = false;
+            }
+          }
+
+          // Fokus pada input pertama yang error
+          if (!isValid) {
+            const firstInvalid = currentContent.querySelector(".is-invalid");
+            if (firstInvalid) {
+              firstInvalid.focus();
+            }
+          }
+
+          return isValid;
+        }
+
+        function isValidEmail(email) {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return re.test(email);
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // Navigation Buttons
+        document
+          .querySelectorAll(
+            ".continue-button[data-next-step], .btn-back-custom[data-prev-step]"
+          )
+          .forEach((button) => {
+            button.addEventListener("click", function () {
+              const nextStep = parseInt(this.dataset.nextStep);
+              const prevStep = parseInt(this.dataset.prevStep);
+
+              if (nextStep) {
+                if (validateStep(currentStep)) {
+                  updateStepUI(nextStep);
+                }
+              } else if (prevStep) {
+                updateStepUI(prevStep);
+              }
+            });
+          });
+
+        // Form Submission (Final Step)
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (validateStep(3)) {
+            // Logika Final Submission
+            console.log("Form Submitted & Validated!");
+            updateStepUI(4);
+
+            // Kosongkan localStorage setelah checkout berhasil
+            localStorage.removeItem("selectedProduct");
+          }
+        });
+
+        // Payment Option Change (Update UI)
+        document
+          .querySelectorAll('input[name="paymentOption"]')
+          .forEach((input) => {
+            input.addEventListener("change", function () {
+              document
+                .querySelectorAll('input[name="paymentOption"]')
+                .forEach((radio) => {
+                  radio
+                    .closest(".custom-radio-box")
+                    .classList.remove("selected");
+                });
+              this.closest(".custom-radio-box").classList.add("selected");
+            });
+          });
+
+        // File Upload Dropzone Functionality
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+          fileUploadDropzone.addEventListener(
+            eventName,
+            preventDefaults,
+            false
+          );
+        });
+        function preventDefaults(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        ["dragenter", "dragover"].forEach((eventName) => {
+          fileUploadDropzone.addEventListener(
+            eventName,
+            () => fileUploadDropzone.classList.add("highlight"),
+            false
+          );
+        });
+        ["dragleave", "drop"].forEach((eventName) => {
+          fileUploadDropzone.addEventListener(
+            eventName,
+            () => fileUploadDropzone.classList.remove("highlight"),
+            false
+          );
+        });
+        fileUploadDropzone.addEventListener("drop", handleDrop, false);
+        function handleDrop(e) {
+          let dt = e.dataTransfer;
+          let files = dt.files;
+          handleFiles(files);
+        }
+        fileUploadDropzone.addEventListener("click", () => jaminanFile.click());
+        jaminanFile.addEventListener("change", (e) =>
+          handleFiles(e.target.files)
+        );
+
+        function handleFiles(files) {
+          if (files.length > 0) {
+            const fileName = files[0].name;
+            fileUploadText.textContent = `File terpilih: ${fileName}`;
+          }
+        }
+
+        // Login/Register functionality
+        const loginForm = document.getElementById("loginForm");
+        if (loginForm) {
+          loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            localStorage.setItem("isLoggedIn", "true");
+            checkLoginStatus();
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(
+              document.getElementById("loginModal")
+            );
+            modal.hide();
+          });
+        }
+
+        const registerForm = document.getElementById("registerForm");
+        if (registerForm) {
+          registerForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            localStorage.setItem("isLoggedIn", "true");
+            checkLoginStatus();
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(
+              document.getElementById("loginModal")
+            );
+            modal.hide();
+          });
+        }
+
+        // --- INISIALISASI ---
+        updateStepUI(1);
+      }
+
+      // Check login status saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", function () {
+        checkLoginStatus();
+      });
+
+      // Check login status
+      function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+        if (!isLoggedIn) {
+          // Redirect ke halaman detail atau tampilkan pesan error
+          alert("Anda harus login terlebih dahulu untuk melakukan penyewaan.");
+          window.location.href = "{{ url_for('koleksi') }}";
+          return false;
+        }
+        return true;
+      }
+
+      // Panggil fungsi check login saat halaman sewa dimuat
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!checkLoginStatus()) {
+          return;
+        }
+
+        // Lanjutkan dengan inisialisasi checkout seperti biasa
+        initializeCheckout();
+        loadProductData();
+      });
+    </script>
+    <script src="../static/asset/script.js"></script>
+  </body>
+</html>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from functools import wraps
+from flask import g
 import os
 
 app = Flask(__name__)
@@ -162,6 +163,7 @@ def login():
                 session['user_id'] = user['id']
                 session['user_name'] = user['name']
                 session['user_email'] = user['email']
+                session['show_welcome'] = True
                 
                 if remember:
                     session.permanent = True
@@ -191,8 +193,8 @@ def login():
 def logout():
     """Route untuk logout"""
     session.clear()
-    flash('✅ Anda telah logout', 'success')
-    return redirect(url_for('login'))
+    flash('✅ Anda telah logout. Silakan login kembali untuk melakukan transaksi.', 'info')
+    return redirect(url_for('beranda'))
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
@@ -241,6 +243,18 @@ def profile():
 
 # ===== MAIN ROUTES =====
 
+@app.before_request
+def before_request():
+    """Pass session ke semua template"""
+    from flask import g
+    g.user = None
+    if 'user_id' in session:
+        g.user = {
+            'id': session.get('user_id'),
+            'name': session.get('user_name'),
+            'email': session.get('user_email')
+        }
+
 @app.route('/')
 @app.route('/index')
 def beranda():
@@ -256,6 +270,31 @@ def contact():
 def koleksi():
     """Halaman koleksi produk"""
     return render_template('koleksi.html')
+
+@app.route('/jas')
+def jas():
+    return render_template('jas.html')
+
+@app.route('/dress')
+def dress():
+    return render_template('dress.html')
+
+@app.route('/aksesoris')
+def aksesoris():
+    return render_template('aksesoris.html')
+
+@app.route('/kebaya')
+def kebaya():
+    return render_template('kebaya.html')
+
+@app.route('/footwear')
+def footwear():
+    return render_template('footwear.html')
+
+@app.route('/sewa')
+def sewa():
+    return render_template('sewa.html')
+
 
 @app.route('/detail/<int:product_id>')
 def detail(product_id):
@@ -305,6 +344,214 @@ def api_product(product_id):
     
     return jsonify(product)
 
+# 👇👇👇 TAMBAHKAN KODE BARU DI SINI 👇👇👇
+
+# ===== SHOPPING CART API ROUTES =====
+
+@app.route('/cart')
+@login_required
+def cart():
+    """Halaman keranjang - hanya untuk user yang login"""
+    return render_template('cart.html')
+
+@app.route('/api/cart/add', methods=['POST'])
+@login_required
+def add_to_cart():
+    """API untuk menambahkan produk ke keranjang"""
+    try:
+        data = request.get_json()
+        product_id = data.get('product_id')
+        quantity = data.get('quantity', 1)
+        
+        # Validasi produk exists
+        if product_id not in PRODUCTS:
+            return jsonify({'success': False, 'message': 'Produk tidak ditemukan'}), 404
+        
+        # Logic untuk menyimpan ke session
+        if 'cart' not in session:
+            session['cart'] = {}
+        
+        cart = session['cart']
+        product_id_str = str(product_id)
+        
+        if product_id_str in cart:
+            cart[product_id_str] += quantity
+        else:
+            cart[product_id_str] = quantity
+        
+        session['cart'] = cart
+        session.modified = True
+        
+        return jsonify({
+            'success': True, 
+            'message': 'Produk berhasil ditambahkan ke keranjang',
+            'cart_count': sum(cart.values())
+        })
+    
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/cart')
+@login_required
+def get_cart():
+    """API untuk mendapatkan isi keranjang"""
+    try:
+        cart = session.get('cart', {})
+        cart_items = []
+        
+        for product_id_str, quantity in cart.items():
+            product_id = int(product_id_str)
+            if product_id in PRODUCTS:
+                product = PRODUCTS[product_id].copy()
+                product['quantity'] = quantity
+                cart_items.append(product)
+        
+        return jsonify({
+            'success': True,
+            'items': cart_items,
+            'count': sum(cart.values())
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/cart/count')
+def get_cart_count():
+    """API untuk mendapatkan jumlah item di keranjang"""
+    if 'user_id' not in session:
+        return jsonify({'count': 0})
+    
+    cart = session.get('cart', {})
+    return jsonify({'count': sum(cart.values())})
+
+@app.route('/api/cart/remove', methods=['POST'])
+@login_required
+def remove_from_cart():
+    """API untuk menghapus produk dari keranjang"""
+    try:
+        data = request.get_json()
+        product_id = str(data.get('product_id'))
+        
+        if 'cart' in session and product_id in session['cart']:
+            del session['cart'][product_id]
+            session.modified = True
+            
+            return jsonify({
+                'success': True,
+                'message': 'Produk berhasil dihapus dari keranjang'
+            })
+        
+        return jsonify({'success': False, 'message': 'Produk tidak ada di keranjang'}), 404
+    
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+# ===== WISHLIST API ROUTES =====
+
+@app.route('/wishlist')
+@login_required
+def wishlist():
+    """Halaman wishlist - hanya untuk user yang login"""
+    return render_template('wishlist.html')
+
+@app.route('/api/wishlist/add', methods=['POST'])
+@login_required
+def add_to_wishlist():
+    """API untuk menambahkan produk ke wishlist"""
+    try:
+        data = request.get_json()
+        product_id = data.get('product_id')
+        
+        # Validasi produk exists
+        if product_id not in PRODUCTS:
+            return jsonify({'success': False, 'message': 'Produk tidak ditemukan'}), 404
+        
+        # Logic untuk menyimpan ke session
+        if 'wishlist' not in session:
+            session['wishlist'] = []
+        
+        wishlist = session['wishlist']
+        
+        if product_id in wishlist:
+            return jsonify({
+                'success': False,
+                'message': 'Produk sudah ada di wishlist'
+            }), 400
+        
+        wishlist.append(product_id)
+        session['wishlist'] = wishlist
+        session.modified = True
+        
+        return jsonify({
+            'success': True,
+            'message': 'Produk berhasil ditambahkan ke wishlist',
+            'wishlist_count': len(wishlist)
+        })
+    
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/wishlist/remove', methods=['POST'])
+@login_required
+def remove_from_wishlist():
+    """API untuk menghapus produk dari wishlist"""
+    try:
+        data = request.get_json()
+        product_id = data.get('product_id')
+        
+        if 'wishlist' in session and product_id in session['wishlist']:
+            session['wishlist'].remove(product_id)
+            session.modified = True
+            
+            return jsonify({
+                'success': True,
+                'message': 'Produk berhasil dihapus dari wishlist'
+            })
+        
+        return jsonify({'success': False, 'message': 'Produk tidak ada di wishlist'}), 404
+    
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+# ===== REVIEW API ROUTES =====
+
+@app.route('/api/review/add', methods=['POST'])
+@login_required
+def add_review():
+    """API untuk menambahkan review produk"""
+    try:
+        data = request.get_json()
+        product_id = data.get('product_id')
+        rating = data.get('rating')
+        comment = data.get('comment', '').strip()
+        
+        # Validasi
+        if not product_id or not rating:
+            return jsonify({'success': False, 'message': 'Data tidak lengkap'}), 400
+        
+        if product_id not in PRODUCTS:
+            return jsonify({'success': False, 'message': 'Produk tidak ditemukan'}), 404
+        
+        if not (1 <= rating <= 5):
+            return jsonify({'success': False, 'message': 'Rating harus antara 1-5'}), 400
+        
+        # TODO: Simpan review ke database
+        
+        return jsonify({
+            'success': True,
+            'message': 'Review berhasil ditambahkan',
+            'data': {
+                'user_name': session.get('user_name'),
+                'rating': rating,
+                'comment': comment,
+                'created_at': 'Just now'
+            }
+        })
+    
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+# 👆👆👆 SAMPAI SINI 👆👆👆
+
 # ===== ERROR HANDLERS =====
 
 @app.errorhandler(404)
@@ -315,9 +562,35 @@ def not_found(error):
 def server_error(error):
     return render_template('500.html'), 500
 
-if __name__ == '__main__':
-    # Inisialisasi database jika belum ada
+@app.before_request
+def before_request():
+    """Jalankan sebelum setiap request"""
+    # Pastikan database sudah terinisialisasi
     if not os.path.exists(DATABASE):
         init_db()
+
+if __name__ == '__main__':
+    # Inisialisasi database saat startup
+    print("🔄 Menginisialisasi database...")
+    if not os.path.exists(DATABASE):
+        init_db()
+    else:
+        # Double check - pastikan tabel ada meskipun file sudah ada
+        try:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users'")
+            if not cursor.fetchone():
+                print("⚠️  Tabel users tidak ditemukan, membuat ulang...")
+                init_db()
+            db.close()
+        except Exception as e:
+            print(f"❌ Error checking tables: {e}")
     
+    print("✅ Database ready!")
+    print("🚀 Server running on http://localhost:5000")
     app.run(debug=True, host='localhost', port=5000)
+    
+    
+if __name__ == '__main__':
+    app.run(debug=True)

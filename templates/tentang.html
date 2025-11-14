@@ -67,7 +67,7 @@
     </symbol>
   </svg>
 
-  <!-- HEADER -->
+<!-- HEADER -->
   <header id="header" class="site-header">
     <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
       <div class="container">
@@ -97,26 +97,34 @@
 
             <!-- MENU -->
             <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
-              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('beranda') }}">Beranda</a></li>
+              <li class="nav-item"><a class="nav-link me-4 active" href="{{ url_for('beranda') }}">Beranda</a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
                   aria-expanded="false">Koleksi</a>
                 <ul class="dropdown-menu animate slide border">
-                  <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
-                  <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
+                  <li><a href="{{ url_for('jas') }}">Jas</a></li>
+                  <li><a href="{{ url_for('dress') }}">Dress</a></li>
+                  <li><a href="{{ url_for('aksesoris') }}">Aksesori</a></li>
+                  <li><a href="{{ url_for('kebaya') }}">Kebaya</a></li>
+                  <li><a href="{{ url_for('footwear') }}">Footwear</a></li>
                 </ul>
               </li>
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a></li>
-              <li class="nav-item"><a class="nav-link me-4 active" href="{{ url_for('tentang') }}">Tentang</a></li>
+              <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('tentang') }}">Tentang</a></li>
               <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('review') }}">Review</a></li>
             </ul>
 
             <!-- USER ICONS -->
             <ul class="d-flex list-unstyled mb-0 align-items-center">
+              <!-- Search -->
+              <li class="ms-3">
+                <a href="#" class="text-dark search-button">
+                  <svg width="22" height="22" fill="currentColor">
+                    <use xlink:href="#search"></use>
+                  </svg>
+                </a>
+              </li>
 
               <!-- Wishlist -->
               <li class="ms-3 dropdown">
@@ -181,21 +189,85 @@
                 </div>
               </li>
 
-              <!-- User -->
-              <li class="ms-3">
-                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <svg width="22" height="22" fill="currentColor">
-                    <use xlink:href="#user"></use>
-                  </svg>
-                </a>
-              </li>
+              <!-- User Menu (Login/Profile) -->
+              {% if g.user or session.get('user_id') %}
+                <!-- Jika User Sudah Login -->
+                <li class="ms-3 dropdown">
+                  <a href="#" class="text-dark dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" 
+                      style="text-decoration: none; gap: 8px;">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                    <span class="d-none d-sm-inline fw-semibold" style="font-size: 0.9rem;">
+                      {% if g.user %}
+                        {{ g.user.name[:15] }}
+                      {% else %}
+                        {{ session.get('user_name', 'User')[:15] }}
+                      {% endif %}
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                    <!-- Profile -->
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('profile') }}">
+                        <i class="bi bi-person-circle" style="font-size: 1.1rem; color: #e91e63;"></i>
+                        <span>Profile Saya</span>
+                      </a>
+                    </li>
+                    <!-- Pesanan -->
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                        <i class="bi bi-bag-check" style="font-size: 1.1rem; color: #ff9800;"></i>
+                        <span>Pesanan Saya</span>
+                      </a>
+                    </li>
+                    <!-- Favorit -->
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                        <i class="bi bi-heart" style="font-size: 1.1rem; color: #f44336;"></i>
+                        <span>Favorit Saya</span>
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <!-- Logout -->
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="{{ url_for('logout') }}">
+                        <i class="bi bi-box-arrow-right" style="font-size: 1.1rem;"></i>
+                        <span>Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              {% else %}
+                <!-- Jika User Belum Login -->
+                <li class="ms-3 dropdown">
+                  <a href="#" class="text-dark dropdown-toggle" data-bs-toggle="dropdown" style="text-decoration: none;">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('login') }}">
+                        <i class="bi bi-box-arrow-in-right" style="font-size: 1.1rem; color: #2196f3;"></i>
+                        <span>Login</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('register') }}">
+                        <i class="bi bi-person-plus" style="font-size: 1.1rem; color: #4caf50;"></i>
+                        <span>Daftar</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              {% endif %}
             </ul>
           </div>
         </div>
       </div>
     </nav>
   </header>
-
   <!-- MODAL LOGIN & REGISTER -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
