@@ -898,6 +898,14 @@ th {
   }
 }
 
+.payment-img {
+    width: 200px;      /* Ubah sesuai kebutuhan */
+    height: auto;      /* Menjaga proporsi */
+    display: block;
+    margin-top: 10px;
+}
+
+
 /* Search Bar
 ------------------------------------------------------------- */
 .search-box {
