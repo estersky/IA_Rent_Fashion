@@ -2,173 +2,603 @@
 <html>
   <head>
     <title>IA Rent Fashion - Review</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="author" content="">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        :root {
-            --bs-primary: #900C3F;
-            --bs-pink: #ff6f7e;
-        }
+      /* ===== FONTS ===== */
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap");
 
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Nunito', sans-serif;
-            padding-top: 100px;
-        }
+      /* ===== ROOT VARIABLES (Tema Utama) ===== */
+      :root {
+        --primary: #f85a87ff;
+        --primary-dark: #fb97b3ff;
+        --secondary: #ff9db9;
+        --dark: #1a1a2e;
+        --light-bg: #fafafa;
+        --border-radius: 20px;
+      }
 
-        .btn-pink {
-            background-color: var(--bs-pink);
-            color: #fff;
-            border: none;
-            transition: all 0.3s ease;
-        }
+      /* ===== GLOBAL & BODY STYLING ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        .btn-pink:hover {
-            background-color: #ff4f63;
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 111, 126, 0.3);
-        }
+      body {
+        font-family: "Sora", sans-serif;
+        background-color: var(--light-bg);
+        padding-top: 100px;
+        position: relative;
+        overflow-x: hidden;
+      }
 
-        .review-card {
-            border: none;
-            border-radius: 18px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            background: white;
-        }
+      /* Efek Nuansa Bunga & Hati Sesuai Gambar */
+      body::before {
+        content: "🌸";
+        position: fixed; /* Ubah dari absolute ke fixed */
+        font-size: 120px;
+        opacity: 0.05; /* Kurangi opacity agar tidak mengganggu */
+        top: 20%; /* Posisi lebih atas */
+        left: 5%; /* Posisi lebih ke kiri */
+        z-index: 0; /* Pastikan di belakang konten */
+        animation: float 8s ease-in-out infinite;
+        pointer-events: none; /* Agar tidak mengganggu interaksi */
+      }
 
-        .review-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-        }
+      body::after {
+        content: "💖";
+        position: fixed; /* Ubah dari absolute ke fixed */
+        font-size: 100px;
+        opacity: 0.05; /* Kurangi opacity agar tidak mengganggu */
+        top: 60%; /* Posisi lebih bawah */
+        right: 5%; /* Posisi lebih ke kanan */
+        z-index: 0; /* Pastikan di belakang konten */
+        animation: float 10s ease-in-out infinite reverse;
+        pointer-events: none; /* Agar tidak mengganggu interaksi */
+      }
 
-        .review-text {
-            font-style: italic;
-            color: #555;
-            line-height: 1.6;
-        }
+      /* Pastikan section testimonial memiliki z-index yang lebih tinggi */
+      .py-5.bg-light {
+        position: relative;
+        z-index: 1;
+      }
 
-        .section-title {
-            font-weight: 700;
-            font-size: 2.2rem;
-            text-transform: uppercase;
+      /* Pastikan semua konten utama memiliki z-index yang lebih tinggi */
+      main {
+        position: relative;
+        z-index: 1;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
         }
-
-        .star {
-            cursor: pointer;
-            transition: transform 0.2s ease;
+        50% {
+          transform: translateY(-20px) rotate(10deg);
         }
+      }
 
-        .star:hover {
-            transform: scale(1.2);
+      /* ===== TYPOGRAPHY (Font Tema) ===== */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      .section-title,
+      .page-title {
+        font-family: "Outfit", sans-serif;
+        font-weight: 800;
+        color: var(--dark);
+      }
+
+      /* Judul Utama Halaman */
+      .page-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 30px rgba(248, 90, 135, 0.2);
+      }
+
+      .decorative-line {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        margin: 1rem auto;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(248, 90, 135, 0.3);
+      }
+
+      /* ===== NAVBAR MODERN (Sesuai Gambar) ===== */
+      .navbar {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(248, 90, 135, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        padding: 0.8rem 0 !important;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-brand img {
+        transition: all 0.3s ease;
+        filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.1));
+      }
+
+      .navbar-brand img:hover {
+        transform: scale(1.05);
+      }
+
+      .navbar-nav .nav-link {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--dark) !important;
+        position: relative;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 0.5rem 0 !important;
+      }
+
+      .navbar-nav .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 3px;
+        bottom: -8px;
+        left: 0;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .navbar-nav .nav-link.active {
+        color: var(--primary) !important;
+      }
+
+      .navbar-nav .nav-link.active::after {
+        width: 100%;
+      }
+
+      .icon-badge {
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: var(--dark);
+        font-size: 1.3rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .icon-badge:hover {
+        transform: scale(1.15) rotate(5deg);
+        color: var(--primary);
+      }
+
+      .navbar .btn {
+        background: none;
+        border: none;
+        box-shadow: none;
+      }
+
+      /* ===== DROPDOWN MENU ===== */
+      .dropdown-menu {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(248, 90, 135, 0.1);
+        border-radius: 20px !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        animation: slideDownFade 0.3s ease;
+      }
+
+      @keyframes slideDownFade {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
+      .dropdown-item {
+        color: var(--dark);
+        transition: all 0.3s ease;
+        border-radius: 10px;
+        margin: 0.3rem 0;
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+      }
+
+      .dropdown-item:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(248, 90, 135, 0.1),
+          rgba(255, 157, 185, 0.1)
+        );
+        color: var(--primary);
+        transform: translateX(5px);
+      }
+
+      .dropdown-item.text-danger:hover {
+        background-color: #ffebee;
+      }
+
+      .dropdown-divider {
+        margin: 0.5rem 0;
+        border-top-color: rgba(248, 90, 135, 0.1);
+      }
+
+      .dropdown-toggle::after {
+        content: none;
+      }
+
+      /* ===== REVIEW PAGE STYLING (Tema Pink) ===== */
+
+      /* Kartu Statistik */
+      .stats-card {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        border-radius: var(--border-radius);
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(248, 90, 135, 0.3);
+        border: none;
+      }
+
+      .stats-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        font-family: "Outfit", sans-serif;
+        margin-bottom: 0;
+      }
+
+      /* Kontainer Filter */
+      .filter-section {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 20px;
+        box-shadow: 0 5px 20px rgba(248, 90, 135, 0.1);
+      }
+
+      /* Kartu Review */
+      .review-card {
+        background: white;
+        border: none;
+        border-radius: var(--border-radius);
+        box-shadow: 0 5px 20px rgba(248, 90, 135, 0.1);
+        transition: all 0.3s ease;
+        border-top: 3px solid var(--primary); /* Aksen pink */
+        height: 100%;
+        margin-bottom: 1.5rem;
+      }
+
+      .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(248, 90, 135, 0.15);
+      }
+
+      .review-text {
+        font-style: italic;
+        color: #555;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .star {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .star:hover {
+        transform: scale(1.2);
+      }
+
+      /* ===== TOMBOL & INTERAKSI (Tema Pink) ===== */
+
+      /* 1. Tombol Tambah Review (Header) */
+      .btn-pink {
+        background: linear-gradient(135deg, #f85a87, #ff9db9) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 700 !important;
+        padding: 12px 32px !important;
+        border-radius: 50px !important;
+        box-shadow: 0 8px 25px rgba(248, 90, 135, 0.3) !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+        overflow: hidden !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        font-size: 1rem !important;
+      }
+      .btn-pink:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 15px 35px rgba(248, 90, 135, 0.4) !important;
+        color: white !important;
+      }
+      .btn-pink::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        transition: left 0.4s ease !important;
+      }
+      .btn-pink:hover::before {
+        left: 100% !important;
+      }
+
+      /* 2. Tombol Filter Rating */
+      .rating-filter {
+        background: white !important;
+        border: 2px solid #e9ecef !important;
+        color: #666 !important;
+        padding: 11px 20px !important;
+        border-radius: 16px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+        font-size: 0.95rem !important;
+        cursor: pointer;
+      }
+      .rating-filter:hover {
+        border-color: #f85a87 !important;
+        color: #f85a87 !important;
+        transform: translateY(-2px) !important;
+      }
+      .rating-filter.active {
+        background: linear-gradient(
+          135deg,
+          rgba(248, 90, 135, 0.1),
+          rgba(255, 157, 185, 0.1)
+        ) !important;
+        border-color: #f85a87 !important;
+        color: #f85a87 !important;
+        box-shadow: 0 6px 20px rgba(248, 90, 135, 0.2) !important;
+      }
+
+      /* 3. Tombol Kirim Review (Modal) */
+      #submitReview {
+        background: linear-gradient(135deg, #f85a87, #ff9db9) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 700 !important;
+        padding: 11px 32px !important;
+        border-radius: 50px !important;
+        box-shadow: 0 8px 25px rgba(248, 90, 135, 0.3) !important;
+        transition: all 0.3s ease !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+      }
+      #submitReview:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 12px 30px rgba(248, 90, 135, 0.4) !important;
+      }
+
+      /* 4. Tombol Batal (Modal) */
+      .modal-footer .btn-secondary {
+        background: white !important;
+        color: #f85a87 !important;
+        border: 2px solid #f85a87 !important;
+        padding: 10px 28px !important;
+        border-radius: 50px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+      }
+      .modal-footer .btn-secondary:hover {
+        background: #f85a87 !important;
+        color: white !important;
+        transform: translateY(-2px) !important;
+      }
+
+      /* 5. Notifikasi */
+      .custom-notification {
+        background: linear-gradient(135deg, #667eea, #764ba2) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 16px !important;
+        padding: 16px 20px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+        font-weight: 600 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        animation: slideInRight 0.4s ease !important;
+      }
+      .custom-notification .btn-close {
+        filter: brightness(0) invert(1) !important;
+      }
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* 6. Bintang Interaktif di Modal */
+      #interactiveStars .star {
+        font-size: 1.8rem !important;
+        transition: transform 0.2s ease !important;
+      }
+      #interactiveStars .star:hover {
+        transform: scale(1.3) !important;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+        .navbar-brand img {
+          height: 70px !important;
+        }
+        .d-none.d-sm-inline {
+          display: none !important;
+        }
+        .navbar-nav .nav-link {
+          font-size: 0.85rem;
+        }
+        .page-title {
+          font-size: 2.2rem;
+        }
+        .btn-pink,
+        #submitReview,
+        .modal-footer .btn-secondary {
+          padding: 10px 24px !important;
+          font-size: 0.95rem !important;
+        }
         .rating-filter {
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
+          padding: 9px 16px !important;
+          font-size: 0.9rem !important;
         }
-
-        .rating-filter.active {
-            border-color: var(--bs-pink);
-            background-color: rgba(255, 111, 126, 0.1);
-        }
-
-        .custom-notification {
-            animation: slideInRight 0.3s ease;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .badge.bg-success {
-            font-size: 0.7em;
-            padding: 0.25em 0.5em;
-        }
-
-        .stats-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 15px;
-            padding: 25px;
-        }
-
-        .stats-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0;
-        }
-
-        .filter-section {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+      }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
-
+  
   <body>
     <!-- ===== SVG ICONS DEFINITIONS ===== -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-      <!-- Navbar icon -->
+      <!-- (Semua symbol SVG Anda tetap utuh) -->
+      <symbol id="alt-arrow-right-outline" viewBox="0 0 24 24">
+        <path fill="currentColor" fill-rule="evenodd"
+          d="M8.512 4.43a.75.75 0 0 1 1.057.082l6 7a.75.75 0 0 1 0 .976l-6 7a.75.75 0 0 1-1.138-.976L14.012 12L8.431 5.488a.75.75 0 0 1 .08-1.057"
+          clip-rule="evenodd" />
+      </symbol>
+      <symbol id="alt-arrow-left-outline" viewBox="0 0 24 24">
+        <path fill="currentColor" fill-rule="evenodd"
+          d="M15.488 4.43a.75.75 0 0 1 .081 1.058L9.988 12l5.581 6.512a.75.75 0 1 1-1.138.976l-6-7a.75.75 0 0 1 0-.976l6-7a.75.75 0 0 1 1.057-.081"
+          clip-rule="evenodd" />
+      </symbol>
+      <symbol id="cart-outline" viewBox="0 0 16 16">
+        <path
+          d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </symbol>
+      <symbol id="quality" viewBox="0 0 16 16">
+        <path
+          d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
+        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+      </symbol>
+      <symbol id="price-tag" viewBox="0 0 16 16">
+        <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z" />
+        <path
+          d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z" />
+      </symbol>
+      <symbol id="shield-plus" viewBox="0 0 16 16">
+        <path
+          d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" />
+        <path
+          d="M8 4.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V9a.5.5 0 0 1-1 0V7.5H6a.5.5 0 0 1 0-1h1.5V5a.5.5 0 0 1 .5-.5z" />
+      </symbol>
+      <symbol id="star-fill" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M9.153 5.408C10.42 3.136 11.053 2 12 2c.947 0 1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182c.28.213.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776c.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18c-.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506c-.766.582-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452c-.347 0-.674.15-1.328.452l-.596.274c-2.303 1.06-3.455 1.59-4.22 1.01c-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46c-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882c.293-.941 1.523-1.22 3.983-1.776l.636-.144c.699-.158 1.048-.237 1.329-.45c.28-.213.46-.536.82-1.182z" />
+      </symbol>
+      <symbol id="star-empty" viewBox="0 0 16 16">
+        <path
+          d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+      </symbol>
+      <symbol id="star-half" viewBox="0 0 16 16">
+        <path
+          d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
+      </symbol>
+      <symbol id="quote" viewBox="0 0 24 24">
+        <path fill="currentColor" d="m15 17l2-4h-4V6h7v7l-2 4h-3Zm-9 0l2-4H4V6h7v7l-2 4H6Z" />
+      </symbol>
+      <symbol id="facebook" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z" />
+      </symbol>
+      <symbol id="youtube" viewBox="0 0 32 32">
+        <path fill="currentColor"
+          d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z" />
+      </symbol>
+      <symbol id="twitter" viewBox="0 0 256 256">
+        <path fill="currentColor"
+          d="m245.66 77.66l-29.9 29.9C209.72 177.58 150.67 232 80 232c-14.52 0-26.49-2.3-35.58-6.84c-7.33-3.67-10.33-7.6-11.08-8.72a8 8 0 0 1 3.85-11.93c.26-.1 24.24-9.31 39.47-26.84a110.93 110.93 0 0 1-21.88-24.2c-12.4-18.41-26.28-50.39-22-98.18a8 8 0 0 1 13.65-4.92c.35.35 33.28 33.1 73.54 43.72V88a47.87 47.87 0 0 1 14.36-34.3A46.87 46.87 0 0 1 168.1 40a48.66 48.66 0 0 1 41.47 24H240a8 8 0 0 1 5.66 13.66Z" />
+      </symbol>
+      <symbol id="instagram" viewBox="0 0 256 256">
+        <path fill="currentColor"
+          d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z" />
+      </symbol>
+      <symbol id="linkedin" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" />
+      </symbol>
+      <symbol id="nav-icon" viewBox="0 0 16 16">
+        <path
+          d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
+      </symbol>
+      <symbol id="close" viewBox="0 0 16 16">
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+      </symbol>
       <symbol id="navbar-icon" viewBox="0 0 16 16">
         <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z"/>
       </symbol>
-
-      <!-- Heart / Wishlist -->
       <symbol id="heart" viewBox="0 0 16 16">
-        <path
-          d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 
-          2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z" />
+        <path d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z"/>
       </symbol>
-
-      <!-- Cart -->
       <symbol id="cart" viewBox="0 0 16 16">
-        <path
-          d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 
-          .485.379L2.89 2H14a1 1 0 0 1 
-          .962 1.273l-1.5 5A1 1 0 0 1 
-          12.5 9H4.118l-.25 1H13a.5.5 0 0 1 
-          0 1H3.5a.5.5 0 0 1-.485-.621L4.89 
-          3H1.5a.5.5 0 0 1 0-1H1zM4.118 
-          8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 
-          0 1 1 0 3 1.5 1.5 0 0 1 
-          0-3zm7 0a1.5 1.5 0 1 1 
-          0 3 1.5 1.5 0 0 1 0-3z" />
+        <path d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 .485.379L2.89 2H14a1 1 0 0 1 .962 1.273l-1.5 5A1 1 0 0 1 12.5 9H4.118l-.25 1H13a.5.5 0 0 1 0 1H3.5a.5.5 0 0 1-.485-.621L4.89 3H1.5a.5.5 0 0 1 0-1H1zM4.118 8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
       </symbol>
-
-      <!-- User -->
       <symbol id="user" viewBox="0 0 16 16">
-        <path
-          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 
-          0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
-          4 0 0 0-8 0v.5a.5.5 0 0 0 
-          .5.5h7z" />
+        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 4 0 0 0-8 0v.5a.5.5 0 0 0 .5.5h7z"/>
       </symbol>
     </svg>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
 
     <!-- HEADER -->
     <header id="header" class="site-header">
@@ -205,11 +635,11 @@
                   <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
                     aria-expanded="false">Koleksi</a>
                   <ul class="dropdown-menu animate slide border">
-                    <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
-                    <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
-                    <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
-                    <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
-                    <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
+                    <li><a href="{{ url_for('jas') }}">Jas</a></li>
+                    <li><a href="{{ url_for('dress') }}">Dress</a></li>
+                    <li><a href="{{ url_for('aksesoris') }}">Aksesori</a></li>
+                    <li><a href="{{ url_for('kebaya') }}">Kebaya</a></li>
+                    <li><a href="{{ url_for('footwear') }}">Footwear</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
@@ -220,6 +650,14 @@
 
               <!-- USER ICONS -->
               <ul class="d-flex list-unstyled mb-0 align-items-center">
+                <!-- Search -->
+                <li class="ms-3">
+                  <a href="#" class="text-dark search-button">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#search"></use>
+                    </svg>
+                  </a>
+                </li>
 
                 <!-- Wishlist -->
                 <li class="ms-3 dropdown">
@@ -279,19 +717,84 @@
                     </ul>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-dark rounded-pill">Lihat Keranjang</a>
-                      <a href="{{ url_for('sewa') }}" class="btn btn-primary rounded-pill">Checkout</a>
+                      <a href="#" class="btn btn-primary rounded-pill">Checkout</a>
                     </div>
                   </div>
                 </li>
 
-                <!-- User -->
-                <li class="ms-3">
-                  <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <svg width="22" height="22" fill="currentColor">
-                      <use xlink:href="#user"></use>
-                    </svg>
-                  </a>
-                </li>
+                <!-- User Menu (Login/Profile) -->
+                {% if g.user or session.get('user_id') %}
+                  <!-- Jika User Sudah Login -->
+                  <li class="ms-3 dropdown">
+                    <a href="#" class="text-dark dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" 
+                       style="text-decoration: none; gap: 8px;">
+                      <svg width="22" height="22" fill="currentColor">
+                        <use xlink:href="#user"></use>
+                      </svg>
+                      <span class="d-none d-sm-inline fw-semibold" style="font-size: 0.9rem;">
+                        {% if g.user %}
+                          {{ g.user.name[:15] }}
+                        {% else %}
+                          {{ session.get('user_name', 'User')[:15] }}
+                        {% endif %}
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                      <!-- Profile -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('profile') }}">
+                          <i class="bi bi-person-circle" style="font-size: 1.1rem; color: #e91e63;"></i>
+                          <span>Profile Saya</span>
+                        </a>
+                      </li>
+                      <!-- Pesanan -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('pesanan') }}">
+                          <i class="bi bi-bag-check" style="font-size: 1.1rem; color: #ff9800;"></i>
+                          <span>Pesanan Saya</span>
+                        </a>
+                      </li>
+                      <!-- Favorit -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                          <i class="bi bi-heart" style="font-size: 1.1rem; color: #f44336;"></i>
+                          <span>Favorit Saya</span>
+                        </a>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <!-- Logout -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="{{ url_for('logout') }}">
+                          <i class="bi bi-box-arrow-right" style="font-size: 1.1rem;"></i>
+                          <span>Logout</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                {% else %}
+                  <!-- Jika User Belum Login -->
+                  <li class="ms-3 dropdown">
+                    <a href="#" class="text-dark dropdown-toggle" data-bs-toggle="dropdown" style="text-decoration: none;">
+                      <svg width="22" height="22" fill="currentColor">
+                        <use xlink:href="#user"></use>
+                      </svg>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('login') }}">
+                          <i class="bi bi-box-arrow-in-right" style="font-size: 1.1rem; color: #2196f3;"></i>
+                          <span>Login</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('register') }}">
+                          <i class="bi bi-person-plus" style="font-size: 1.1rem; color: #4caf50;"></i>
+                          <span>Daftar</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                {% endif %}
               </ul>
             </div>
           </div>
@@ -299,111 +802,71 @@
       </nav>
     </header>
 
-    <!-- MODAL LOGIN & REGISTER -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 shadow">
-          <div class="modal-header border-bottom-0">
-            <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <div class="modal-body px-4">
-            <ul class="nav nav-tabs mb-3 justify-content-center" id="loginTabs" role="tablist">
-              <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab" type="button">Login</button>
-              </li>
-              <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab" type="button">Daftar</button>
-              </li>
-            </ul>
-
-            <div class="tab-content">
-              <!-- TAB LOGIN -->
-              <div class="tab-pane fade show active" id="loginTab">
-                <form id="loginForm">
-                  <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email" required>
-                  </div>
-                  <div class="mb-3">
-                    <label>Password</label>
-                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password" required>
-                  </div>
-                  <button type="submit" class="btn btn-dark w-100 rounded-pill">Masuk</button>
-                </form>
-              </div>
-
-              <!-- TAB DAFTAR -->
-              <div class="tab-pane fade" id="registerTab">
-                <form id="registerForm">
-                  <div class="mb-3">
-                    <label>Nama Lengkap</label>
-                    <input type="text" class="form-control rounded-3" placeholder="Masukkan nama lengkap" required>
-                  </div>
-                  <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email" required>
-                  </div>
-                  <div class="mb-3">
-                    <label>Password</label>
-                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password" required>
-                  </div>
-                  <div class="mb-3">
-                    <label>No. Telepon</label>
-                    <input type="tel" class="form-control rounded-3" placeholder="Masukkan nomor telepon" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- MAIN CONTENT -->
     <main>
       <!-- Section Testimonial -->
-      <section class="py-5 bg-light">
+      <section class="py-5">
         <div class="container">
-
           <!-- Header -->
           <div class="row align-items-center mb-5">
-            <div class="col-md-8">
-              <h2 class="section-title text-dark mb-2">APA KATA MEREKA?</h2>
-              <p class="text-muted" style="font-size:1.05rem; line-height:1.8;">
+            <div class="col-md-8 text-center text-md-start">
+              <h2 class="section-title text-center mb-4" style="font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(248, 90, 135, 0.2);">
+                APA KATA MEREKA?
+              </h2>
+              <div class="decorative-line" style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); margin: 0 auto 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(248, 90, 135, 0.3);"></div>
+              <p class="text-center hero-subtitle" style="font-size: 1.2rem; color: #666; line-height: 1.8; max-width: 600px; margin: 0 auto; font-weight: 500;">
                 Pendapat pelanggan yang sudah mencoba layanan kami
               </p>
             </div>
-            <div class="col-md-4 text-md-end">
-              <button class="btn btn-pink rounded-pill px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#tambahReviewModal">
+            <div class="col-md-4 text-center text-md-end mt-4 mt-md-0">
+              <button
+                class="btn btn-pink rounded-pill px-4 py-2 fw-semibold"
+                data-bs-toggle="modal"
+                data-bs-target="#tambahReviewModal"
+              >
                 <i class="bi bi-pencil-square me-2"></i>Tambah Review
               </button>
             </div>
           </div>
 
-
           <!-- Filter Section -->
           <div class="filter-section mb-4">
             <h5 class="fw-bold mb-3">Filter Berdasarkan Rating:</h5>
             <div class="d-flex flex-wrap gap-2">
-              <button class="btn btn-outline-secondary rating-filter active" data-rating="0">
+              <button
+                class="btn btn-outline-secondary rating-filter active"
+                data-rating="0"
+              >
                 Semua Review
               </button>
-              <button class="btn btn-outline-secondary rating-filter" data-rating="5">
+              <button
+                class="btn btn-outline-secondary rating-filter"
+                data-rating="5"
+              >
                 <i class="bi bi-star-fill text-warning"></i> 5 Bintang
               </button>
-              <button class="btn btn-outline-secondary rating-filter" data-rating="4">
+              <button
+                class="btn btn-outline-secondary rating-filter"
+                data-rating="4"
+              >
                 <i class="bi bi-star-fill text-warning"></i> 4 Bintang
               </button>
-              <button class="btn btn-outline-secondary rating-filter" data-rating="3">
+              <button
+                class="btn btn-outline-secondary rating-filter"
+                data-rating="3"
+              >
                 <i class="bi bi-star-fill text-warning"></i> 3 Bintang
               </button>
-              <button class="btn btn-outline-secondary rating-filter" data-rating="2">
+              <button
+                class="btn btn-outline-secondary rating-filter"
+                data-rating="2"
+              >
                 <i class="bi bi-star-fill text-warning"></i> 2 Bintang
               </button>
-              <button class="btn btn-outline-secondary rating-filter" data-rating="1">
+              <button
+                class="btn btn-outline-secondary rating-filter"
+                data-rating="1"
+              >
                 <i class="bi bi-star-fill text-warning"></i> 1 Bintang
               </button>
             </div>
@@ -417,42 +880,75 @@
       </section>
 
       <!-- Modal Tambah Review -->
-      <div class="modal fade" id="tambahReviewModal" tabindex="-1" aria-labelledby="tambahReviewLabel" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="tambahReviewModal"
+        tabindex="-1"
+        aria-labelledby="tambahReviewLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-4 shadow-lg border-0">
             <div class="modal-header border-0">
-              <h5 class="modal-title fw-bold" id="tambahReviewLabel">Tulis Review Kamu 💬</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5 class="modal-title fw-bold" id="tambahReviewLabel">
+                Tulis Review Kamu
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div class="modal-body">
               <form id="reviewForm">
                 <div class="mb-3">
                   <label class="form-label fw-semibold">Nama</label>
-                  <input type="text" class="form-control" id="reviewName" placeholder="Masukkan nama kamu" required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="reviewName"
+                    placeholder="Masukkan nama kamu"
+                    required
+                  />
                 </div>
                 <div class="mb-3">
                   <label class="form-label fw-semibold">Rating</label>
                   <div class="d-flex align-items-center gap-3">
                     <select class="form-select" id="reviewRating" required>
-                      <option value="5">★★★★★ (5 Bintang)</option>
-                      <option value="4">★★★★☆ (4 Bintang)</option>
-                      <option value="3">★★★☆☆ (3 Bintang)</option>
-                      <option value="2">★★☆☆☆ (2 Bintang)</option>
-                      <option value="1">★☆☆☆☆ (1 Bintang)</option>
+                      <option value="5">5 Bintang</option>
+                      <option value="4">4 Bintang</option>
+                      <option value="3">3 Bintang</option>
+                      <option value="2">2 Bintang</option>
+                      <option value="1">1 Bintang</option>
                     </select>
                     <div id="interactiveStars"></div>
                   </div>
                 </div>
                 <div class="mb-3">
                   <label class="form-label fw-semibold">Pesan / Ulasan</label>
-                  <textarea class="form-control" id="reviewMessage" rows="4" placeholder="Tulis pendapatmu di sini..." required></textarea>
+                  <textarea
+                    class="form-control"
+                    id="reviewMessage"
+                    rows="4"
+                    placeholder="Tulis pendapatmu di sini..."
+                    required
+                  ></textarea>
                   <div class="form-text">Minimal 10 karakter</div>
                 </div>
               </form>
             </div>
             <div class="modal-footer border-0">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-              <button type="button" class="btn btn-pink" id="submitReview">Kirim Review</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Batal
+              </button>
+              <button type="button" class="btn btn-pink" id="submitReview">
+                Kirim Review
+              </button>
             </div>
           </div>
         </div>
@@ -463,65 +959,159 @@
     <footer id="footer" class="bg-white border-top mt-5">
       <div class="container py-5">
         <div class="row gy-4">
-
           <div class="col-lg-3 col-sm-6">
-            <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="logo"
-              class="img-fluid mb-3" style="max-width: 200px;">
-            <p>Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>Kota Banjarmasin, Kalimantan Selatan 70123</p>
+            <img
+              src="{{ url_for('static', filename='images/main-logo.png') }}"
+              alt="logo"
+              class="img-fluid mb-3"
+              style="max-width: 200px"
+            />
+            <p>
+              Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br />Kota
+              Banjarmasin, Kalimantan Selatan 70123
+            </p>
             <ul class="d-flex list-unstyled gap-3 mt-3">
-              <li><a href="https://facebook.com" class="text-dark"><i class="bi bi-facebook fs-5"></i></a></li>
-              <li><a href="https://instagram.com" class="text-dark"><i class="bi bi-instagram fs-5"></i></a></li>
-              <li><a href="https://youtube.com" class="text-dark"><i class="bi bi-youtube fs-5"></i></a></li>
+              <li>
+                <a href="https://facebook.com" class="text-dark"
+                  ><i class="bi bi-facebook fs-5"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://instagram.com" class="text-dark"
+                  ><i class="bi bi-instagram fs-5"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://youtube.com" class="text-dark"
+                  ><i class="bi bi-youtube fs-5"></i
+                ></a>
+              </li>
             </ul>
           </div>
 
           <div class="col-lg-2 col-sm-6">
             <h5 class="fw-bold mb-3">Quick Links</h5>
             <ul class="list-unstyled">
-              <li><a href="{{ url_for('beranda') }}" class="text-dark text-decoration-none">Beranda</a></li>
-              <li><a href="{{ url_for('koleksi') }}" class="text-dark text-decoration-none">Koleksi</a></li>
-              <li><a href="{{ url_for('inspirasi') }}" class="text-dark text-decoration-none">Inspirasi</a></li>
-              <li><a href="{{ url_for('contact') }}" class="text-dark text-decoration-none">Kontak</a></li>
-              <li><a href="{{ url_for('tentang') }}" class="text-dark text-decoration-none">Tentang</a></li>
-              <li><a href="{{ url_for('review') }}" class="text-dark text-decoration-none">Review</a></li>
+              <li>
+                <a
+                  href="{{ url_for('beranda') }}"
+                  class="text-dark text-decoration-none"
+                  >Beranda</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('koleksi') }}"
+                  class="text-dark text-decoration-none"
+                  >Koleksi</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('inspirasi') }}"
+                  class="text-dark text-decoration-none"
+                  >Inspirasi</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('contact') }}"
+                  class="text-dark text-decoration-none"
+                  >Kontak</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('tentang') }}"
+                  class="text-dark text-decoration-none"
+                  >Tentang</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('review') }}"
+                  class="text-dark text-decoration-none"
+                  >Review</a
+                >
+              </li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-sm-6">
             <h5 class="fw-bold mb-3">Help & Info</h5>
             <ul class="list-unstyled">
-              <li><a href="#" class="text-dark text-decoration-none">Cek Pesanan</a></li>
-              <li><a href="#" class="text-dark text-decoration-none">Kebijakan Pengembalian</a></li>
-              <li><a href="#" class="text-dark text-decoration-none">Hubungi Kami</a></li>
-              <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
+              <li>
+                <a href="#" class="text-dark text-decoration-none"
+                  >Cek Pesanan</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-dark text-decoration-none"
+                  >Kebijakan Pengembalian</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-dark text-decoration-none"
+                  >Hubungi Kami</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-dark text-decoration-none">FAQ</a>
+              </li>
             </ul>
           </div>
 
           <div class="col-lg-4 col-sm-6">
             <h5 class="fw-bold mb-3">Contact Us</h5>
             <p>
-              Ada pertanyaan atau saran? <br>
-              <a href="mailto:iarentfashion@gmail.com" class="text-dark text-decoration-underline">iarentfashion@gmail.com</a>
+              Ada pertanyaan atau saran? <br />
+              <a
+                href="mailto:iarentfashion@gmail.com"
+                class="text-dark text-decoration-underline"
+                >iarentfashion@gmail.com</a
+              >
             </p>
             <p>
-              Butuh bantuan cepat? Hubungi kami: <br>
-              <a href="https://wa.me/6281122233344" class="text-dark text-decoration-underline">+62 811-2223-3344</a>
+              Butuh bantuan cepat? Hubungi kami: <br />
+              <a
+                href="https://wa.me/6281122233344"
+                class="text-dark text-decoration-underline"
+                >+62 811-2223-3344</a
+              >
             </p>
           </div>
-
         </div>
 
-        <div class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap">
+        <div
+          class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap"
+        >
           <div class="d-flex align-items-center gap-3">
             <p class="mb-0 small fw-semibold">Payment options:</p>
-            <img src="{{ url_for('static', filename='images/visa.jpg') }}" alt="Visa" width="40" height="25"
-              class="rounded shadow-sm">
-            <img src="{{ url_for('static', filename='images/mastercard.jpg') }}" alt="MasterCard" width="40" height="25"
-              class="rounded shadow-sm">
-            <img src="{{ url_for('static', filename='images/paypal.jpg') }}" alt="PayPal" width="40" height="25"
-              class="rounded shadow-sm">
+            <img
+              src="{{ url_for('static', filename='images/visa.jpg') }}"
+              alt="Visa"
+              width="40"
+              height="25"
+              class="rounded shadow-sm"
+            />
+            <img
+              src="{{ url_for('static', filename='images/mastercard.jpg') }}"
+              alt="MasterCard"
+              width="40"
+              height="25"
+              class="rounded shadow-sm"
+            />
+            <img
+              src="{{ url_for('static', filename='images/paypal.jpg') }}"
+              alt="PayPal"
+              width="40"
+              height="25"
+              class="rounded shadow-sm"
+            />
           </div>
-          <p class="mb-0 small text-secondary">© 2025 IA Rent Fashion. All Rights Reserved.</p>
+          <p class="mb-0 small text-secondary">
+            © 2025 IA Rent Fashion. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>
@@ -530,88 +1120,98 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       // Data review dari localStorage atau default
-      let reviews = JSON.parse(localStorage.getItem('reviews')) || [
-          {
-              id: 1,
-              name: "Indah Jumiatin",
-              rating: 5,
-              review: "Saya awalnya ragu untuk mencoba produk ini, tapi setelah melihat rekomendasi teman, saya memutuskan untuk mencobanya. Saat pertama kali digunakan, saya langsung merasa nyaman karena desainnya yang praktis dan mudah dipakai. Proses pemesanan cepat, dan kualitasnya sesuai harapan!",
-              date: "2 hari lalu",
-              verified: true
-          },
-          {
-              id: 2,
-              name: "Siti Aisyah",
-              rating: 5,
-              review: "Websitenya mudah digunakan, koleksi kebaya dan dress-nya banyak pilihan warna dan model. Harga sewanya juga terjangkau banget dibanding tempat lain. Pasti bakal sewa lagi nanti!",
-              date: "4 hari lalu",
-              verified: true
-          },
-          {
-              id: 3,
-              name: "Fajar Nugraha",
-              rating: 5,
-              review: "Aku sewa kebaya modern untuk acara wisuda, hasilnya bener-bener bagus! Bahannya halus, bersih, dan wangi. Ukurannya pas banget juga, jadi tampil percaya diri di hari spesial. Terima kasih banyak!",
-              date: "1 minggu lalu",
-              verified: true
-          },
-          {
-              id: 4,
-              name: "Nadia Kusuma",
-              rating: 4,
-              review: "Saya sewa kemeja dan dasi untuk acara formal kampus. Prosesnya cepat dan mudah, tinggal pilih di website terus ambil di tempat. Mungkin ke depan bisa ditambah warna kemeja yang lebih variatif.",
-              date: "2 minggu lalu",
-              verified: true
-          },
-          {
-              id: 5,
-              name: "Dewi Lestari",
-              rating: 5,
-              review: "Sangat puas! Adminnya sabar banget bantuin aku pilih ukuran dan warna yang pas. Baju juga dikemas rapi, bersih, dan harum. Pokoknya rekomendasi banget buat yang mau tampil anggun tanpa ribet.",
-              date: "3 minggu lalu",
-              verified: true
-          }
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [
+        {
+          id: 1,
+          name: "Indah Jumiatin",
+          rating: 5,
+          review:
+            "Saya awalnya ragu untuk mencoba produk ini, tapi setelah melihat rekomendasi teman, saya memutuskan untuk mencobanya. Saat pertama kali digunakan, saya langsung merasa nyaman karena desainnya yang praktis dan mudah dipakai. Proses pemesanan cepat, dan kualitasnya sesuai harapan!",
+          date: "2 hari lalu",
+          verified: true,
+        },
+        {
+          id: 2,
+          name: "Siti Aisyah",
+          rating: 5,
+          review:
+            "Websitenya mudah digunakan, koleksi kebaya dan dress-nya banyak pilihan warna dan model. Harga sewanya juga terjangkau banget dibanding tempat lain. Pasti bakal sewa lagi nanti!",
+          date: "4 hari lalu",
+          verified: true,
+        },
+        {
+          id: 3,
+          name: "Fajar Nugraha",
+          rating: 5,
+          review:
+            "Aku sewa kebaya modern untuk acara wisuda, hasilnya bener-bener bagus! Bahannya halus, bersih, dan wangi. Ukurannya pas banget juga, jadi tampil percaya diri di hari spesial. Terima kasih banyak!",
+          date: "1 minggu lalu",
+          verified: true,
+        },
+        {
+          id: 4,
+          name: "Nadia Kusuma",
+          rating: 4,
+          review:
+            "Saya sewa kemeja dan dasi untuk acara formal kampus. Prosesnya cepat dan mudah, tinggal pilih di website terus ambil di tempat. Mungkin ke depan bisa ditambah warna kemeja yang lebih variatif.",
+          date: "2 minggu lalu",
+          verified: true,
+        },
+        {
+          id: 5,
+          name: "Dewi Lestari",
+          rating: 5,
+          review:
+            "Sangat puas! Adminnya sabar banget bantuin aku pilih ukuran dan warna yang pas. Baju juga dikemas rapi, bersih, dan harum. Pokoknya rekomendasi banget buat yang mau tampil anggun tanpa ribet.",
+          date: "3 minggu lalu",
+          verified: true,
+        },
       ];
 
       // Fungsi untuk render stars
       function renderStars(rating) {
-          let stars = '';
-          for (let i = 1; i <= 5; i++) {
-              if (i <= rating) {
-                  stars += '<i class="bi bi-star-fill text-warning"></i>';
-              } else {
-                  stars += '<i class="bi bi-star text-warning"></i>';
-              }
+        let stars = "";
+        for (let i = 1; i <= 5; i++) {
+          if (i <= rating) {
+            stars += '<i class="bi bi-star-fill text-warning"></i>';
+          } else {
+            stars += '<i class="bi bi-star text-warning"></i>';
           }
-          return stars;
+        }
+        return stars;
       }
 
       // Fungsi untuk format tanggal
       function formatDate(date) {
-          const now = new Date();
-          const diffTime = Math.abs(now - date);
-          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-          
-          if (diffDays === 1) return '1 hari lalu';
-          if (diffDays < 7) return `${diffDays} hari lalu`;
-          if (diffDays < 30) return `${Math.ceil(diffDays / 7)} minggu lalu`;
-          return `${Math.ceil(diffDays / 30)} bulan lalu`;
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 1) return "1 hari lalu";
+        if (diffDays < 7) return `${diffDays} hari lalu`;
+        if (diffDays < 30) return `${Math.ceil(diffDays / 7)} minggu lalu`;
+        return `${Math.ceil(diffDays / 30)} bulan lalu`;
       }
 
       // Fungsi untuk render reviews
       function renderReviews() {
-          const reviewsContainer = document.getElementById('reviewsContainer');
-          if (!reviewsContainer) return;
-          
-          reviewsContainer.innerHTML = '';
-          
-          reviews.forEach(review => {
-              const reviewHTML = `
+        const reviewsContainer = document.getElementById("reviewsContainer");
+        if (!reviewsContainer) return;
+
+        reviewsContainer.innerHTML = "";
+
+        reviews.forEach((review) => {
+          const reviewHTML = `
                   <div class="col-12">
                       <div class="card review-card p-4">
                           <div class="d-flex justify-content-between align-items-center mb-2">
                               <div class="d-flex align-items-center gap-2">
                                   <h5 class="fw-bold mb-0">${review.name}</h5>
+                                  ${
+                                    review.verified
+                                      ? '<span class="badge bg-success"><i class="bi bi-patch-check-fill"></i> Terverifikasi</span>'
+                                      : ""
+                                  }
                               </div>
                               <small class="text-muted">${review.date}</small>
                           </div>
@@ -620,260 +1220,195 @@
                       </div>
                   </div>
               `;
-              reviewsContainer.innerHTML += reviewHTML;
-          });
+          reviewsContainer.innerHTML += reviewHTML;
+        });
       }
 
       // Fungsi untuk menambah review baru
       function addNewReview(reviewData) {
-          const newReview = {
-              id: reviews.length + 1,
-              name: reviewData.name,
-              rating: parseInt(reviewData.rating),
-              review: reviewData.message,
-              date: formatDate(new Date()),
-              verified: false // Review baru belum terverifikasi
-          };
-          
-          reviews.unshift(newReview); // Tambah di awal array
-          localStorage.setItem('reviews', JSON.stringify(reviews));
-          renderReviews();
-          
-          // Tampilkan notifikasi sukses
-          showNotification('Review berhasil dikirim! Terima kasih atas masukan Anda.', 'success');
+        const newReview = {
+          id: reviews.length + 1,
+          name: reviewData.name,
+          rating: parseInt(reviewData.rating),
+          review: reviewData.message,
+          date: formatDate(new Date()),
+          verified: false, // Review baru belum terverifikasi
+        };
+
+        reviews.unshift(newReview); // Tambah di awal array
+        localStorage.setItem("reviews", JSON.stringify(reviews));
+        renderReviews();
+
+        // Tampilkan notifikasi sukses
+        showNotification(
+          "Review berhasil dikirim! Terima kasih atas masukan Anda.",
+          "success"
+        );
       }
 
       // Fungsi untuk validasi form review
       function validateReviewForm(formData) {
-          if (!formData.name.trim()) {
-              showNotification('Harap masukkan nama Anda.', 'error');
-              return false;
-          }
-          if (!formData.rating) {
-              showNotification('Harap berikan rating.', 'error');
-              return false;
-          }
-          if (!formData.message.trim()) {
-              showNotification('Harap tulis pesan review Anda.', 'error');
-              return false;
-          }
-          if (formData.message.length < 10) {
-              showNotification('Review harus minimal 10 karakter.', 'error');
-              return false;
-          }
-          return true;
+        if (!formData.name.trim()) {
+          showNotification("Harap masukkan nama Anda.", "error");
+          return false;
+        }
+        if (!formData.rating) {
+          showNotification("Harap berikan rating.", "error");
+          return false;
+        }
+        if (formData.message.trim().length < 10) {
+          showNotification("Ulasan minimal 10 karakter.", "error");
+          return false;
+        }
+        return true;
       }
 
       // Fungsi untuk menampilkan notifikasi
-      function showNotification(message, type = 'info') {
-          // Hapus notifikasi sebelumnya jika ada
-          const existingNotification = document.querySelector('.custom-notification');
-          if (existingNotification) {
-              existingNotification.remove();
-          }
-          
-          const notification = document.createElement('div');
-          notification.className = `custom-notification alert alert-${type === 'error' ? 'danger' : 'success'} alert-dismissible fade show position-fixed`;
-          notification.style.cssText = `
-              top: 100px;
-              right: 20px;
-              z-index: 9999;
-              min-width: 300px;
-              box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-          `;
-          
-          notification.innerHTML = `
+      function showNotification(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.className = `toast align-items-center text-white bg-${type === "success" ? "success" : "danger"} border-0 custom-notification`;
+        toast.role = "alert";
+        toast.innerHTML = `
+          <div class="d-flex">
+            <div class="toast-body">
+              <i class="bi ${type === "success" ? "bi-check-circle" : "bi-exclamation-triangle"} me-2"></i>
               ${message}
-              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          `;
-          
-          document.body.appendChild(notification);
-          
-          // Auto remove setelah 5 detik
-          setTimeout(() => {
-              if (notification.parentNode) {
-                  notification.remove();
-              }
-          }, 5000);
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        `;
+
+        const toastContainer = document.getElementById("toastContainer") || createToastContainer();
+        toastContainer.appendChild(toast);
+
+        const bsToast = new bootstrap.Toast(toast, { delay: 4000 });
+        bsToast.show();
+
+        toast.addEventListener("hidden.bs.toast", () => toast.remove());
       }
 
-      // Fungsi untuk sistem rating interaktif
-      function initializeRatingSystem() {
-          const ratingSelect = document.getElementById('reviewRating');
-          const starsContainer = document.getElementById('interactiveStars');
-          
-          if (!ratingSelect || !starsContainer) return;
-          
-          // Render stars berdasarkan nilai select
-          function updateStars(rating) {
-              starsContainer.innerHTML = '';
-              for (let i = 1; i <= 5; i++) {
-                  const star = document.createElement('span');
-                  star.className = 'star';
-                  star.innerHTML = i <= rating ? 
-                      '<i class="bi bi-star-fill text-warning fs-4"></i>' : 
-                      '<i class="bi bi-star text-warning fs-4"></i>';
-                  star.style.cursor = 'pointer';
-                  star.style.marginRight = '5px';
-                  
-                  star.addEventListener('click', () => {
-                      ratingSelect.value = i;
-                      updateStars(i);
-                  });
-                  
-                  starsContainer.appendChild(star);
-              }
-          }
-          
-          // Update stars saat select berubah
-          ratingSelect.addEventListener('change', (e) => {
-              updateStars(parseInt(e.target.value));
-          });
-          
-          // Inisialisasi stars
-          updateStars(parseInt(ratingSelect.value));
+      function createToastContainer() {
+        const container = document.createElement("div");
+        container.id = "toastContainer";
+        container.className = "toast-container position-fixed bottom-0 end-0 p-3";
+        container.style.zIndex = "9999";
+        document.body.appendChild(container);
+        return container;
       }
 
-      // Event listener saat DOM siap
-      document.addEventListener('DOMContentLoaded', function() {
-          // Render reviews awal
-          renderReviews();
-          
-          // Inisialisasi rating system
-          initializeRatingSystem();
-          
-          // Handle form submit review
-          const reviewForm = document.getElementById('reviewForm');
-          const submitReviewBtn = document.getElementById('submitReview');
-          
-          if (reviewForm && submitReviewBtn) {
-              submitReviewBtn.addEventListener('click', function(e) {
-                  e.preventDefault();
-                  
-                  const formData = {
-                      name: document.getElementById('reviewName').value,
-                      rating: document.getElementById('reviewRating').value,
-                      message: document.getElementById('reviewMessage').value
-                  };
-                  
-                  if (validateReviewForm(formData)) {
-                      // Cek apakah user sudah login
-                      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-                      
-                      if (!isLoggedIn) {
-                          // Simpan data review sementara dan minta login
-                          localStorage.setItem('pendingReview', JSON.stringify(formData));
-                          const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-                          loginModal.show();
-                          return;
-                      }
-                      
-                      // Jika sudah login, langsung submit review
-                      addNewReview(formData);
-                      
-                      // Reset form
-                      reviewForm.reset();
-                      initializeRatingSystem();
-                      
-                      // Tutup modal
-                      const reviewModal = bootstrap.Modal.getInstance(document.getElementById('tambahReviewModal'));
-                      reviewModal.hide();
-                  }
-              });
-          }
-          
-          // Handle login success untuk pending review
-          const loginForms = document.querySelectorAll('#loginForm, #registerForm');
-          loginForms.forEach(form => {
-              form.addEventListener('submit', function(e) {
-                  e.preventDefault();
-                  
-                  // Simulasi login berhasil
-                  localStorage.setItem('isLoggedIn', 'true');
-                  
-                  // Cek jika ada pending review
-                  const pendingReview = localStorage.getItem('pendingReview');
-                  if (pendingReview) {
-                      const reviewData = JSON.parse(pendingReview);
-                      addNewReview(reviewData);
-                      
-                      // Reset form review
-                      if (reviewForm) reviewForm.reset();
-                      initializeRatingSystem();
-                      
-                      // Hapus pending review
-                      localStorage.removeItem('pendingReview');
-                      
-                      // Tutup modal login dan review
-                      const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-                      if (loginModal) loginModal.hide();
-                      
-                      const reviewModal = bootstrap.Modal.getInstance(document.getElementById('tambahReviewModal'));
-                      if (reviewModal) reviewModal.hide();
-                  } else {
-                      // Tutup modal login saja
-                      const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-                      if (loginModal) loginModal.hide();
-                  }
-              });
-          });
-          
-          // Filter reviews berdasarkan rating
-          const filterButtons = document.querySelectorAll('.rating-filter');
-          filterButtons.forEach(button => {
-              button.addEventListener('click', function() {
-                  const rating = parseInt(this.dataset.rating);
-                  
-                  // Update active state
-                  filterButtons.forEach(btn => btn.classList.remove('active'));
-                  this.classList.add('active');
-                  
-                  if (rating === 0) {
-                      renderReviews(); // Tampilkan semua
-                  } else {
-                      const filteredReviews = reviews.filter(review => review.rating === rating);
-                      renderFilteredReviews(filteredReviews);
-                  }
-              });
-          });
+      // Filter rating
+      document.querySelectorAll(".rating-filter").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".rating-filter").forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+
+          const filterRating = this.getAttribute("data-rating");
+          filterReviews(filterRating);
+        });
       });
 
-      // Fungsi untuk render filtered reviews
-      function renderFilteredReviews(filteredReviews) {
-          const reviewsContainer = document.getElementById('reviewsContainer');
-          if (!reviewsContainer) return;
-          
-          reviewsContainer.innerHTML = '';
-          
-          if (filteredReviews.length === 0) {
-              reviewsContainer.innerHTML = `
-                  <div class="col-12 text-center py-5">
-                      <i class="bi bi-chat-square-text display-4 text-muted"></i>
-                      <p class="mt-3 text-muted">Belum ada review dengan rating yang dipilih.</p>
+      function filterReviews(rating) {
+        const reviewsContainer = document.getElementById("reviewsContainer");
+        reviewsContainer.innerHTML = "";
+
+        const filtered = rating === "0" ? reviews : reviews.filter((r) => r.rating == rating);
+
+        if (filtered.length === 0) {
+          reviewsContainer.innerHTML = `
+            <div class="col-12 text-center py-5">
+              <i class="bi bi-emoji-frown display-1 text-muted"></i>
+              <p class="mt-3 text-bold">Belum ada review dengan rating ini.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach((review) => {
+          const reviewHTML = `
+            <div class="col-12">
+              <div class="card review-card p-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <div class="d-flex align-items-center gap-2">
+                    <h5 class="fw-bold mb-0">${review.name}</h5>
+                    ${review.verified ? '<span class="badge bg-success"><i class="bi bi-patch-check-fill"></i> Terverifikasi</span>' : ""}
                   </div>
-              `;
-              return;
-          }
-          
-          filteredReviews.forEach(review => {
-              const reviewHTML = `
-                  <div class="col-12">
-                      <div class="card review-card p-4">
-                          <div class="d-flex justify-content-between align-items-center mb-2">
-                              <div class="d-flex align-items-center gap-2">
-                                  <h5 class="fw-bold mb-0">${review.name}</h5>
-                                  ${review.verified ? '<span class="badge bg-success"><i class="bi bi-patch-check-fill"></i> Terverifikasi</span>' : ''}
-                              </div>
-                              <small class="text-muted">${review.date}</small>
-                          </div>
-                          <div class="mb-2">${renderStars(review.rating)}</div>
-                          <p class="review-text mb-0">${review.review}</p>
-                      </div>
-                  </div>
-              `;
-              reviewsContainer.innerHTML += reviewHTML;
-          });
+                  <small class="text-muted">${review.date}</small>
+                </div>
+                <div class="mb-2">${renderStars(review.rating)}</div>
+                <p class="review-text mb-0">${review.review}</p>
+              </div>
+            </div>
+          `;
+          reviewsContainer.innerHTML += reviewHTML;
+        });
       }
+
+      // Interactive stars di modal
+      function initInteractiveStars() {
+        const starsContainer = document.getElementById("interactiveStars");
+        const ratingSelect = document.getElementById("reviewRating");
+        starsContainer.innerHTML = "";
+
+        for (let i = 1; i <= 5; i++) {
+          const star = document.createElement("span");
+          star.className = "star text-warning";
+          star.innerHTML = '<i class="bi bi-star"></i>';
+          star.style.cursor = "pointer";
+          star.onclick = () => {
+            ratingSelect.value = i;
+            updateStars(i);
+          };
+          star.onmouseover = () => updateStars(i, true);
+          star.onmouseout = () => updateStars(ratingSelect.value);
+          starsContainer.appendChild(star);
+        }
+
+        updateStars(ratingSelect.value);
+      }
+
+      function updateStars(rating, hover = false) {
+        const stars = document.querySelectorAll("#interactiveStars .star");
+        stars.forEach((star, index) => {
+          if (index < rating) {
+            star.innerHTML = '<i class="bi bi-star-fill"></i>';
+            star.style.color = hover ? "#ffc107" : "#ffc107";
+          } else {
+            star.innerHTML = '<i class="bi bi-star"></i>';
+            star.style.color = "#ddd";
+          }
+        });
+       }
+
+      // Event submit review
+      document.getElementById("submitReview").addEventListener("click", () => {
+        const name = document.getElementById("reviewName").value;
+        const rating = document.getElementById("reviewRating").value;
+        const message = document.getElementById("reviewMessage").value;
+
+        const formData = { name, rating, message };
+        if (!validateReviewForm(formData)) return;
+
+        addNewReview(formData);
+
+        // Reset form
+        document.getElementById("reviewForm").reset();
+        updateStars(5);
+        bootstrap.Modal.getInstance(document.getElementById("tambahReviewModal")).hide();
+      });
+
+      // Inisialisasi saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", () => {
+        renderReviews();
+        initInteractiveStars();
+
+        // Event untuk update bintang saat select berubah
+        document.getElementById("reviewRating").addEventListener("change", (e) => {
+          updateStars(e.target.value);
+        });
+
+        // Tampilkan semua review saat halaman dimuat
+        document.querySelector('.rating-filter[data-rating="0"]').classList.add("active");
+      });
     </script>
   </body>
 </html>

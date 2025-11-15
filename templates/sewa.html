@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE
+ html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -13,10 +14,9 @@
     <style>
         /* Variabel CSS Global */
         :root {
-            --primary: #900C3F;
-            --primary-dark: #c70d55;
+
             --gold: #d4af37;
-            --body-font: 'Nunito', sans-serif;
+     
         }
         
         * { box-sizing: border-box; }
@@ -24,8 +24,6 @@
         body {
             background: #f8f8f8;
             color: #333;
-            font-family: var(--body-font);
-            padding-top: 100px; /* Kompensasi untuk fixed-top header */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -55,11 +53,11 @@
             display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;
             font-weight: bold; font-size: 0.9em;
         }
-        .step.active .circle { background: var(--primary); }
         .step.done .circle { background: #28a745; }
         .step.active { color: #333; font-weight: bold; }
         .line { height: 2px; background: #e0e0e0; margin: 16px -10px 0; flex: 1; }
-        .step.active + .line, .step.done + .line { background: var(--primary); }
+        .step.done + .line { background: #28a745; } /* Set garis hijau jika step sebelumnya Selesai */
+        .step.active + .line { background: var(--primary); }
 
         /* Kotak Konten Checkout */
         .checkout-box {
@@ -154,6 +152,10 @@
         .payment-pending {
             background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;
         }
+        /* Style untuk simulasi gagal */
+        .payment-failed {
+            background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;
+        }
         .simulation-buttons {
             margin-top: 20px; display: flex; gap: 10px; justify-content: center;
         }
@@ -168,86 +170,880 @@
 
         /* Desain Struk PDF (Invoice) */
         #invoicePreview {
-            background: white; border: 2px solid #eee; border-radius: 12px;
-            padding: 25px; max-width: 500px; margin: 20px auto;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            font-family: var(--body-font);
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 480px;
+            margin: 30px auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #333;
+            display: none;
+            line-height: 1.6;
         }
-        .invoice-header { text-align: center; margin-bottom: 20px; }
-        .invoice-header img { height: 60px; margin-bottom: 10px; }
-        .invoice-header h3 { color: var(--primary); font-weight: 800; margin: 0; }
-        .invoice-header p { color: #666; font-size: 0.9em; margin: 5px 0; }
-        .invoice-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .invoice-table th, .invoice-table td {
-            padding: 10px 8px; text-align: left; border-bottom: 1px solid #eee;
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 25px;
         }
-        .invoice-table th { background: #f8f9fa; color: var(--primary); font-weight: 700; }
-        .invoice-table .total-row { font-weight: bold; font-size: 1.1em; }
-        .invoice-table .total-row td { border-top: 2px solid var(--primary); padding-top: 12px; }
-        .invoice-footer { margin-top: 25px; font-size: 0.85em; color: #777; text-align: center; }
-        .invoice-footer .highlight { color: var(--gold); font-weight: 600; }
+
+        .invoice-header img {
+            height: 50px;
+            margin-bottom: 8px;
+        }
+
+        .invoice-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #f85a87ff;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .invoice-header p {
+            margin: 3px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .invoice-title {
+            text-align: center;
+            font-weight: 700;
+            color: #f85a87ff;
+            font-size: 1.3rem;
+            margin: 20px 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .invoice-no {
+            text-align: center;
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .invoice-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .invoice-row.label {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .invoice-row.value {
+            text-align: right;
+        }
+
+        .invoice-row.total {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #bf026dff;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+            margin-top: 15px;
+        }
+
+        .deposit-line {
+            color: #28a745 !important;
+            font-weight: 600;
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #777;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .footer-date {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #999;
+            text-align: right;
+        }
         
         /* Media Query untuk Mobile */
         @media (max-width: 992px) { 
             .checkout-container { flex-direction: column-reverse; } 
             .order-summary-section { position: static; } 
         }
+
+      /* Custom Dropdown Styling */
+      .dropdown-menu {
+        min-width: 200px;
+      }
+
+      .dropdown-item {
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+        background-color: #f3e5f5;
+        color: #e91e63;
+      }
+
+      .dropdown-item.text-danger:hover {
+        background-color: #ffebee;
+      }
+
+      .dropdown-divider {
+        margin: 0.5rem 0;
+      }
+
+      /* User Badge */
+      .dropdown-toggle::after {
+        content: none;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .navbar-brand img {
+          height: 70px !important;
+        }
+
+        .d-none.d-sm-inline {
+          display: none !important;
+        }
+      }
+
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700&display=swap');
+
+      /* ===== ROOT VARIABLES ===== */
+      :root {
+          --primary: #f85a87ff;
+          --primary-dark: #fb97b3ff;
+          --secondary: #ff9db9;
+          --accent: #ff9db9;
+          --dark: #1a1a2e;
+          --light: #f85a87ff;
+          --border-radius: 20px;
+      }
+
+
+      /* ===== NAVBAR MODERN ===== */
+      .navbar {
+          background: rgba(255, 255, 255, 0.95) !important;
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+          padding: 0.8rem 0 !important;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+      }
+
+      .navbar-brand img {
+          transition: all 0.3s ease;
+          filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.1));
+      }
+
+      .navbar-brand img:hover {
+          transform: scale(1.05);
+      }
+
+      /* ===== NAV LINKS ===== */
+      .navbar-nav .nav-link {
+          font-weight: 600;
+          font-size: 0.9rem;
+          color: var(--dark) !important;
+          position: relative;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 0.5rem 0 !important;
+      }
+
+      .navbar-nav .nav-link::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 3px;
+          bottom: -8px;
+          left: 0;
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          transition: width 0.3s ease;
+          border-radius: 2px;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+          width: 100%;
+      }
+
+      .navbar-nav .nav-link.active {
+          color: var(--primary) !important;
+      }
+
+      .navbar-nav .nav-link.active::after {
+          width: 100%;
+      }
+
+      /* ===== DROPDOWN MENU ===== */
+      .dropdown-menu {
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(102, 126, 234, 0.1);
+          border-radius: 20px !important;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+          animation: slideDownFade 0.3s ease;
+      }
+
+      @keyframes slideDownFade {
+          from {
+              opacity: 0;
+              transform: translateY(-10px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      .dropdown-item {
+          color: var(--dark);
+          transition: all 0.3s ease;
+          border-radius: 10px;
+          margin: 0.3rem 0;
+      }
+
+      .dropdown-item:hover {
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+          color: var(--primary);
+          transform: translateX(5px);
+      }
+
+      /* ===== ICON BADGES ===== */
+      .icon-badge {
+          position: relative;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          color: var(--dark);
+          font-size: 1.3rem;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+      }
+
+      .icon-badge:hover {
+          transform: scale(1.15) rotate(5deg);
+          color: var(--primary);
+      }
+
+      .badge-modern {
+          position: absolute;
+          top: -12px;
+          right: -12px;
+          background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+          border-radius: 50%;
+          width: 28px;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: white;
+          box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+          animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+      }
+
+      /* ===== HERO SECTION MODERN ===== */
+      #billboard {
+          background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%) !important;
+          margin-top: 70px;
+          min-height: 90vh;
+          display: flex;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+          padding: 3rem 0 !important;
+          height: auto !important;
+      }
+
+      #billboard::before {
+          content: '';
+          position: absolute;
+          width: 500px;
+          height: 500px;
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+          border-radius: 50%;
+          top: -100px;
+          left: -150px;
+          animation: float 8s ease-in-out infinite;
+          z-index: 0;
+      }
+
+      #billboard::after {
+          content: '';
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(240, 147, 251, 0.08));
+          border-radius: 50%;
+          bottom: -50px;
+          right: -100px;
+          animation: float 10s ease-in-out infinite reverse;
+          z-index: 0;
+      }
+
+      @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(30px); }
+      }
+
+      /* ===== SWIPER WRAPPER ===== */
+      .swiper-wrapper {
+          position: relative;
+          z-index: 2;
+      }
+
+      .swiper-slide {
+          animation: slideInUp 0.8s ease;
+      }
+
+      @keyframes slideInUp {
+          from {
+              opacity: 0;
+              transform: translateY(40px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      /* ===== BANNER CONTENT ===== */
+      .banner-content h2 {
+          font-size: 3.5rem;
+          font-weight: 800;
+          font-family: 'Outfit', sans-serif;
+          line-height: 1.2;
+          margin-bottom: 1.5rem;
+          background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+      }
+
+      .banner-content p {
+          font-size: 1.2rem;
+          font-weight: 400;
+          margin-bottom: 2rem;
+          color: #666;
+          line-height: 1.6;
+          font-family: 'Sora', sans-serif;
+      }
+
+      .banner-content .btn {
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          border: none;
+          color: white;
+          font-weight: 700;
+          padding: 15px 40px;
+          border-radius: 50px;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+          font-size: 1rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+      }
+
+      .banner-content .btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.2);
+          transition: left 0.4s ease;
+      }
+
+      .banner-content .btn:hover::before {
+          left: 100%;
+      }
+
+      .banner-content .btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+          color: white;
+          text-decoration: none;
+      }
+
+      /* ===== IMAGE HOLDER ===== */
+      .image-holder {
+          position: relative;
+          animation: slideInRight 0.8s ease;
+      }
+
+      @keyframes slideInRight {
+          from {
+              opacity: 0;
+              transform: translateX(40px);
+          }
+          to {
+              opacity: 1;
+              transform: translateX(0);
+          }
+      }
+
+      .image-holder img {
+          width: 100%;
+          height: auto;
+          max-height: 600px;
+          object-fit: contain;
+          filter: drop-shadow(0 30px 50px rgba(102, 126, 234, 0.2));
+          transition: transform 0.4s ease;
+          border-radius: 30px;
+      }
+
+      .image-holder:hover img {
+          transform: scale(1.05);
+      }
+
+      /* ===== SLIDER BUTTONS ===== */
+      .chevron-forward-circle,
+      .chevron-back-circle {
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          border-radius: 50%;
+          color: white;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+      }
+
+      .chevron-forward-circle:hover,
+      .chevron-back-circle:hover {
+          transform: scale(1.1);
+          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+          .banner-content h2 {
+              font-size: 2.2rem;
+          }
+
+          .banner-content p {
+              font-size: 1rem;
+          }
+
+          .navbar-nav .nav-link {
+              font-size: 0.85rem;
+          }
+
+          #billboard {
+              padding: 2rem 0 !important;
+          }
+
+          .image-holder img {
+              max-height: 400px;
+          }
+
+          .chevron-forward-circle,
+          .chevron-back-circle {
+              width: 50px !important;
+              height: 50px !important;
+          }
+      }
+
+      /* ===== DISABLE DEFAULT BUTTON STYLES ===== */
+      .navbar .btn {
+          background: none;
+          border: none;
+          box-shadow: none;
+      }
+      
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+<!-- ===== SVG ICONS DEFINITIONS ===== -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <!-- Navbar icon -->
+      <symbol id="navbar-icon" viewBox="0 0 16 16">
+        <path d="M2 4h12v1H2zM2 8h12v1H2zM2 12h12v1H2z" />
+      </symbol>
 
+      <!-- Heart / Wishlist -->
+      <symbol id="heart" viewBox="0 0 16 16">
+        <path
+          d="M8 15S3 12 1.5 8.5C.5 6.5 1.5 3.5 4.5 3.5c1.5 0 2.5 1 3.5 2 1-1 
+          2-2 3.5-2 3 0 4 3 3 5-1.5 3.5-6.5 6.5-6.5 6.5z"
+        />
+      </symbol>
+
+      <!-- Cart -->
+      <symbol id="cart" viewBox="0 0 16 16">
+        <path
+          d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 
+          .485.379L2.89 2H14a1 1 0 0 1 
+          .962 1.273l-1.5 5A1 1 0 0 1 
+          12.5 9H4.118l-.25 1H13a.5.5 0 0 1 
+          0 1H3.5a.5.5 0 0 1-.485-.621L4.89 
+          3H1.5a.5.5 0 0 1 0-1H1zM4.118 
+          8h8.382l1.2-4H4.118zM5.5 12a1.5 1.5 
+          0 1 1 0 3 1.5 1.5 0 0 1 
+          0-3zm7 0a1.5 1.5 0 1 1 
+          0 3 1.5 1.5 0 0 1 0-3z"
+        />
+      </symbol>
+
+      <!-- User -->
+      <symbol id="user" viewBox="0 0 16 16">
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 
+          0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
+          4 0 0 0-8 0v.5a.5.5 0 0 0 
+          .5.5h7z"
+        />
+      </symbol>
+    </svg>
+    <!-- HEADER -->
     <header id="header" class="site-header">
-        <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
-            <div class="container">
-            <a class="navbar-brand" href="{{ url_for('beranda') }}">
-                <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="IA Rent Fashion Logo"
-                class="logo" style="height:90px; width:auto; object-fit:contain;">
-            </a>
-                <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar">
-                    <svg class="navbar-icon" width="22" height="22" fill="currentColor"><use xlink:href="#navbar-icon"></use></svg>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title fw-semibold">Menu</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-                    </div>
-                    <div class="offcanvas-body d-flex justify-content-between align-items-center">
-                        <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
-                            <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('beranda') }}">Beranda</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}">Koleksi</a>
-                                <ul class="dropdown-menu animate slide border">
-                                    <li><a href="#" class="dropdown-item fw-light">Jas</a></li>
-                                    <li><a href="#" class="dropdown-item fw-light">Dress</a></li>
-                                    <li><a href="#" class="dropdown-item fw-light">Aksesoris</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
-                            <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('contact') }}">Kontak</a></li>
-                        </ul>
-                        <ul class="d-flex list-unstyled mb-0 align-items-center">
-                            <li class="ms-3 dropdown">
-                                <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
-                                    <svg width="22" height="22" fill="currentColor"><use xlink:href="#heart"></use></svg>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">2</span>
-                                </a>
-                            </li>
-                            <li class="ms-3 dropdown">
-                                <a href="#" class="text-dark dropdown-toggle position-relative" data-bs-toggle="dropdown">
-                                    <svg width="22" height="22" fill="currentColor"><use xlink:href="#cart"></use></svg>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white">3</span>
-                                </a>
-                            </li>
-                            <li class="ms-3">
-                                <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                    <svg width="22" height="22" fill="currentColor"><use xlink:href="#user"></use></svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+      <nav
+        id="header-nav"
+        class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top"
+      >
+        <div class="container">
+          <!-- LOGO -->
+          <a class="navbar-brand" href="{{ url_for('beranda') }}">
+            <img
+              src="{{ url_for('static', filename='images/main-logo.png') }}"
+              alt="IA Rent Fashion Logo"
+              class="logo"
+              style="height: 90px; width: auto; object-fit: contain"
+            />
+          </a>
+
+          <!-- TOGGLER -->
+          <button
+            class="navbar-toggler d-flex d-lg-none order-3 p-2"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#bdNavbar"
+            aria-controls="bdNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <svg class="navbar-icon" width="22" height="22" fill="currentColor">
+              <use xlink:href="#navbar-icon"></use>
+            </svg>
+          </button>
+
+          <!-- OFFCANVAS MENU -->
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title fw-semibold">Menu</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
             </div>
-        </nav>
+
+            <div
+              class="offcanvas-body d-flex justify-content-between align-items-center"
+            >
+              <!-- MENU -->
+              <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
+                <li class="nav-item">
+                  <a
+                    class="nav-link me-4"
+                    href="{{ url_for('beranda') }}"
+                    >Beranda</a
+                  >
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link me-4 active dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    href="{{ url_for('koleksi') }}"
+                    role="button"
+                    aria-expanded="false"
+                    >Koleksi</a
+                  >
+                  <ul class="dropdown-menu animate slide border">
+                    <li><a href="{{ url_for('jas') }}">Jas</a></li>
+                    <li><a href="{{ url_for('dress') }}">Dress</a></li>
+                    <li><a href="{{ url_for('aksesoris') }}">Aksesori</a></li>
+                    <li><a href="{{ url_for('kebaya') }}">Kebaya</a></li>
+                    <li><a href="{{ url_for('footwear') }}">Footwear</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('inspirasi') }}"
+                    >Inspirasi</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('contact') }}"
+                    >Kontak</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('tentang') }}"
+                    >Tentang</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{{ url_for('review') }}"
+                    >Review</a
+                  >
+                </li>
+              </ul>
+
+              <!-- USER ICONS -->
+              <ul class="d-flex list-unstyled mb-0 align-items-center">
+                <!-- Search -->
+                <li class="ms-3">
+                  <a href="#" class="text-dark search-button">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#search"></use>
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- Wishlist -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle position-relative"
+                    data-bs-toggle="dropdown"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#heart"></use>
+                    </svg>
+                    <span
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
+                      >2</span
+                    >
+                  </a>
+                  <div
+                    class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end"
+                  >
+                    <h5 class="fw-bold mb-3">Wishlist Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Dress Brokat Elegan</h6>
+                          <small>Warna pastel lembut</small>
+                        </div>
+                        <span class="text-primary">Rp 100.000/hari</span>
+                      </li>
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Setelan Jas Slimfit</h6>
+                          <small>Ukuran L</small>
+                        </div>
+                        <span class="text-primary">Rp 120.000/hari</span>
+                      </li>
+                    </ul>
+                    <a href="#" class="btn btn-dark w-100 rounded-pill"
+                      >Lihat Semua</a
+                    >
+                  </div>
+                </li>
+
+                <!-- Cart -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle position-relative"
+                    data-bs-toggle="dropdown"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#cart"></use>
+                    </svg>
+                    <span
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-white"
+                      >3</span
+                    >
+                  </a>
+                  <div
+                    class="dropdown-menu p-3 shadow border-0 rounded-4 dropdown-menu-end"
+                  >
+                    <h5 class="fw-bold mb-3">Keranjang Anda</h5>
+                    <ul class="list-group mb-3">
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Kebaya Modern</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 95.000</span>
+                      </li>
+                      <li
+                        class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                      >
+                        <div>
+                          <h6 class="fw-semibold">Gaun Merah</h6>
+                          <small>1 item</small>
+                        </div>
+                        <span class="text-primary">Rp 110.000</span>
+                      </li>
+                    </ul>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-dark rounded-pill"
+                        >Lihat Keranjang</a
+                      >
+                      <a href="#" class="btn btn-primary rounded-pill"
+                        >Checkout</a
+                      >
+                    </div>
+                  </div>
+                </li>
+
+                <!-- User Menu (Login/Profile) -->
+                {% if g.user or session.get('user_id') %}
+                <!-- Jika User Sudah Login -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle d-flex align-items-center"
+                    data-bs-toggle="dropdown"
+                    style="text-decoration: none; gap: 8px"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                    <span
+                      class="d-none d-sm-inline fw-semibold"
+                      style="font-size: 0.9rem"
+                    >
+                      {% if g.user %} {{ g.user.name[:15] }} {% else %} {{
+                      session.get('user_name', 'User')[:15] }} {% endif %}
+                    </span>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3"
+                  >
+                    <!-- Profile -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('profile') }}"
+                      >
+                        <i
+                          class="bi bi-person-circle"
+                          style="font-size: 1.1rem; color: #e91e63"
+                        ></i>
+                        <span>Profile Saya</span>
+                      </a>
+                    </li>
+                    <!-- Pesanan -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('pesanan') }}"
+                      >
+                        <i
+                          class="bi bi-bag-check"
+                          style="font-size: 1.1rem; color: #ff9800"
+                        ></i>
+                        <span>Pesanan Saya</span>
+                      </a>
+                    </li>
+                    <!-- Favorit -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="#"
+                      >
+                        <i
+                          class="bi bi-heart"
+                          style="font-size: 1.1rem; color: #f44336"
+                        ></i>
+                        <span>Favorit Saya</span>
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <!-- Logout -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                        href="{{ url_for('logout') }}"
+                      >
+                        <i
+                          class="bi bi-box-arrow-right"
+                          style="font-size: 1.1rem"
+                        ></i>
+                        <span>Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                {% else %}
+                <!-- Jika User Belum Login -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    style="text-decoration: none"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('login') }}"
+                      >
+                        <i
+                          class="bi bi-box-arrow-in-right"
+                          style="font-size: 1.1rem; color: #2196f3"
+                        ></i>
+                        <span>Login</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('register') }}"
+                      >
+                        <i
+                          class="bi bi-person-plus"
+                          style="font-size: 1.1rem; color: #4caf50"
+                        ></i>
+                        <span>Daftar</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
     </header>
 
     <div class="modal fade" id="loginModal" tabindex="-1">
@@ -307,29 +1103,57 @@
                 <form id="checkoutForm" novalidate>
                     <div class="checkout-box" id="step-1-content">
                         <h3>1. Informasi Pelanggan</h3>
+
                         <div class="form-row">
-                            <div class="form-group"><label>Nama Lengkap</label><input type="text" class="form-control" id="fullName" value="Contoh Nama" required><div class="invalid-feedback">Wajib diisi</div></div>
-                            <div class="form-group"><label>Email</label><input type="email" class="form-control" id="email" value="contoh@mail.com" required><div class="invalid-feedback">Email tidak valid</div></div>
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" class="form-control" id="fullName" placeholder="Masukkan nama lengkap" required>
+                                <div class="invalid-feedback">Wajib diisi</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Masukkan email" required>
+                                <div class="invalid-feedback">Email tidak valid</div>
+                            </div>
                         </div>
-                        <div class="form-group mb-3"><label>Telepon</label><input type="tel" class="form-control" id="phone" value="08123456789" required><div class="invalid-feedback">Wajib diisi</div></div>
+
+                        <div class="form-group mb-3">
+                            <label>Telepon</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="Masukkan nomor telepon" required>
+                            <div class="invalid-feedback">Wajib diisi</div>
+                        </div>
+
                         <div class="form-row">
-                            <div class="form-group"><label>Tanggal Mulai</label><input type="date" class="form-control" id="startDate" required><div class="invalid-feedback">Wajib diisi</div></div>
-                            <div class="form-group"><label>Tanggal Selesai</label><input type="date" class="form-control" id="endDate" required><div class="invalid-feedback">Wajib diisi</div></div>
+                            <div class="form-group">
+                                <label>Tanggal Mulai</label>
+                                <input type="date" class="form-control" id="startDate" required>
+                                <div class="invalid-feedback">Wajib diisi dan tanggal valid</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Selesai</label>
+                                <input type="date" class="form-control" id="endDate" required>
+                                <div class="invalid-feedback">Wajib diisi dan setelah tanggal mulai</div>
+                            </div>
                         </div>
+
                         <div class="pickup-info">
                             <h6>Pengambilan</h6>
                             <p>Jl. Brigjend H. Hasan Basri, Pangeran, Banjarmasin</p>
                         </div>
+
                         <button type="button" class="continue-button float-end" data-next-step="2">Lanjut</button>
                     </div>
+
 
                     <div class="checkout-box hidden" id="step-2-content">
                         <h3>2. Jaminan Dokumen</h3>
                         <div class="pickup-info">
-                            <p>Bawa <strong>KTP/SIM/Kartu Pelajar Asli</strong> saat pengambilan.</p>
+                            <p>Bawa **KTP/SIM/Kartu Pelajar Asli** saat pengambilan.</p>
                         </div>
                         <div class="form-group">
-                            <label>Upload Foto (Opsional)</label>
+                            <label>Upload Foto KTP/SIM (Opsional)</label>
                             <div class="file-upload-box" id="fileUploadDropzone">
                                 <i class="bi bi-cloud-arrow-up"></i>
                                 <p id="fileUploadText">Klik atau seret file</p>
@@ -350,14 +1174,14 @@
                             <p class="mb-2"><strong>Deposit ini akan dikembalikan penuh</strong> saat Anda mengembalikan barang dalam kondisi baik.</p>
                             <hr>
                             <p class="mb-1"><strong>Total Biaya Sewa:</strong> <span id="totalSewa">Rp 0</span></p>
-                            <p class="mb-1"><strong>Deposit Jaminan:</strong> <span id="depositAmount">Rp 0</span></p>
+                            <p class="mb-1"><strong>Deposit Jaminan (Bayar Sekarang):</strong> <span id="depositAmount" class="text-danger fw-bold">Rp 0</span></p>
                             <p class="mb-0 text-success"><strong>Total Biaya Sewa (Bayar di Tempat): <span id="totalBayarTempat">Rp 0</span></strong></p>
                         </div>
                         <div class="qris-payment">
                             <h5 class="mb-3">Scan QR Code di Bawah</h5>
                             
                             <div class="payment-timer">
-                                Selesaikan pembayaran dalam: <span id="paymentTimer">05:00</span>
+                                Selesaikan pembayaran deposit sebesar <strong id="depositBayarQris">Rp 0</strong> dalam: <span id="paymentTimer">05:00</span>
                             </div>
 
                             <div class="qris-code">
@@ -407,7 +1231,7 @@
                         <div class="form-check mb-4">
                             <input class="form-check-input" type="checkbox" id="agreeTerms" required>
                             <label class="form-check-label" for="agreeTerms">Saya setuju dengan Syarat & Ketentuan Sewa</label>
-                            <div class="invalid-feedback" id="termsError" style="display: none;">Wajib dicentang</div>
+                            <div class="invalid-feedback" id="termsError" style="display: none; color: #dc3545;">Wajib dicentang</div>
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn-back-custom" data-prev-step="3">Kembali</button>
@@ -419,9 +1243,10 @@
                         <i class="bi bi-check-circle-fill success-icon"></i>
                         <h3 class="mt-4">Pesanan Berhasil!</h3>
                         <p class="lead">Struk PDF sedang diunduh...</p>
-                        <div id="invoicePreview"></div> 
+                        <div id="invoicePreview" style="display:none;"></div> 
                         <div class="mt-4">
-                            <a href="{{ url_for('beranda') }}" class="btn btn-dark btn-lg">Kembali ke Beranda</a> <a href="#" id="downloadPdfBtn" class="btn btn-success btn-lg">Unduh Struk PDF</a>
+                            <a href="{{ url_for('beranda') }}" class="btn btn-dark btn-lg">Kembali ke Beranda</a> 
+                            <a href="#" id="downloadPdfBtn" class="btn btn-success btn-lg">Unduh Ulang Struk PDF</a>
                         </div>
                     </div>
                 </form>
@@ -437,14 +1262,14 @@
                         <label class="fw-bold mb-2">Jumlah Produk:</label>
                         <div class="quantity-input-group">
                             <button class="btn btn-sm btn-outline-dark" onclick="decreaseQuantity()" type="button">-</button>
-                            <input type="number" id="quantity" value="1" min="1" class="form-control">
+                            <input type="number" id="quantity" value="1" min="1" class="form-control" onchange="updateProductQuantity(parseInt(this.value) || 1)">
                             <button class="btn btn-sm btn-outline-dark" onclick="increaseQuantity()" type="button">+</button>
                         </div>
                     </div>
                     
                     <hr>
                     <div class="summary-line"><span>Biaya Sewa</span><span id="sewaSummary">Rp 0</span></div>
-                    <div class="summary-line"><span>Deposit (Jaminan)</span><span id="depositSummary">Rp 0</span></div>
+                    <div class="summary-line"><span>Deposit (Jaminan, Dibayar Sekarang)</span><span id="depositSummary">Rp 0</span></div>
                     <hr>
                     <div class="summary-line total"><strong>BAYAR SAAT AMBIL (Sewa)</strong> <strong id="totalBayar">Rp 0</strong></div>
                     <p class="small text-success mt-2">Deposit jaminan dikembalikan max 1x24 jam</p>
@@ -453,539 +1278,725 @@
         </div>
     </main>
 
-    <footer class="border-top text-center py-4 mt-5 bg-white">
-        <div class="container">
-            <p class="mb-0 text-muted">&copy; 2024 IA Rent Fashion. All rights reserved.</p>
+  <!-- FOOTER -->
+  <footer id="footer" class="bg-white border-top mt-5">
+    <div class="container py-5">
+      <div class="row gy-4">
+
+        <div class="col-lg-3 col-sm-6">
+          <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="logo"
+            class="img-fluid mb-3" style="max-width: 200px;">
+          <p>Jl. Brigjend H. Hasan Basri, Pangeran, Kec. Banjarmasin Utara,<br>Kota Banjarmasin, Kalimantan Selatan 70123</p>
+          <ul class="d-flex list-unstyled gap-3 mt-3">
+            <li><a href="https://facebook.com" class="text-dark"><i class="bi bi-facebook fs-5"></i></a></li>
+            <li><a href="https://instagram.com" class="text-dark"><i class="bi bi-instagram fs-5"></i></a></li>
+            <li><a href="https://youtube.com" class="text-dark"><i class="bi bi-youtube fs-5"></i></a></li>
+          </ul>
         </div>
-    </footer>
-    
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol id="navbar-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></symbol>
-        <symbol id="heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.555A3.76 3.76 0 0 0 2.7 7.614L8 14.993 13.3 7.613a3.76 3.76 0 0 0 1.3-4.058C13.486.878 10.4.28 8.717 2.01zM8 15.688L2.054 9.172a4.717 4.717 0 0 1-.94-4.814C2.5 1.54 5.253.33 8 3.195 10.747.33 13.5 1.54 14.885 4.358a4.717 4.717 0 0 1-.94 4.814L8 15.688z"/></symbol>
-        <symbol id="cart" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 1 0 0 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></symbol>
-        <symbol id="user" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></symbol>
-    </svg>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Ambil objek jsPDF dari window
-        const { jsPDF } = window.jspdf;
+        <div class="col-lg-2 col-sm-6">
+          <h5 class="fw-bold mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ url_for('beranda') }}" class="text-dark text-decoration-none">Beranda</a></li>
+            <li><a href="{{ url_for('koleksi') }}" class="text-dark text-decoration-none">Koleksi</a></li>
+            <li><a href="{{ url_for('inspirasi') }}" class="text-dark text-decoration-none">Inspirasi</a></li>
+            <li><a href="{{ url_for('contact') }}" class="text-dark text-decoration-none">Kontak</a></li>
+            <li><a href="{{ url_for('tentang') }}" class="text-dark text-decoration-none">Tentang</a></li>
+            <li><a href="{{ url_for('review') }}" class="text-dark text-decoration-none">Review</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+          <h5 class="fw-bold mb-3">Help & Info</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-dark text-decoration-none">Cek Pesanan</a></li>
+            <li><a href="#" class="text-dark text-decoration-none">Kebijakan Pengembalian</a></li>
+            <li><a href="#" class="text-dark text-decoration-none">Hubungi Kami</a></li>
+            <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+          <h5 class="fw-bold mb-3">Contact Us</h5>
+          <p>
+            Ada pertanyaan atau saran? <br>
+            <a href="mailto:iarentfashion@gmail.com" class="text-dark text-decoration-underline">iarentfashion@gmail.com</a>
+          </p>
+          <p>
+            Butuh bantuan cepat? Hubungi kami: <br>
+            <a href="https://wa.me/6281122233344" class="text-dark text-decoration-underline">+62 811-2223-3344</a>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="border-top mt-4 pt-3 d-flex justify-content-between align-items-center flex-wrap">
+        <div class="d-flex align-items-center gap-3">
+          <p class="mb-0 small fw-semibold">Payment options:</p>
+          <img src="{{ url_for('static', filename='images/visa.jpg') }}" alt="Visa" width="40" height="25"
+            class="rounded shadow-sm">
+          <img src="{{ url_for('static', filename='images/mastercard.jpg') }}" alt="MasterCard" width="40" height="25"
+            class="rounded shadow-sm">
+          <img src="{{ url_for('static', filename='images/paypal.jpg') }}" alt="PayPal" width="40" height="25"
+            class="rounded shadow-sm">
+        </div>
+        <p class="mb-0 small text-secondary">© 2025 IA Rent Fashion. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Ambil objek jsPDF dari window
+    const { jsPDF } = window.jspdf;
+
+    // ⭐ KONSTANTA UTAMA: DEPOSIT DIUBAH MENJADI PERSENTASE (25%) ⭐
+    const DEPOSIT_PERCENTAGE = 0.25;
+
+    // Variabel global
+    let products = []; // Array untuk produk
+    let paymentTimer; // Variabel untuk timer
+    let timeLeft = 300; // 5 menit dalam detik
+    let currentStep = 1; // Penanda step aktif
+    let isPaymentSuccessful = false; // Status pembayaran
+
+    /**
+     * Format angka menjadi mata uang Rupiah.
+     */
+    function formatRupiah(n) {
+        if (typeof n !== 'number') return 'Rp 0';
+        return `Rp ${n.toLocaleString('id-ID')}`;
+    }
+
+    /**
+     * Menambah kuantitas produk.
+     */
+    function increaseQuantity() {
+        const quantityInput = document.getElementById('quantity');
+        const currentQuantity = parseInt(quantityInput.value) || 0;
+        const newQuantity = Math.min(currentQuantity + 1, 99); // Batas maksimal 99
+        quantityInput.value = newQuantity;
+        updateProductQuantity(newQuantity);
+    }
+
+    /**
+     * Mengurangi kuantitas produk.
+     */
+    function decreaseQuantity() {
+        const quantityInput = document.getElementById('quantity');
+        const currentQuantity = parseInt(quantityInput.value) || 1;
+        if (currentQuantity > 1) {
+            const newQuantity = currentQuantity - 1;
+            quantityInput.value = newQuantity;
+            updateProductQuantity(newQuantity);
+        }
+    }
+
+    /**
+     * Memperbarui data kuantitas di variabel global dan memicu update total.
+     */
+    function updateProductQuantity(newQuantity) {
+        if (products.length > 0) {
+            products[0].quantity = newQuantity;
+            displaySingleProduct(products[0]); // Update tampilan ringkasan
+        }
+        updateTotal(); // Hitung ulang total
+    }
+
+    /**
+     * Memuat produk dari localStorage (simulasi).
+     */
+    function loadProduct() {
+        // Simulasi data produk jika localStorage kosong
+        let data = JSON.parse(localStorage.getItem('sewaProduct')) ||
+                   JSON.parse(localStorage.getItem('selectedProduct')) ||
+                   {
+                       name: "Gaun Pesta Mewah",
+                       price: 500000,
+                       image: "https://via.placeholder.com/60x60?text=Gaun",
+                       category: "Dress",
+                       size: "M",
+                       quantity: 1
+                   };
+
+        if (!data) {
+            document.getElementById('order-list-items').innerHTML = '';
+            document.getElementById('empty-cart').classList.remove('hidden');
+            return;
+        }
+
+        if (Array.isArray(data)) {
+            products = data;
+            displaySingleProduct(data[0]);
+        } else {
+            if (!data.quantity) data.quantity = 1;
+            products = [data];
+            displaySingleProduct(data);
+        }
+        updateTotal();
+    }
+
+    /**
+     * Menampilkan satu produk di ringkasan pesanan.
+     */
+    function displaySingleProduct(product) {
+        const price = parseInt(product.price || product.priceRaw || 0);
+        const image = product.image || 'https://via.placeholder.com/60';
+        const category = product.category || 'Produk';
+        const size = product.size || '-';
+        const quantity = product.quantity || 1;
+
+        document.getElementById('order-list-items').innerHTML = `
+            <div class="order-item d-flex align-items-center mb-2">
+                <img src="${image}" alt="${product.name}" class="rounded me-2" style="width: 60px; height: 60px; object-fit: cover;">
+                <div class="flex-grow-1">
+                    <div class="item-name">${product.name} (x${quantity})</div>
+                    <div class="item-meta">${category} / ${size}</div>
+                </div>
+                <div class="item-price">${formatRupiah(price * quantity)}</div>
+            </div>
+        `;
+        document.getElementById('quantity').value = quantity;
+    }
+
+    /**
+     * Menghitung dan menampilkan total biaya.
+     */
+    function updateTotal() {
+        if (products.length === 0) {
+            document.getElementById('sewaSummary').textContent = 'Rp 0';
+            document.getElementById('depositSummary').textContent = 'Rp 0';
+            document.getElementById('totalBayar').textContent = 'Rp 0';
+            document.getElementById('totalSewa').textContent = 'Rp 0';
+            document.getElementById('depositAmount').textContent = 'Rp 0';
+            document.getElementById('totalBayarTempat').textContent = 'Rp 0';
+            document.getElementById('depositBayarQris').textContent = 'Rp 0';
+            document.getElementById('depositAmountText').textContent = 'Rp 0';
+            return;
+        }
+
+        const product = products[0];
+        const price = parseInt(product.price || product.priceRaw || 0);
+        const quantity = parseInt(product.quantity || 1);
+        const subtotal = price * quantity;
         
-        // ==== PERUBAHAN LOGIKA: DEPOSIT TETAP ====
-        const FIXED_DEPOSIT = 100000; // Rp 100.000 (Bisa diubah)
-        // ======================================
+        // Deposit adalah persentase dari subtotal
+        const deposit = subtotal * DEPOSIT_PERCENTAGE;
+        const totalBayar = subtotal; // Biaya sewa dibayar di tempat
+
+        // Update Ringkasan Sidebar
+        document.getElementById('sewaSummary').textContent = formatRupiah(subtotal);
+        document.getElementById('depositSummary').textContent = formatRupiah(deposit);
+        document.getElementById('totalBayar').textContent = formatRupiah(totalBayar);
+
+        // Update Step 3 (Deposit Box)
+        document.getElementById('totalSewa').textContent = formatRupiah(subtotal);
+        document.getElementById('depositAmount').textContent = formatRupiah(deposit);
+        document.getElementById('totalBayarTempat').textContent = formatRupiah(totalBayar);
         
-        // Variabel global
-        let products = []; // Array untuk produk
-        let paymentTimer; // Variabel untuk timer
-        let timeLeft = 300; // 5 menit dalam detik
+        // Update Step 3 (Teks QRIS)
+        document.getElementById('depositBayarQris').textContent = formatRupiah(deposit);
+        document.getElementById('depositAmountText').textContent = formatRupiah(deposit);
+    }
 
-        /**
-         * Format angka menjadi mata uang Rupiah.
-         */
-        function formatRupiah(n) { return `Rp ${n.toLocaleString('id-ID')}`; }
+    /**
+     * Inisialisasi tanggal minimum untuk date picker.
+     */
+    function initDatepickers() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('startDate').setAttribute('min', today);
+        document.getElementById('endDate').setAttribute('min', today);
 
-        /**
-         * Menambah kuantitas produk.
-         */
-        function increaseQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            const currentQuantity = parseInt(quantityInput.value);
-            quantityInput.value = currentQuantity + 1;
-            updateProductQuantity(currentQuantity + 1);
+        document.getElementById('startDate').addEventListener('change', function() {
+            // Tanggal selesai harus >= tanggal mulai
+            document.getElementById('endDate').setAttribute('min', this.value);
+            validateDates();
+        });
+        document.getElementById('endDate').addEventListener('change', validateDates);
+    }
+
+    /**
+     * Validasi tanggal
+     */
+    function validateDates() {
+        const startDate = document.getElementById('startDate');
+        const endDate = document.getElementById('endDate');
+        const start = new Date(startDate.value);
+        const end = new Date(endDate.value);
+
+        if (endDate.value && start && end < start) {
+            endDate.classList.add('is-invalid');
+            endDate.setCustomValidity('Tanggal selesai tidak boleh sebelum tanggal mulai.');
+            return false;
+        } else {
+            endDate.classList.remove('is-invalid');
+            endDate.setCustomValidity('');
+            return true;
+        }
+    }
+
+    /**
+     * Navigasi antar step checkout.
+     */
+    function navigateToStep(stepNumber) {
+        // Sembunyikan semua konten step
+        document.querySelectorAll('.checkout-box[id^="step-"]').forEach(box => {
+            box.classList.add('hidden');
+        });
+        
+        // Tampilkan konten step yang dituju
+        const targetStepContent = document.getElementById(`step-${stepNumber}-content`);
+        if (targetStepContent) {
+            targetStepContent.classList.remove('hidden');
         }
 
-        /**
-         * Mengurangi kuantitas produk.
-         */
-        function decreaseQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            const currentQuantity = parseInt(quantityInput.value);
-            if (currentQuantity > 1) {
-                quantityInput.value = currentQuantity - 1;
-                updateProductQuantity(currentQuantity - 1);
+        // Update UI stepper
+        const steps = document.querySelectorAll('.checkout-stepper .step');
+        steps.forEach((step, index) => {
+            const stepIndex = index + 1;
+            step.classList.remove('active', 'done');
+            if (stepIndex < stepNumber) {
+                step.classList.add('done'); // Step sebelumnya
+            } else if (stepIndex === stepNumber) {
+                step.classList.add('active'); // Step saat ini
             }
-        }
-
-        /**
-         * Memperbarui data kuantitas di variabel global dan memicu update total.
-         */
-        function updateProductQuantity(newQuantity) {
-            if (products.length > 0) {
-                products[0].quantity = newQuantity;
-                displaySingleProduct(products[0]); // Update tampilan ringkasan
-            }
-            updateTotal(); // Hitung ulang total
-        }
-
-        /**
-         * Memuat produk dari localStorage (simulasi).
-         */
-        function loadProduct() {
-            // Simulasi data produk jika localStorage kosong
-            let data = JSON.parse(localStorage.getItem('sewaProduct')) || 
-                       JSON.parse(localStorage.getItem('selectedProduct')) || 
-                       { 
-                           name: "Gaun Pesta Mewah", 
-                           price: 500000, 
-                           image: "https://via.placeholder.com/60x60?text=Gaun", 
-                           category: "Dress", 
-                           size: "M",
-                           quantity: 1
-                       };
-
-            if (!data) {
-                document.getElementById('order-list-items').innerHTML = '';
-                document.getElementById('empty-cart').classList.remove('hidden');
-                return;
-            }
-
-            if (Array.isArray(data)) {
-                products = data;
-                displaySingleProduct(data[0]); 
-            } else {
-                if (!data.quantity) data.quantity = 1;
-                products = [data]; 
-                displaySingleProduct(data);
-            }
-            updateTotal();
-        }
-
-        /**
-         * Menampilkan satu produk di ringkasan pesanan.
-         */
-        function displaySingleProduct(product) {
-            const price = parseInt(product.price || product.priceRaw || 0);
-            const image = product.image || 'https://via.placeholder.com/60';
-            const category = product.category || 'Produk';
-            const size = product.size || '-';
-            const quantity = product.quantity || 1;
-
-            document.getElementById('order-list-items').innerHTML = `
-                <div class="order-item">
-                    <img src="${image}" alt="${product.name}">
-                    <div>
-                        <p class="item-name">${product.name}</p>
-                        <p class="item-meta">${category} • Ukuran: ${size} • Qty: ${quantity}</p>
-                    </div>
-                    <div class="item-price">${formatRupiah(price)}/hari</div>
-                </div>
-            `;
-            document.getElementById('empty-cart').classList.add('hidden');
-            document.getElementById('quantity').value = quantity;
-        }
-
-        /**
-         * Menghitung total biaya berdasarkan tanggal dan kuantitas.
-         */
-        // ==== PERUBAHAN LOGIKA: KALKULASI ====
-        function calculateTotal(products, startDate, endDate, quantity) {
-            if (!products || products.length === 0) return { totalSewa: 0, rentalDays: 0 };
-
-            const start = new Date(startDate);
-            const end = new Date(endDate);
-            let rentalDays = 1; // Default 1 hari
-
-            if (start.getTime() && end.getTime() && start <= end) {
-                const diffTime = Math.abs(end - start);
-                rentalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Termasuk hari H
-            }
-
-            const basePrice = parseInt(products[0].price || products[0].priceRaw || 0);
-            const totalSewa = basePrice * quantity * rentalDays;
-            
-            // Deposit tidak lagi dihitung di sini
-            return { totalSewa, rentalDays };
-        }
-        // ===================================
-
-        /**
-         * Memperbarui semua tampilan harga di halaman.
-         */
-        // ==== PERUBAHAN LOGIKA: TAMPILAN TOTAL ====
-        function updateTotal() {
-            const quantity = parseInt(document.getElementById('quantity').value) || 1;
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-
-            // Ambil total sewa
-            const { totalSewa, rentalDays } = calculateTotal(products, startDate, endDate, quantity);
-            
-            // Terapkan deposit tetap
-            const depositAmount = FIXED_DEPOSIT;
-            // Bayar di tempat adalah total sewa penuh
-            const totalBayarTempat = totalSewa; 
-
-            // Update Ringkasan (Sidebar)
-            document.getElementById('sewaSummary').textContent = formatRupiah(totalSewa);
-            document.getElementById('depositSummary').textContent = formatRupiah(depositAmount);
-            document.getElementById('totalBayar').textContent = formatRupiah(totalBayarTempat); // Ini adalah Total Sewa
-            document.getElementById('totalBayar').dataset.rawTotal = totalBayarTempat;
-            document.getElementById('depositSummary').dataset.rawDeposit = depositAmount;
-
-            // Update Info Deposit (Step 3)
-            document.getElementById('totalSewa').textContent = formatRupiah(totalSewa);
-            document.getElementById('depositAmount').textContent = formatRupiah(depositAmount);
-            document.getElementById('depositAmountText').textContent = formatRupiah(depositAmount);
-            document.getElementById('totalBayarTempat').textContent = formatRupiah(totalBayarTempat);
-
-            // Update detail item di ringkasan (tambahkan hari)
-            if (products.length === 1) {
-                const itemMeta = document.querySelector('#order-list-items .item-meta');
-                if (itemMeta) {
-                    const product = products[0];
-                    const category = product.category || 'Produk';
-                    const size = product.size || '-';
-                    itemMeta.textContent = `${category} • Ukuran: ${size} • Qty: ${quantity} • Hari: ${rentalDays || 1}`;
-                }
-            }
-        }
-        // ===================================
-
-        /**
-         * Pindah antar langkah (step).
-         */
-        function changeStep(currentStep, nextStep) {
-            const currentContent = document.getElementById(`step-${currentStep}-content`);
-            const nextContent = document.getElementById(`step-${nextStep}-content`);
-            const currentStepper = document.querySelector(`.step[data-step="${currentStep}"]`);
-            const nextStepper = document.querySelector(`.step[data-step="${nextStep}"]`);
-
-            if (currentContent) currentContent.classList.add('hidden');
-            if (currentStepper) {
-                currentStepper.classList.remove('active');
-                if (nextStep > currentStep) {
-                    currentStepper.classList.add('done');
-                } else {
-                    currentStepper.classList.remove('done');
-                }
-            }
-
-            if (nextContent) nextContent.classList.remove('hidden');
-            if (nextStepper) nextStepper.classList.add('active');
-
-            if (nextStep == 3) {
-                startPaymentTimer(); 
-                document.getElementById('continueAfterPayment').classList.add('hidden');
-                setPaymentStatus('pending');
-            } else if (currentStep == 3) {
-                stopPaymentTimer(); 
-            }
-
-            if (nextStep == 4) {
-                loadConfirmationDetails();
-            }
-            
-            const formSection = document.querySelector('.checkout-form-section');
-            if (formSection) {
-                formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        /**
-         * Validasi form di Step 1.
-         */
-        function validateStep1() {
-            let isValid = true;
-            const requiredFields = document.querySelectorAll('#step-1-content input[required]');
-            const form = document.getElementById('checkoutForm');
-            form.classList.add('was-validated'); 
-
-            requiredFields.forEach(field => {
-                if (!field.checkValidity()) {
-                    isValid = false;
-                }
-            });
-
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-            const endDateField = document.getElementById('endDate');
-            
-            if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-                endDateField.classList.add('is-invalid');
-                endDateField.classList.remove('is-valid');
-                endDateField.nextElementSibling.textContent = "Tanggal selesai harus setelah tanggal mulai";
-                isValid = false;
-            } else if (endDateField.checkValidity()) {
-                 endDateField.nextElementSibling.textContent = "Wajib diisi";
-            }
-
-            if (!isValid) form.classList.remove('was-validated'); 
-            return isValid;
-        }
-
-        /**
-         * Memulai timer pembayaran 5 menit.
-         */
-        function startPaymentTimer() {
-            stopPaymentTimer();
-            timeLeft = 300; // Reset 5 menit
-            const timerElement = document.getElementById('paymentTimer');
-            timerElement.textContent = `05:00`; 
-
-            paymentTimer = setInterval(() => {
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                timeLeft--;
-
-                if (timeLeft < 0) {
-                    stopPaymentTimer();
-                    simulatePaymentFailed("Waktu pembayaran habis.");
-                }
-            }, 1000);
-        }
-
-        /**
-         * Menghentikan timer pembayaran.
-         */
-        function stopPaymentTimer() {
-            if (paymentTimer) {
-                clearInterval(paymentTimer);
-            }
-        }
-
-        /**
-         * Mengatur status visual pembayaran (pending, success, failed).
-         */
-        function setPaymentStatus(status, message = "") {
-            const statusEl = document.getElementById('paymentStatus');
-            statusEl.classList.remove('payment-pending', 'payment-success', 'payment-failed', 'bg-danger-subtle', 'text-danger');
-
-            if (status === 'pending') {
-                statusEl.classList.add('payment-pending');
-                statusEl.innerHTML = `<i class="bi bi-clock"></i> Menunggu Pembayaran...`;
-            } else if (status === 'success') {
-                statusEl.classList.add('payment-success');
-                statusEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> Pembayaran Berhasil!`;
-            } else if (status === 'failed') {
-                statusEl.classList.add('payment-failed', 'bg-danger-subtle', 'text-danger');
-                statusEl.innerHTML = `<i class="bi bi-x-octagon-fill"></i> Pembayaran Gagal. ${message}`;
-            }
-        }
-
-        /**
-         * SIMULASI: Pembayaran sukses.
-         */
-        function simulatePaymentSuccess() {
-            stopPaymentTimer();
-            setPaymentStatus('success');
-            document.getElementById('continueAfterPayment').classList.remove('hidden');
-        }
-
-        /**
-         * SIMULASI: Pembayaran gagal.
-         */
-        function simulatePaymentFailed(message = "Silahkan coba lagi.") {
-            stopPaymentTimer();
-            setPaymentStatus('failed', message);
-            document.getElementById('continueAfterPayment').classList.add('hidden');
-        }
-
-        /**
-         * Memuat detail untuk Step 4 (Konfirmasi).
-         */
-        // ==== PERUBAHAN LOGIKA: TAMPILAN KONFIRMASI ====
-        function loadConfirmationDetails() {
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-            const depositAmount = document.getElementById('depositSummary').textContent;
-            const totalBayar = document.getElementById('totalBayar').textContent; // Ini adalah Total Sewa
-
-            const infoHtml = `
-                <h6>Detail Pelanggan</h6>
-                <p class="mb-2"><strong>Nama:</strong> ${fullName}</p>
-                <p class="mb-2"><strong>Email:</strong> ${email}</p>
-                <p class="mb-2"><strong>Telepon:</strong> ${phone}</p>
-                <hr>
-                <h6>Detail Sewa</h6>
-                <p class="mb-2"><strong>Periode Sewa:</strong> ${startDate} s/d ${endDate}</p>
-                <p class="mb-2"><strong>Pengambilan:</strong> Jl. Brigjend H. Hasan Basri, Pangeran, Banjarmasin</p>
-                <hr>
-                <h6>Ringkasan Pembayaran</h6>
-                <p class="mb-2"><strong>Deposit Jaminan (Sudah Dibayar via QRIS):</strong> <strong class="text-success">${depositAmount}</strong></p>
-                <p class="mb-2"><strong>Total Biaya Sewa (Bayar Saat Ambil):</strong> <strong>${totalBayar}</strong></p>
-            `;
-            document.getElementById('confirmDetails').innerHTML = infoHtml;
-        }
-        // ===================================
-
-        /**
-         * Membuat HTML untuk struk (invoice) PDF.
-         */
-        // ==== PERUBAHAN LOGIKA: TAMPILAN PDF ====
-        function createInvoiceHTML() {
-            const fullName = document.getElementById('fullName').value;
-            const phone = document.getElementById('phone').value;
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-            const quantity = parseInt(document.getElementById('quantity').value) || 1;
-            
-            const { totalSewa, rentalDays } = calculateTotal(products, startDate, endDate, quantity);
-            const depositAmount = FIXED_DEPOSIT; // Deposit tetap
-            const totalBayarTempat = totalSewa; // Total sewa bayar di tempat
-
-            const product = products[0];
-            const itemTotal = product.quantity * rentalDays * (parseInt(product.price || product.priceRaw || 0));
-
-            return `
-                <div class="invoice-header">
-                    <h3>INVOICE PEMESANAN</h3>
-                    <p>#IAF-${Date.now().toString().slice(-6)}</p>
-                    <p>Tanggal Pesan: ${new Date().toLocaleDateString('id-ID')}</p>
-                </div>
-                <table class="invoice-table">
-                    <tr><td style="width: 50%;"><strong>Nama Pelanggan:</strong></td><td>${fullName}</td></tr>
-                    <tr><td><strong>Nomor Telepon:</strong></td><td>${phone}</td></tr>
-                    <tr><td><strong>Periode Sewa:</strong></td><td>${startDate} s/d ${endDate} (${rentalDays} Hari)</td></tr>
-                </table>
-                <table class="invoice-table">
-                    <thead>
-                        <tr><th>Produk</th><th>Harga/Hari</th><th>Qty</th><th>Subtotal</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>${product.name} (Ukuran: ${product.size || '-'})</td>
-                            <td>${formatRupiah(parseInt(product.price || product.priceRaw || 0))}</td>
-                            <td>${product.quantity} x ${rentalDays} Hari</td>
-                            <td>${formatRupiah(itemTotal)}</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td colspan="3" style="text-align: right;">Total Harga Sewa:</td>
-                            <td>${formatRupiah(totalSewa)}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" style="text-align: right;">Deposit Jaminan (Sudah Dibayar):</td>
-                            <td class="text-success">${formatRupiah(depositAmount)}</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td colspan="3" style="text-align: right;">TOTAL BIAYA SEWA (Bayar di Tempat):</td>
-                            <td style="color: var(--primary);">${formatRupiah(totalBayarTempat)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="invoice-footer">
-                    <p><strong>PENTING:</strong> Bawa <span class="highlight">KTP/SIM/Kartu Pelajar Asli</span> saat pengambilan.</p>
-                    <p>Terima kasih telah berbelanja di IA Rent Fashion.</p>
-                </div>
-            `;
-        }
-        // ===================================
-
-        /**
-         * Menghasilkan dan mengunduh PDF struk.
-         */
-        function generatePDF() {
-            const invoiceElement = document.getElementById('invoicePreview');
-            invoiceElement.innerHTML = createInvoiceHTML();
-            
-            html2canvas(invoiceElement, { scale: 2 }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF({
-                    orientation: 'portrait',
-                    unit: 'mm',
-                    format: 'a5'
-                });
-                const imgProps= pdf.getImageProperties(imgData);
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-                
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                pdf.save(`Struk-IAF-${Date.now().toString().slice(-6)}.pdf`);
-            });
-        }
-
-        /*
-         * ===================================
-         * EVENT LISTENERS UTAMA
-         * ===================================
-         */
-        document.addEventListener('DOMContentLoaded', () => {
-            // Isi tanggal default untuk demo (2 hari dari sekarang)
-            const today = new Date();
-            const start = new Date(today);
-            start.setDate(today.getDate() + 2);
-            const end = new Date(start);
-            end.setDate(start.getDate() + 2);
-            document.getElementById('startDate').valueAsDate = start;
-            document.getElementById('endDate').valueAsDate = end;
-
-
-            loadProduct(); // Muat produk saat halaman siap
-            
-            const quantityInput = document.getElementById('quantity');
-            if (quantityInput) {
-                quantityInput.addEventListener('change', (e) => updateProductQuantity(parseInt(e.target.value) || 1));
-            }
-            
-            document.getElementById('startDate').addEventListener('change', updateTotal);
-            document.getElementById('endDate').addEventListener('change', updateTotal);
-
-            document.querySelectorAll('.continue-button, .btn-back-custom').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const nextStep = e.target.dataset.nextStep;
-                    const prevStep = e.target.dataset.prevStep;
-                    const currentStep = nextStep ? parseInt(nextStep) - 1 : parseInt(prevStep) + 1;
-
-                    if (nextStep && currentStep === 1) { 
-                        if (validateStep1()) { 
-                            changeStep(currentStep, parseInt(nextStep));
-                        }
-                    } else if (nextStep) { 
-                        changeStep(currentStep, parseInt(nextStep));
-                    } else if (prevStep) { 
-                        changeStep(currentStep, parseInt(prevStep));
-                    }
-                });
-            });
-
-            const dropzone = document.getElementById('fileUploadDropzone');
-            const fileInput = document.getElementById('jaminanFile');
-            const fileText = document.getElementById('fileUploadText');
-
-            dropzone.addEventListener('click', () => fileInput.click());
-            fileInput.addEventListener('change', () => {
-                if (fileInput.files.length > 0) {
-                    fileText.innerHTML = `<i class="bi bi-check-circle-fill text-success"></i> ${fileInput.files[0].name}`;
-                } else {
-                    fileText.innerHTML = `Klik atau seret file`;
-                }
-            });
-
-            document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const agreeTerms = document.getElementById('agreeTerms');
-                
-                if (!agreeTerms.checked) {
-                    agreeTerms.classList.add('is-invalid');
-                    document.getElementById('termsError').style.display = 'block'; 
-                    return;
-                }
-                agreeTerms.classList.remove('is-invalid');
-                document.getElementById('termsError').style.display = 'none'; 
-                
-                changeStep(4, 5);
-                generatePDF(); 
-            });
-
-            document.getElementById('downloadPdfBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                generatePDF();
-            });
-
-            updateTotal(); // Panggil sekali saat load
         });
 
-        // Membuat fungsi global agar bisa dipanggil via 'onclick' di HTML
-        window.simulatePaymentSuccess = simulatePaymentSuccess;
-        window.simulatePaymentFailed = simulatePaymentFailed;
-        window.increaseQuantity = increaseQuantity;
-        window.decreaseQuantity = decreaseQuantity;
+        currentStep = stepNumber;
+        window.scrollTo(0, 0); // Scroll ke atas
+    }
 
-    </script>
+    /**
+     * Validasi Step 1: Informasi Pelanggan
+     */
+    function validateStep1() {
+        const form = document.getElementById('checkoutForm');
+        let isValid = true;
+        
+        const inputs = [
+            document.getElementById('fullName'),
+            document.getElementById('email'),
+            document.getElementById('phone'),
+            document.getElementById('startDate'),
+            document.getElementById('endDate')
+        ];
+
+        inputs.forEach(input => {
+            if (!input.checkValidity() || input.value.trim() === '') {
+                input.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+
+        if (!validateDates()) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    /**
+     * Validasi Step 2: Jaminan (Opsional)
+     */
+    function validateStep2() {
+        // Di sini bisa ditambahkan validasi jika file wajib, tapi sekarang opsional.
+        return true;
+    }
+
+    /**
+     * Validasi Step 3: Pembayaran
+     */
+    function validateStep3() {
+        if (!isPaymentSuccessful) {
+            alert('Silakan selesaikan pembayaran deposit terlebih dahulu.');
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validasi Step 4: Checkbox Persetujuan
+     */
+    function validateStep4() {
+        const agreeTerms = document.getElementById('agreeTerms');
+        const termsError = document.getElementById('termsError');
+        
+        if (!agreeTerms.checked) {
+            termsError.style.display = 'block';
+            agreeTerms.classList.add('is-invalid');
+            return false;
+        } else {
+            termsError.style.display = 'none';
+            agreeTerms.classList.remove('is-invalid');
+            return true;
+        }
+    }
+
+    /**
+     * Mengumpulkan data ringkasan untuk Step 4 (Konfirmasi).
+     */
+    function updateConfirmationDetails() {
+        const confirmDetails = document.getElementById('confirmDetails');
+        const product = products[0];
+        const data = collectFormData();
+
+        confirmDetails.innerHTML = `
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Informasi Pelanggan</h6>
+                    <p class="mb-1"><strong>Nama:</strong> ${data.fullName}</p>
+                    <p class="mb-1"><strong>Email:</strong> ${data.email}</p>
+                    <p class="mb-1"><strong>Telepon:</strong> ${data.phone}</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Detail Sewa</h6>
+                    <p class="mb-1"><strong>Mulai:</strong> ${new Date(data.startDate).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}</p>
+                    <p class="mb-1"><strong>Selesai:</strong> ${new Date(data.endDate).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}</p>
+                    <p class="mb-1"><strong>Pengambilan:</strong> Di Toko</p>
+                </div>
+            </div>
+            <hr>
+            <h6>Ringkasan Pembayaran</h6>
+            <div class="summary-line"><span>Produk (${product.name} x${data.quantity})</span><span>${formatRupiah(data.biayaSewa)}</span></div>
+            <div class="summary-line text-danger"><span>Deposit (Sudah Dibayar)</span><span>${formatRupiah(data.deposit)}</span></div>
+            <div class="summary-line total mt-2"><strong>Total Bayar di Tempat</strong> <strong>${formatRupiah(data.biayaSewa)}</strong></div>
+        `;
+    }
+
+    /**
+     * Menangani navigasi (Tombol Lanjut/Kembali).
+     */
+    function handleNavigation(event) {
+        const target = event.target.closest('button');
+        if (!target) return;
+
+        let nextStep = null;
+
+        if (target.matches('[data-next-step]')) {
+            const step = parseInt(target.getAttribute('data-next-step'), 10);
+            
+            // Validasi sebelum lanjut
+            if (currentStep === 1 && !validateStep1()) return;
+            if (currentStep === 2 && !validateStep2()) return;
+            if (currentStep === 3 && !validateStep3()) return;
+
+            if (step === 3) {
+                // Saat mau ke step 3, update total (jika kuantitas berubah) dan mulai timer
+                updateTotal();
+                startPaymentTimer();
+            }
+            if (step === 4) {
+                updateConfirmationDetails(); // Panggil saat mau ke step 4
+            }
+            nextStep = step;
+
+        } else if (target.matches('[data-prev-step]')) {
+            nextStep = parseInt(target.getAttribute('data-prev-step'), 10);
+            if (nextStep === 3) {
+                // Reset status pembayaran dan timer jika kembali ke step 3
+                resetPaymentStep();
+            }
+        }
+
+        if (nextStep) {
+            navigateToStep(nextStep);
+        }
+    }
+
+    /**
+     * Mengumpulkan semua data dari form.
+     */
+    function collectFormData() {
+        const product = products[0];
+        const price = parseInt(product.price || product.priceRaw || 0);
+        const quantity = parseInt(product.quantity || 1);
+        const subtotal = price * quantity;
+        const deposit = subtotal * DEPOSIT_PERCENTAGE;
+
+        return {
+            fullName: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            startDate: document.getElementById('startDate').value,
+            endDate: document.getElementById('endDate').value,
+            fileName: document.getElementById('jaminanFile').files[0]?.name || 'Tidak diupload',
+            productName: product.name,
+            quantity: quantity,
+            biayaSewa: subtotal,
+            deposit: deposit
+        };
+    }
+
+    /**
+     * Aksi setelah pesanan sukses (Step 5).
+     */
+    function handleOrderSuccess() {
+        console.log("Pesanan sukses, membuat struk...");
+        const data = collectFormData();
+        
+        // Buat preview dulu agar bisa ditangkap html2canvas
+        generateInvoicePreview(data); 
+        
+        // Generate PDF dan langsung download
+        generateAndDownloadPDF(data);
+        
+        // Hapus data dari localStorage (simulasi checkout selesai)
+        localStorage.removeItem('sewaProduct');
+        localStorage.removeItem('selectedProduct');
+    }
+
+    /**
+     * Membuat preview struk di halaman (untuk di-screenshot oleh html2canvas).
+     */
+    function generateInvoicePreview(data) {
+        const preview = document.getElementById('invoicePreview');
+        preview.style.display = 'block';
+
+        const start = new Date(data.startDate).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const end = new Date(data.endDate).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const today = new Date();
+        const invoiceDate = today.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', '');
+
+        // Format nomor invoice: IA20251114 (tahun + bulan + tanggal)
+        const invoiceNo = `IA${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`;
+
+        preview.innerHTML = `
+            <div class="invoice-header">
+                <img src="{{ url_for('static', filename='images/main-logo.png') }}" alt="IA Rent Fashion">
+                <h2>IA RENT FASHION</h2>
+                <p>Jl. Brigjen H. Hasan Basri, Pangeran, Banjarmasin</p>
+                <p>Telp: 0812-3456-7890 | Email: iarentfashion@gmail.com</p>
+            </div>
+
+            <div class="invoice-title">INVOICE PENYEWAAN</div>
+            <div class="invoice-no">No. Invoice: #${invoiceNo}</div>
+
+            <div class="invoice-row label">
+                <div>Pelanggan</div>
+                <div class="value">${data.fullName}</div>
+            </div>
+            <div class="invoice-row label">
+                <div>Produk</div>
+                <div class="value">${data.productName} (x${data.quantity})</div>
+            </div>
+            <div class="invoice-row label">
+                <div>Jadwal Sewa</div>
+                <div class="value">${start} s/d ${end}</div>
+            </div>
+            <div class="invoice-row">
+                <div>Biaya Sewa</div>
+                <div class="value">${formatRupiah(data.biayaSewa)}</div>
+            </div>
+            <div class="invoice-row deposit-line">
+                <div>Deposit (25%)</div>
+                <div class="value">${formatRupiah(data.deposit)}</div>
+            </div>
+            <div class="invoice-row total">
+                <div>Total Bayar Saat Ambil</div>
+                <div class="value">Rp ${data.biayaSewa.toLocaleString('id-ID')}</div>
+            </div>
+
+            <div class="footer-note">
+                Deposit akan dikembalikan max 1x24 jam setelah barang dicek.
+                <br>
+                Terima kasih telah mempercayakan penyewaan kepada kami.
+            </div>
+
+            <div class="footer-date">
+                Dicetak pada: ${invoiceDate}
+            </div>
+        `;
+    }
+
+    /**
+    * Generate PDF (A4) dengan kualitas tinggi
+    */
+    function generateAndDownloadPDF(data) {
+        const element = document.getElementById('invoicePreview');
+        element.style.display = 'block';
+
+        html2canvas(element, {
+            scale: 3,
+            useCORS: true,
+            backgroundColor: '#ffffff',
+            windowWidth: 600
+        }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 190;
+            const pageHeight = 277;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 10;
+            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight + 10;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            const filename = `Invoice-IA-${data.phone}.pdf`;
+            pdf.save(filename);
+
+            setTimeout(() => element.style.display = 'none', 500);
+
+            document.getElementById('downloadPdfBtn').onclick = (e) => {
+                e.preventDefault();
+                pdf.save(filename);
+            };
+        }).catch(err => {
+            console.error("PDF Error:", err);
+            element.style.display = 'none';
+            alert("Gagal mengunduh invoice.");
+        });
+    }
+
+    /**
+     * Memulai timer pembayaran.
+     */
+    function startPaymentTimer() {
+        clearInterval(paymentTimer); // Hentikan timer sebelumnya jika ada
+        timeLeft = 300; // Reset waktu
+        
+        const timerElement = document.getElementById('paymentTimer');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            timerElement.textContent = `${minutes}:${seconds}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(paymentTimer);
+                timerElement.textContent = "Waktu Habis";
+                // Nonaktifkan tombol simulasi
+                document.querySelectorAll('.simulation-buttons button').forEach(btn => btn.disabled = true);
+            } else {
+                timeLeft--;
+            }
+        }
+        
+        updateTimer(); // Panggil sekali agar langsung tampil
+        paymentTimer = setInterval(updateTimer, 1000);
+    }
+
+    /**
+     * Reset status step 3 jika user kembali.
+     */
+    function resetPaymentStep() {
+        clearInterval(paymentTimer);
+        isPaymentSuccessful = false;
+
+        const statusEl = document.getElementById('paymentStatus');
+        statusEl.className = 'payment-status payment-pending';
+        statusEl.innerHTML = '<i class="bi bi-clock"></i> Menunggu Pembayaran...';
+
+        document.getElementById('continueAfterPayment').classList.add('hidden');
+        document.querySelector('.simulation-buttons').classList.remove('hidden');
+        document.querySelectorAll('.simulation-buttons button').forEach(btn => btn.disabled = false);
+    }
+
+
+    /**
+     * Simulasi Pembayaran Berhasil
+     */
+    window.simulatePaymentSuccess = function() {
+        clearInterval(paymentTimer);
+        isPaymentSuccessful = true;
+        
+        const statusEl = document.getElementById('paymentStatus');
+        statusEl.className = 'payment-status payment-success';
+        statusEl.innerHTML = '<i class="bi bi-check-circle-fill"></i> Pembayaran Deposit Berhasil!';
+        
+        document.getElementById('continueAfterPayment').classList.remove('hidden');
+        document.querySelector('.simulation-buttons').classList.add('hidden');
+    }
+
+    /**
+     * Simulasi Pembayaran Gagal
+     */
+    window.simulatePaymentFailed = function() {
+        isPaymentSuccessful = false;
+        
+        const statusEl = document.getElementById('paymentStatus');
+        statusEl.className = 'payment-status payment-failed';
+        statusEl.innerHTML = '<i class="bi bi-x-circle-fill"></i> Pembayaran Gagal. Silakan coba lagi.';
+        
+        // Sembunyikan tombol lanjut jika ada
+        document.getElementById('continueAfterPayment').classList.add('hidden');
+    }
+
+    //
+    // --- Inisialisasi Saat DOM Siap ---
+    //
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProduct();
+        initDatepickers();
+
+        // Listener utama untuk tombol Lanjut/Kembali
+        document.querySelector('.checkout-form-section').addEventListener('click', handleNavigation);
+
+        // Listener untuk upload file
+        const dropzone = document.getElementById('fileUploadDropzone');
+        const fileInput = document.getElementById('jaminanFile');
+        const fileText = document.getElementById('fileUploadText');
+
+        dropzone.addEventListener('click', () => fileInput.click());
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.style.borderColor = 'var(--primary)';
+        });
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.style.borderColor = '#ccc';
+        });
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.style.borderColor = '#ccc';
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                fileText.textContent = fileInput.files[0].name;
+            }
+        });
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileText.textContent = fileInput.files[0].name;
+            } else {
+                fileText.textContent = 'Klik atau seret file';
+            }
+        });
+
+        // ⭐ INI ADALAH LISTENER KUNCI YANG HILANG ⭐
+        // Penanganan submit form (Saat tombol "Konfirmasi & Selesai" di Step 4 diklik)
+        document.getElementById('checkoutForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Mencegah form submit standar (reload halaman)
+
+            // Hanya jalankan jika kita benar-benar di step 4
+            if (currentStep === 4) {
+                if (validateStep4()) {
+                    // Validasi (checkbox) berhasil
+                    console.log("Form disubmit, data:", collectFormData());
+
+                    // Lanjut ke step 5 (Selesai)
+                    navigateToStep(5);
+                    
+                    // Menjalankan fungsi sukses (generate PDF, etc)
+                    handleOrderSuccess();
+                } else {
+                    // Validasi (checkbox) gagal
+                    console.log("Validasi step 4 gagal (checkbox belum dicentang).");
+                }
+            }
+        });
+    });
+
+</script>
 
 </body>
 </html>

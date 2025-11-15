@@ -17,6 +17,404 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <style>
+      /* Custom Dropdown Styling */
+      .dropdown-menu {
+        min-width: 200px;
+      }
+
+      .dropdown-item {
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+        background-color: #f3e5f5;
+        color: #e91e63;
+      }
+
+      .dropdown-item.text-danger:hover {
+        background-color: #ffebee;
+      }
+
+      .dropdown-divider {
+        margin: 0.5rem 0;
+      }
+
+      /* User Badge */
+      .dropdown-toggle::after {
+        content: none;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .navbar-brand img {
+          height: 70px !important;
+        }
+
+        .d-none.d-sm-inline {
+          display: none !important;
+        }
+      }
+
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700&display=swap');
+
+      /* ===== ROOT VARIABLES ===== */
+      :root {
+          --primary: #f85a87ff;
+          --primary-dark: #fb97b3ff;
+          --secondary: #ff9db9;
+          --accent: #ff9db9;
+          --dark: #1a1a2e;
+          --light: #f85a87ff;
+          --border-radius: 20px;
+      }
+
+
+      /* ===== NAVBAR MODERN ===== */
+      .navbar {
+          background: rgba(255, 255, 255, 0.95) !important;
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+          padding: 0.8rem 0 !important;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+      }
+
+      .navbar-brand img {
+          transition: all 0.3s ease;
+          filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.1));
+      }
+
+      .navbar-brand img:hover {
+          transform: scale(1.05);
+      }
+
+      /* ===== NAV LINKS ===== */
+      .navbar-nav .nav-link {
+          font-weight: 600;
+          font-size: 0.9rem;
+          color: var(--dark) !important;
+          position: relative;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 0.5rem 0 !important;
+      }
+
+      .navbar-nav .nav-link::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 3px;
+          bottom: -8px;
+          left: 0;
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          transition: width 0.3s ease;
+          border-radius: 2px;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+          width: 100%;
+      }
+
+      .navbar-nav .nav-link.active {
+          color: var(--primary) !important;
+      }
+
+      .navbar-nav .nav-link.active::after {
+          width: 100%;
+      }
+
+      /* ===== DROPDOWN MENU ===== */
+      .dropdown-menu {
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(102, 126, 234, 0.1);
+          border-radius: 20px !important;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+          animation: slideDownFade 0.3s ease;
+      }
+
+      @keyframes slideDownFade {
+          from {
+              opacity: 0;
+              transform: translateY(-10px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      .dropdown-item {
+          color: var(--dark);
+          transition: all 0.3s ease;
+          border-radius: 10px;
+          margin: 0.3rem 0;
+      }
+
+      .dropdown-item:hover {
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+          color: var(--primary);
+          transform: translateX(5px);
+      }
+
+      /* ===== ICON BADGES ===== */
+      .icon-badge {
+          position: relative;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          color: var(--dark);
+          font-size: 1.3rem;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+      }
+
+      .icon-badge:hover {
+          transform: scale(1.15) rotate(5deg);
+          color: var(--primary);
+      }
+
+      .badge-modern {
+          position: absolute;
+          top: -12px;
+          right: -12px;
+          background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+          border-radius: 50%;
+          width: 28px;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: white;
+          box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+          animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+      }
+
+      /* ===== HERO SECTION MODERN ===== */
+      #billboard {
+          background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%) !important;
+          margin-top: 70px;
+          min-height: 90vh;
+          display: flex;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+          padding: 3rem 0 !important;
+          height: auto !important;
+      }
+
+      #billboard::before {
+          content: '';
+          position: absolute;
+          width: 500px;
+          height: 500px;
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+          border-radius: 50%;
+          top: -100px;
+          left: -150px;
+          animation: float 8s ease-in-out infinite;
+          z-index: 0;
+      }
+
+      #billboard::after {
+          content: '';
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(240, 147, 251, 0.08));
+          border-radius: 50%;
+          bottom: -50px;
+          right: -100px;
+          animation: float 10s ease-in-out infinite reverse;
+          z-index: 0;
+      }
+
+      @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(30px); }
+      }
+
+      /* ===== SWIPER WRAPPER ===== */
+      .swiper-wrapper {
+          position: relative;
+          z-index: 2;
+      }
+
+      .swiper-slide {
+          animation: slideInUp 0.8s ease;
+      }
+
+      @keyframes slideInUp {
+          from {
+              opacity: 0;
+              transform: translateY(40px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      /* ===== BANNER CONTENT ===== */
+      .banner-content h2 {
+          font-size: 3.5rem;
+          font-weight: 800;
+          font-family: 'Outfit', sans-serif;
+          line-height: 1.2;
+          margin-bottom: 1.5rem;
+          background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+      }
+
+      .banner-content p {
+          font-size: 1.2rem;
+          font-weight: 400;
+          margin-bottom: 2rem;
+          color: #666;
+          line-height: 1.6;
+          font-family: 'Sora', sans-serif;
+      }
+
+      .banner-content .btn {
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          border: none;
+          color: white;
+          font-weight: 700;
+          padding: 15px 40px;
+          border-radius: 50px;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+          font-size: 1rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+      }
+
+      .banner-content .btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.2);
+          transition: left 0.4s ease;
+      }
+
+      .banner-content .btn:hover::before {
+          left: 100%;
+      }
+
+      .banner-content .btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+          color: white;
+          text-decoration: none;
+      }
+
+      /* ===== IMAGE HOLDER ===== */
+      .image-holder {
+          position: relative;
+          animation: slideInRight 0.8s ease;
+      }
+
+      @keyframes slideInRight {
+          from {
+              opacity: 0;
+              transform: translateX(40px);
+          }
+          to {
+              opacity: 1;
+              transform: translateX(0);
+          }
+      }
+
+      .image-holder img {
+          width: 100%;
+          height: auto;
+          max-height: 600px;
+          object-fit: contain;
+          filter: drop-shadow(0 30px 50px rgba(102, 126, 234, 0.2));
+          transition: transform 0.4s ease;
+          border-radius: 30px;
+      }
+
+      .image-holder:hover img {
+          transform: scale(1.05);
+      }
+
+      /* ===== SLIDER BUTTONS ===== */
+      .chevron-forward-circle,
+      .chevron-back-circle {
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          border-radius: 50%;
+          color: white;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+      }
+
+      .chevron-forward-circle:hover,
+      .chevron-back-circle:hover {
+          transform: scale(1.1);
+          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+          .banner-content h2 {
+              font-size: 2.2rem;
+          }
+
+          .banner-content p {
+              font-size: 1rem;
+          }
+
+          .navbar-nav .nav-link {
+              font-size: 0.85rem;
+          }
+
+          #billboard {
+              padding: 2rem 0 !important;
+          }
+
+          .image-holder img {
+              max-height: 400px;
+          }
+
+          .chevron-forward-circle,
+          .chevron-back-circle {
+              width: 50px !important;
+              height: 50px !important;
+          }
+      }
+
+      /* ===== DISABLE DEFAULT BUTTON STYLES ===== */
+      .navbar .btn {
+          background: none;
+          border: none;
+          box-shadow: none;
+      }
+      
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   
   <body>
@@ -117,8 +515,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
-
-    <!-- HEADER -->
+<!-- HEADER -->
     <header id="header" class="site-header">
       <nav id="header-nav" class="navbar navbar-expand-lg py-3 border-bottom bg-white shadow-sm fixed-top">
         <div class="container">
@@ -153,11 +550,11 @@
                   <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="{{ url_for('koleksi') }}" role="button"
                     aria-expanded="false">Koleksi</a>
                   <ul class="dropdown-menu animate slide border">
-                    <li><a href="{{ url_for('koleksi', koleksi='jas') }}" class="dropdown-item fw-light">Jas</a></li>
-                    <li><a href="{{ url_for('koleksi', koleksi='dress') }}" class="dropdown-item fw-light">Dress</a></li>
-                    <li><a href="{{ url_for('koleksi', koleksi='aksesoris') }}" class="dropdown-item fw-light">Aksesoris</a></li>
-                    <li><a href="{{ url_for('koleksi', koleksi='kebaya') }}" class="dropdown-item fw-light">Kebaya</a></li>
-                    <li><a href="{{ url_for('koleksi', koleksi='footwear') }}" class="dropdown-item fw-light">Footwear</a></li>
+                    <li><a href="{{ url_for('jas') }}">Jas</a></li>
+                    <li><a href="{{ url_for('dress') }}">Dress</a></li>
+                    <li><a href="{{ url_for('aksesoris') }}">Aksesori</a></li>
+                    <li><a href="{{ url_for('kebaya') }}">Kebaya</a></li>
+                    <li><a href="{{ url_for('footwear') }}">Footwear</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link me-4" href="{{ url_for('inspirasi') }}">Inspirasi</a></li>
@@ -235,19 +632,84 @@
                     </ul>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-dark rounded-pill">Lihat Keranjang</a>
-                      <a href="#" class="btn btn-primary rounded-pill">Checkout</a>
+                      <a href="{{ url_for('sewa') }}" class="btn btn-primary rounded-pill">Checkout</a>
                     </div>
                   </div>
                 </li>
 
-                <!-- User -->
-                <li class="ms-3">
-                  <a href="javascript:void(0)" onclick="redirectToLogin('profile')" class="text-dark" style="text-decoration: none;">
-                    <svg width="22" height="22" fill="currentColor">
-                      <use xlink:href="#user"></use>
-                    </svg>
-                  </a>
-                </li>
+                <!-- User Menu (Login/Profile) -->
+                {% if g.user or session.get('user_id') %}
+                  <!-- Jika User Sudah Login -->
+                  <li class="ms-3 dropdown">
+                    <a href="#" class="text-dark dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" 
+                       style="text-decoration: none; gap: 8px;">
+                      <svg width="22" height="22" fill="currentColor">
+                        <use xlink:href="#user"></use>
+                      </svg>
+                      <span class="d-none d-sm-inline fw-semibold" style="font-size: 0.9rem;">
+                        {% if g.user %}
+                          {{ g.user.name[:15] }}
+                        {% else %}
+                          {{ session.get('user_name', 'User')[:15] }}
+                        {% endif %}
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                      <!-- Profile -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('profile') }}">
+                          <i class="bi bi-person-circle" style="font-size: 1.1rem; color: #e91e63;"></i>
+                          <span>Profile Saya</span>
+                        </a>
+                      </li>
+                      <!-- Pesanan -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('pesanan') }}">
+                          <i class="bi bi-bag-check" style="font-size: 1.1rem; color: #ff9800;"></i>
+                          <span>Pesanan Saya</span>
+                        </a>
+                      </li>
+                      <!-- Favorit -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                          <i class="bi bi-heart" style="font-size: 1.1rem; color: #f44336;"></i>
+                          <span>Favorit Saya</span>
+                        </a>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <!-- Logout -->
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="{{ url_for('logout') }}">
+                          <i class="bi bi-box-arrow-right" style="font-size: 1.1rem;"></i>
+                          <span>Logout</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                {% else %}
+                  <!-- Jika User Belum Login -->
+                  <li class="ms-3 dropdown">
+                    <a href="#" class="text-dark dropdown-toggle" data-bs-toggle="dropdown" style="text-decoration: none;">
+                      <svg width="22" height="22" fill="currentColor">
+                        <use xlink:href="#user"></use>
+                      </svg>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('login') }}">
+                          <i class="bi bi-box-arrow-in-right" style="font-size: 1.1rem; color: #2196f3;"></i>
+                          <span>Login</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ url_for('register') }}">
+                          <i class="bi bi-person-plus" style="font-size: 1.1rem; color: #4caf50;"></i>
+                          <span>Daftar</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                {% endif %}
               </ul>
             </div>
           </div>
@@ -282,7 +744,7 @@
                 </div>
                 <div class="col-md-6 text-center">
                   <div class="image-holder">
-                    <img src="static\images\banner-image2.png" class="img-fluid" alt="banner">
+                    <img src="static\images\banner-image2.jpg" class="img-fluid" alt="banner">
                   </div>
                 </div>
               </div>
@@ -1077,7 +1539,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    
     <script type="text/javascript" src="static\js\script.js"></script>
 
     <!-- Login Redirect JavaScript -->
@@ -1088,7 +1549,7 @@
         localStorage.setItem('loginReason', reason);
         
         // Redirect ke login - sesuaikan path sesuai kebutuhan
-        window.location.href = '/login'; // atau 'login.html' atau '{{ url_for("login") }}'
+        window.location.href = '/login.html'; // atau 'login.html' atau '{{ url_for("login") }}'
       }
 
       // Function untuk tombol "Sewa Sekarang"
@@ -1103,6 +1564,41 @@
 
       console.log('Login JavaScript loaded successfully');
     </script>
+    <script src="../static/asset/script.js"></script>
+    {% if session.get('show_welcome') %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: '🎉 Selamat Datang!',
+          html: `
+            <div class="text-start">
+              <p class="mb-3"><strong>Hai, {{ session.get('user_name') }}!</strong></p>
+              <p class="mb-3">Anda berhasil login. Sekarang Anda dapat:</p>
+              <ul class="text-start">
+                <li>🛒 <strong>Belanja Produk</strong> - Tambahkan ke keranjang dan checkout</li>
+                <li>💖 <strong>Wishlist</strong> - Simpan produk favorit Anda</li>
+                <li>⭐ <strong>Review</strong> - Berikan rating dan ulasan produk</li>
+                <li>📦 <strong>Tracking</strong> - Pantau status pesanan Anda</li>
+              </ul>
+              <div class="alert alert-info mt-3 mb-0">
+                <small>🎁 <strong>Promo:</strong> Gunakan kode <strong>WELCOME10</strong> untuk diskon 10%!</small>
+              </div>
+            </div>
+          `,
+          icon: 'success',
+          confirmButtonText: '🚀 Mulai Belanja!',
+          confirmButtonColor: '#667eea',
+          width: 600,
+          padding: '2rem',
+          backdrop: true,
+          allowOutsideClick: false
+        }).then((result) => {
+          // Clear welcome flag
+          fetch('/api/clear-welcome-flag', { method: 'POST' });
+        });
+      });
+    </script>
+    {% endif %}
 
   </body>
 </html>

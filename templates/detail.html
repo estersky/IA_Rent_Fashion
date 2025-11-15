@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>IA Rent Fashion</title>
@@ -51,12 +52,404 @@
         object-fit: cover;
         width: 100%;
       }
+      /* Custom Dropdown Styling */
+      .dropdown-menu {
+        min-width: 200px;
+      }
+
+      .dropdown-item {
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+        background-color: #f3e5f5;
+        color: #e91e63;
+      }
+
+      .dropdown-item.text-danger:hover {
+        background-color: #ffebee;
+      }
+
+      .dropdown-divider {
+        margin: 0.5rem 0;
+      }
+
+      /* User Badge */
+      .dropdown-toggle::after {
+        content: none;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .navbar-brand img {
+          height: 70px !important;
+        }
+
+        .d-none.d-sm-inline {
+          display: none !important;
+        }
+      }
+
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700&display=swap');
+
+      /* ===== ROOT VARIABLES ===== */
+      :root {
+          --primary: #f85a87ff;
+          --primary-dark: #fb97b3ff;
+          --secondary: #ff9db9;
+          --accent: #ff9db9;
+          --dark: #1a1a2e;
+          --light: #f85a87ff;
+          --border-radius: 20px;
+      }
+
+
+      /* ===== NAVBAR MODERN ===== */
+      .navbar {
+          background: rgba(255, 255, 255, 0.95) !important;
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+          padding: 0.8rem 0 !important;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+      }
+
+      .navbar-brand img {
+          transition: all 0.3s ease;
+          filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.1));
+      }
+
+      .navbar-brand img:hover {
+          transform: scale(1.05);
+      }
+
+      /* ===== NAV LINKS ===== */
+      .navbar-nav .nav-link {
+          font-weight: 600;
+          font-size: 0.9rem;
+          color: var(--dark) !important;
+          position: relative;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 0.5rem 0 !important;
+      }
+
+      .navbar-nav .nav-link::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 3px;
+          bottom: -8px;
+          left: 0;
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          transition: width 0.3s ease;
+          border-radius: 2px;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+          width: 100%;
+      }
+
+      .navbar-nav .nav-link.active {
+          color: var(--primary) !important;
+      }
+
+      .navbar-nav .nav-link.active::after {
+          width: 100%;
+      }
+
+      /* ===== DROPDOWN MENU ===== */
+      .dropdown-menu {
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(102, 126, 234, 0.1);
+          border-radius: 20px !important;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+          animation: slideDownFade 0.3s ease;
+      }
+
+      @keyframes slideDownFade {
+          from {
+              opacity: 0;
+              transform: translateY(-10px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      .dropdown-item {
+          color: var(--dark);
+          transition: all 0.3s ease;
+          border-radius: 10px;
+          margin: 0.3rem 0;
+      }
+
+      .dropdown-item:hover {
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+          color: var(--primary);
+          transform: translateX(5px);
+      }
+
+      /* ===== ICON BADGES ===== */
+      .icon-badge {
+          position: relative;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          color: var(--dark);
+          font-size: 1.3rem;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+      }
+
+      .icon-badge:hover {
+          transform: scale(1.15) rotate(5deg);
+          color: var(--primary);
+      }
+
+      .badge-modern {
+          position: absolute;
+          right: -12px;
+          background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+          border-radius: 50%;
+          width: 28px;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: white;
+          box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+          animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+      }
+
+      /* ===== HERO SECTION MODERN ===== */
+      #billboard {
+          background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%) !important;
+          min-height: 90vh;
+          display: flex;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+          padding: 3rem 0 !important;
+          height: auto !important;
+      }
+
+      #billboard::before {
+          content: '';
+          position: absolute;
+          width: 500px;
+          height: 500px;
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+          border-radius: 50%;
+          left: -150px;
+          animation: float 8s ease-in-out infinite;
+          z-index: 0;
+      }
+
+      #billboard::after {
+          content: '';
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(240, 147, 251, 0.08));
+          border-radius: 50%;
+          bottom: -50px;
+          right: -100px;
+          animation: float 10s ease-in-out infinite reverse;
+          z-index: 0;
+      }
+
+      @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(30px); }
+      }
+
+      /* ===== SWIPER WRAPPER ===== */
+      .swiper-wrapper {
+          position: relative;
+          z-index: 2;
+      }
+
+      .swiper-slide {
+          animation: slideInUp 0.8s ease;
+      }
+
+      @keyframes slideInUp {
+          from {
+              opacity: 0;
+              transform: translateY(40px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      /* ===== BANNER CONTENT ===== */
+      .banner-content h2 {
+          font-size: 3.5rem;
+          font-weight: 800;
+          font-family: 'Outfit', sans-serif;
+          line-height: 1.2;
+          margin-bottom: 1.5rem;
+          background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+      }
+
+      .banner-content p {
+          font-size: 1.2rem;
+          font-weight: 400;
+          margin-bottom: 2rem;
+          color: #666;
+          line-height: 1.6;
+          font-family: 'Sora', sans-serif;
+      }
+
+      .banner-content .btn {
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          border: none;
+          color: white;
+          font-weight: 700;
+        
+          border-radius: 50px;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+          font-size: 1rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+      }
+
+      .banner-content .btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.2);
+          transition: left 0.4s ease;
+      }
+
+      .banner-content .btn:hover::before {
+          left: 100%;
+      }
+
+      .banner-content .btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+          color: white;
+          text-decoration: none;
+      }
+
+      /* ===== IMAGE HOLDER ===== */
+      .image-holder {
+          position: relative;
+          animation: slideInRight 0.8s ease;
+      }
+
+      @keyframes slideInRight {
+          from {
+              opacity: 0;
+              transform: translateX(40px);
+          }
+          to {
+              opacity: 1;
+              transform: translateX(0);
+          }
+      }
+
+      .image-holder img {
+          width: 100%;
+          height: auto;
+          max-height: 600px;
+          object-fit: contain;
+          filter: drop-shadow(0 30px 50px rgba(102, 126, 234, 0.2));
+          transition: transform 0.4s ease;
+          border-radius: 30px;
+      }
+
+      .image-holder:hover img {
+          transform: scale(1.05);
+      }
+
+      /* ===== SLIDER BUTTONS ===== */
+      .chevron-forward-circle,
+      .chevron-back-circle {
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          border-radius: 50%;
+          color: white;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+      }
+
+      .chevron-forward-circle:hover,
+      .chevron-back-circle:hover {
+          transform: scale(1.1);
+          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+          .banner-content h2 {
+              font-size: 2.2rem;
+          }
+
+          .banner-content p {
+              font-size: 1rem;
+          }
+
+          .navbar-nav .nav-link {
+              font-size: 0.85rem;
+          }
+
+          #billboard {
+              padding: 2rem 0 !important;
+          }
+
+          .image-holder img {
+              max-height: 400px;
+          }
+
+          .chevron-forward-circle,
+          .chevron-back-circle {
+              width: 50px !important;
+              height: 50px !important;
+          }
+      }
+
+      /* ===== DISABLE DEFAULT BUTTON STYLES ===== */
+      .navbar .btn {
+          background: none;
+          border: none;
+          box-shadow: none;
+      }
+      
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body>
-    <!-- HEADER (Copy dari koleksi.html) -->
-    <!-- ===== SVG ICONS DEFINITIONS ===== -->
+<!-- ===== SVG ICONS DEFINITIONS ===== -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
       <!-- Navbar icon -->
       <symbol id="navbar-icon" viewBox="0 0 16 16">
@@ -94,6 +487,13 @@
           0 6zm4.5 7a.5.5 0 0 0 .5-.5v-.5a4 
           4 0 0 0-8 0v.5a.5.5 0 0 0 
           .5.5h7z"
+        />
+      </symbol>
+
+      <!-- Search -->
+      <symbol id="search" viewBox="0 0 16 16">
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
         />
       </symbol>
     </svg>
@@ -147,13 +547,15 @@
               <!-- MENU -->
               <ul class="navbar-nav mx-auto text-uppercase fw-semibold">
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="{{ url_for('beranda') }}"
+                  <a
+                    class="nav-link me-4"
+                    href="{{ url_for('beranda') }}"
                     >Beranda</a
                   >
                 </li>
                 <li class="nav-item dropdown">
                   <a
-                    class="nav-link me-4 dropdown-toggle"
+                    class="nav-link me-4 active dropdown-toggle"
                     data-bs-toggle="dropdown"
                     href="{{ url_for('koleksi') }}"
                     role="button"
@@ -161,47 +563,15 @@
                     >Koleksi</a
                   >
                   <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='jas') }}"
-                        class="dropdown-item fw-light"
-                        >Jas</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='dress') }}"
-                        class="dropdown-item fw-light"
-                        >Dress</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='aksesoris') }}"
-                        class="dropdown-item fw-light"
-                        >Aksesoris</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='kebaya') }}"
-                        class="dropdown-item fw-light"
-                        >Kebaya</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ url_for('koleksi', koleksi='footwear') }}"
-                        class="dropdown-item fw-light"
-                        >Footwear</a
-                      >
-                    </li>
+                    <li><a href="{{ url_for('jas') }}">Jas</a></li>
+                    <li><a href="{{ url_for('dress') }}">Dress</a></li>
+                    <li><a href="{{ url_for('aksesoris') }}">Aksesori</a></li>
+                    <li><a href="{{ url_for('kebaya') }}">Kebaya</a></li>
+                    <li><a href="{{ url_for('footwear') }}">Footwear</a></li>
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a
-                    class="nav-link me-4 active"
-                    href="{{ url_for('inspirasi') }}"
+                  <a class="nav-link me-4" href="{{ url_for('inspirasi') }}"
                     >Inspirasi</a
                   >
                 </li>
@@ -224,6 +594,15 @@
 
               <!-- USER ICONS -->
               <ul class="d-flex list-unstyled mb-0 align-items-center">
+                <!-- Search -->
+                <li class="ms-3">
+                  <a href="#" class="text-dark search-button">
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#search"></use>
+                    </svg>
+                  </a>
+                </li>
+
                 <!-- Wishlist -->
                 <li class="ms-3 dropdown">
                   <a
@@ -319,135 +698,134 @@
                   </div>
                 </li>
 
-                <!-- User -->
-                <li class="ms-3">
+                <!-- User Menu (Login/Profile) -->
+                {% if g.user or session.get('user_id') %}
+                <!-- Jika User Sudah Login -->
+                <li class="ms-3 dropdown">
                   <a
                     href="#"
-                    class="text-dark"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    class="text-dark dropdown-toggle d-flex align-items-center"
+                    data-bs-toggle="dropdown"
+                    style="text-decoration: none; gap: 8px"
+                  >
+                    <svg width="22" height="22" fill="currentColor">
+                      <use xlink:href="#user"></use>
+                    </svg>
+                    <span
+                      class="d-none d-sm-inline fw-semibold"
+                      style="font-size: 0.9rem"
+                    >
+                      {% if g.user %} {{ g.user.name[:15] }} {% else %} {{
+                      session.get('user_name', 'User')[:15] }} {% endif %}
+                    </span>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3"
+                  >
+                    <!-- Profile -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('profile') }}"
+                      >
+                        <i
+                          class="bi bi-person-circle"
+                          style="font-size: 1.1rem; color: #e91e63"
+                        ></i>
+                        <span>Profile Saya</span>
+                      </a>
+                    </li>
+                    <!-- Pesanan -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('pesanan') }}"
+                      >
+                        <i
+                          class="bi bi-bag-check"
+                          style="font-size: 1.1rem; color: #ff9800"
+                        ></i>
+                        <span>Pesanan Saya</span>
+                      </a>
+                    </li>
+                    <!-- Favorit -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="#"
+                      >
+                        <i
+                          class="bi bi-heart"
+                          style="font-size: 1.1rem; color: #f44336"
+                        ></i>
+                        <span>Favorit Saya</span>
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <!-- Logout -->
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                        href="{{ url_for('logout') }}"
+                      >
+                        <i
+                          class="bi bi-box-arrow-right"
+                          style="font-size: 1.1rem"
+                        ></i>
+                        <span>Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                {% else %}
+                <!-- Jika User Belum Login -->
+                <li class="ms-3 dropdown">
+                  <a
+                    href="#"
+                    class="text-dark dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    style="text-decoration: none"
                   >
                     <svg width="22" height="22" fill="currentColor">
                       <use xlink:href="#user"></use>
                     </svg>
                   </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('login') }}"
+                      >
+                        <i
+                          class="bi bi-box-arrow-in-right"
+                          style="font-size: 1.1rem; color: #2196f3"
+                        ></i>
+                        <span>Login</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center gap-2"
+                        href="{{ url_for('register') }}"
+                      >
+                        <i
+                          class="bi bi-person-plus"
+                          style="font-size: 1.1rem; color: #4caf50"
+                        ></i>
+                        <span>Daftar</span>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
+                {% endif %}
               </ul>
             </div>
           </div>
         </div>
       </nav>
     </header>
-
-    <!-- MODAL LOGIN & REGISTER -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 shadow">
-          <div class="modal-header border-bottom-0">
-            <h5 class="modal-title fw-semibold">Masuk / Daftar</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body px-4">
-            <ul
-              class="nav nav-tabs mb-3 justify-content-center"
-              id="loginTabs"
-              role="tablist"
-            >
-              <li class="nav-item">
-                <button
-                  class="nav-link active"
-                  data-bs-toggle="tab"
-                  data-bs-target="#loginTab"
-                  type="button"
-                >
-                  Login
-                </button>
-              </li>
-              <li class="nav-item">
-                <button
-                  class="nav-link"
-                  data-bs-toggle="tab"
-                  data-bs-target="#registerTab"
-                  type="button"
-                >
-                  Daftar
-                </button>
-              </li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane fade show active" id="loginTab">
-                <form>
-                  <div class="mb-3">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      class="form-control rounded-3"
-                      placeholder="Masukkan email"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label>Password</label>
-                    <input
-                      type="password"
-                      class="form-control rounded-3"
-                      placeholder="Masukkan password"
-                    />
-                  </div>
-                  <button type="submit" class="btn btn-dark w-100 rounded-pill">
-                    Masuk
-                  </button>
-                </form>
-              </div>
-              <div class="tab-pane fade" id="registerTab">
-                <form>
-                  <div class="mb-3">
-                    <label>Nama Lengkap</label>
-                    <input
-                      type="text"
-                      class="form-control rounded-3"
-                      placeholder="Masukkan nama lengkap"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      class="form-control rounded-3"
-                      placeholder="Masukkan email"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label>Password</label>
-                    <input
-                      type="password"
-                      class="form-control rounded-3"
-                      placeholder="Masukkan password"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    class="btn btn-primary w-100 rounded-pill"
-                  >
-                    Daftar
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- DETAIL PRODUK SECTION -->
     <section class="py-5" style="margin-top: 100px">
